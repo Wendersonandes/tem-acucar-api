@@ -1,9 +1,9 @@
 {
- "description": "A simple API template provided by the Pliny project.",
- "id": "pliny-template-api",
+ "description": "The API for Tem Açucar, an app to borrow things from neighbors.",
+ "id": "tem-acucar-api",
  "links": [{
-   "href": "https://api.example.com",
+   "href": "https://api.temacucar.com",
    "rel": "self"
  }],
- "title": "Pliny Template API"
+ "title": "Tem Açucar API"
 }

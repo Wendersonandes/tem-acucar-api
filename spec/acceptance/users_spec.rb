@@ -13,7 +13,7 @@ RSpec.describe Endpoints::Users do
   end
 
   before do
-    @user = User.create
+    @user = User.create(first_name: 'Foo')
 
     # temporarily touch #updated_at until we can fix prmd
     @user.updated_at
