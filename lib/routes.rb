@@ -12,6 +12,8 @@ Routes = Rack::Builder.new do
   use Rack::Deflater
   use Rack::MethodOverride
   use Rack::SSL if Config.force_ssl?
+  use Committee::Middleware::RequestValidation, schema: JSON.parse(File.read("#{Config.root}/schema/schema.json"))
+  use Committee::Middleware::ResponseValidation, schema: JSON.parse(File.read("#{Config.root}/schema/schema.json"))
 
   use Pliny::Router do
     # mount all endpoints here

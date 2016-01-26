@@ -13,7 +13,12 @@ RSpec.describe Endpoints::Users do
   end
 
   before do
-    @user = User.create(first_name: 'Foo')
+    @user = User.create(
+      email: 'foo@bar.com',
+      first_name: 'Foo',
+      last_name: 'Bar',
+      encrypted_password: 'foobar',
+    )
 
     # temporarily touch #updated_at until we can fix prmd
     @user.updated_at
@@ -28,16 +33,16 @@ RSpec.describe Endpoints::Users do
     end
   end
 
-=begin
   describe 'POST /users' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      post '/users', MultiJson.encode({})
+      post '/users', MultiJson.encode({
+        first_name: 'Foo'
+      })
       assert_equal 201, last_response.status
       assert_schema_conform
     end
   end
-=end
 
   describe 'GET /users/:id' do
     it 'returns correct status code and conforms to schema' do

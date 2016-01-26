@@ -58,7 +58,13 @@
           "rel": "create",
           "schema": {
             "properties": {
+              "first_name": {
+                "$ref": "#/definitions/user/definitions/first_name"
+              }
             },
+            "required": [
+              "first_name"
+            ],
             "type": [
               "object"
             ]
@@ -122,13 +128,13 @@
       "$ref": "#/definitions/user"
     }
   },
-  "description": "A simple API template provided by the Pliny project.",
-  "id": "pliny-template-api",
+  "description": "The API for Tem Açucar, an app to borrow things from neighbors.",
+  "id": "tem-acucar-api",
   "links": [
     {
-      "href": "https://api.example.com",
+      "href": "https://api.temacucar.com",
       "rel": "self"
     }
   ],
-  "title": "Pliny Template API"
+  "title": "Tem Açucar API"
 }

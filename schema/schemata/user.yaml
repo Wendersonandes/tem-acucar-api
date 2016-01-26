@@ -36,7 +36,11 @@ links:
   method: POST
   rel: create
   schema:
-    properties: {}
+    properties:
+      first_name:
+        "$ref": "/schemata/user#/definitions/first_name"
+    required:
+    - "first_name"
     type:
     - object
   title: Create

@@ -3,9 +3,9 @@ Sequel.migration do
     create_table(:users) do
       uuid         :id, default: Sequel.function(:uuid_generate_v4), primary_key: true
       Integer      :old_id
-      String       :email
+      String       :email, null: false
       String       :facebook_uid
-      String       :encrypted_password
+      String       :encrypted_password, null: false
       String       :reset_password_token
       Time         :reset_password_sent_at
       Integer      :sign_in_count, null: false, default: 0
@@ -13,8 +13,8 @@ Sequel.migration do
       Time         :last_sign_in_at
       String       :current_sign_in_ip
       String       :last_sign_in_ip
-      String       :first_name
-      String       :last_name
+      String       :first_name, null: false
+      String       :last_name, null: false
       Float        :latitude
       Float        :longitude
       String       :address_name

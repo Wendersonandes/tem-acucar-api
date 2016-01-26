@@ -18,6 +18,7 @@ gem "sinatra", "~> 1.4", require: "sinatra/base"
 gem "sinatra-contrib", require: ["sinatra/namespace", "sinatra/reloader"]
 gem "sinatra-router"
 gem "sucker_punch"
+gem "committee"
 
 group :development, :test do
   gem "pry-byebug"
@@ -25,7 +26,6 @@ end
 
 group :test do
   gem "simplecov", require: false
-  gem "committee"
   gem "database_cleaner"
   gem "dotenv"
   gem "rack-test"
