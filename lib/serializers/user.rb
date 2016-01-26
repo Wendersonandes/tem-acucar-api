@@ -1,9 +1,26 @@
 class Serializers::User < Serializers::Base
   structure(:default) do |arg|
     {
-      created_at: arg.created_at.try(:iso8601),
       id: arg.id,
+      email: arg.email,
+      facebook_uid: arg.facebook_uid,
       first_name: arg.first_name,
+      last_name: arg.last_name,
+      latitude: arg.latitude,
+      longitude: arg.longitude,
+      address_name: arg.address_name,
+      address_thoroughfare: arg.address_thoroughfare,
+      address_sub_thoroughfare: arg.address_sub_thoroughfare,
+      address_sub_locality: arg.address_sub_locality,
+      address_locality: arg.address_locality,
+      address_sub_administrative_area: arg.address_sub_administrative_area,
+      address_administrative_area: arg.address_administrative_area,
+      address_country: arg.address_country,
+      address_postal_code: arg.address_postal_code,
+      address_complement: arg.address_complement,
+      accepted_terms: arg.accepted_terms,
+      admin: arg.admin,
+      created_at: arg.created_at.try(:iso8601),
       updated_at: arg.updated_at.try(:iso8601),
     }
   end

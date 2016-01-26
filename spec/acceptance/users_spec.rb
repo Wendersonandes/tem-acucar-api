@@ -37,7 +37,10 @@ RSpec.describe Endpoints::Users do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
       post '/users', MultiJson.encode({
-        first_name: 'Foo'
+        email: 'bar@foo.com',
+        first_name: 'Bar',
+        last_name: 'Foo',
+        password: 'barfoo',
       })
       assert_equal 201, last_response.status
       assert_schema_conform
