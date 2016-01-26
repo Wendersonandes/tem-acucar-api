@@ -9,7 +9,6 @@
       "title": "Tem Açucar - User",
       "description": "An user represents an individual signed up to use the Tem Açucar app",
       "stability": "prototype",
-      "strictProperties": true,
       "type": [
         "object"
       ],
@@ -311,7 +310,15 @@
         "updated_at": {
           "$ref": "#/definitions/user/definitions/updated_at"
         }
-      }
+      },
+      "required": [
+        "id",
+        "first_name",
+        "last_name",
+        "created_at",
+        "updated_at"
+      ],
+      "additionalProperties": false
     }
   },
   "properties": {

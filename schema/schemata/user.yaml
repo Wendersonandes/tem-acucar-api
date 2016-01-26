@@ -3,7 +3,6 @@
 title: Tem Açucar - User
 description: An user represents an individual signed up to use the Tem Açucar app
 stability: prototype
-strictProperties: true
 type:
 - object
 definitions:
@@ -211,4 +210,11 @@ properties:
     "$ref": "/schemata/user#/definitions/created_at"
   updated_at:
     "$ref": "/schemata/user#/definitions/updated_at"
+required:
+- id
+- first_name
+- last_name
+- created_at
+- updated_at
+additionalProperties: false
 id: schemata/user
