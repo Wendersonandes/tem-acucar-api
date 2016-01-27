@@ -8,6 +8,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     backports (3.6.7)
+    bcrypt (3.1.10)
     byebug (8.2.1)
     celluloid (0.17.3)
       celluloid-essentials
@@ -127,6 +128,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt
   committee
   database_cleaner
   dotenv

@@ -10,6 +10,8 @@ module Endpoints
         begin
           user.save
           status 201
+          headers["Access-Token"] = "Bearer"
+          headers["Token-Type"] = "Bearer"
           encode serialize(user)
         rescue
           status 422

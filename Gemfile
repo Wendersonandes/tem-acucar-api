@@ -19,6 +19,7 @@ gem "sinatra-contrib", require: ["sinatra/namespace", "sinatra/reloader"]
 gem "sinatra-router"
 gem "sucker_punch"
 gem "committee"
+gem "bcrypt"
 
 group :development, :test do
   gem "pry-byebug"
