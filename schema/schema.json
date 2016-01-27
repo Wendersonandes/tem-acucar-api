@@ -4,6 +4,48 @@
     "object"
   ],
   "definitions": {
+    "error": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Tem Açucar - Error",
+      "description": "An error represents a failed action in Tem Açucar API",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of error",
+          "readOnly": true,
+          "pattern": "^\\w+$",
+          "type": [
+            "string"
+          ]
+        },
+        "message": {
+          "description": "message of error",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/error/definitions/id"
+            }
+          ]
+        }
+      },
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/error/definitions/id"
+        },
+        "message": {
+          "$ref": "#/definitions/error/definitions/message"
+        }
+      }
+    },
     "user": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
       "title": "Tem Açucar - User",
@@ -208,6 +250,16 @@
               "object"
             ]
           },
+          "targetSchema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/user"
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
+            ]
+          },
           "title": "Create"
         },
         {
@@ -322,6 +374,9 @@
     }
   },
   "properties": {
+    "error": {
+      "$ref": "#/definitions/error"
+    },
     "user": {
       "$ref": "#/definitions/user"
     }

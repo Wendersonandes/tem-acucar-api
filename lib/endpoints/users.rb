@@ -6,11 +6,15 @@ module Endpoints
       end
 
       post do
-        # warning: not safe
         user = User.new(body_params)
-        user.save
-        status 201
-        encode serialize(user)
+        begin
+          user.save
+          status 201
+          encode serialize(user)
+        rescue
+          status 422
+          errors(user.errors.full_messages)
+        end
       end
 
       get "/:id" do |id|
@@ -36,6 +40,7 @@ module Endpoints
       def serialize(data, structure = :default)
         Serializers::User.new(structure).serialize(data)
       end
+
     end
   end
 end

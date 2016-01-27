@@ -45,6 +45,18 @@ RSpec.describe Endpoints::Users do
       assert_equal 201, last_response.status
       assert_schema_conform
     end
+
+    it 'returns correct error when email is already taken' do
+      header "Content-Type", "application/json"
+      post '/users', MultiJson.encode({
+        email: 'foo@bar.com',
+        first_name: 'Bar',
+        last_name: 'Foo',
+        password: 'barfoo',
+      })
+      assert_equal 422, last_response.status
+      assert_schema_conform
+    end
   end
 
   describe 'GET /users/:id' do

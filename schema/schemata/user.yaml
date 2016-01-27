@@ -142,6 +142,10 @@ links:
         "$ref": "/schemata/user#/definitions/password"
     type:
     - object
+  targetSchema:
+    anyOf:
+    - "$ref": "/schemata/user"
+    - "$ref": "/schemata/error"
   title: Create
 - description: Delete an existing user.
   href: "/users/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}"
