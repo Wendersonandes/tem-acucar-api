@@ -264,13 +264,6 @@
           "title": "Create"
         },
         {
-          "description": "Delete an existing user.",
-          "href": "/users/{(%23%2Fdefinitions%2Fuser%2Fdefinitions%2Fidentity)}",
-          "method": "DELETE",
-          "rel": "destroy",
-          "title": "Delete"
-        },
-        {
           "description": "Info for existing user.",
           "href": "/users/{(%23%2Fdefinitions%2Fuser%2Fdefinitions%2Fidentity)}",
           "method": "GET",
@@ -353,9 +346,6 @@
         },
         "accepted_terms": {
           "$ref": "#/definitions/user/definitions/accepted_terms"
-        },
-        "admin": {
-          "$ref": "#/definitions/user/definitions/admin"
         },
         "created_at": {
           "$ref": "#/definitions/user/definitions/created_at"

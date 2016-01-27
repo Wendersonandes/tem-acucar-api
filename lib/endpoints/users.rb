@@ -34,12 +34,6 @@ module Endpoints
         encode serialize(user)
       end
 
-      delete "/:id" do |id|
-        user = User.first(id: id) || halt(404)
-        user.destroy
-        encode serialize(user)
-      end
-
       private
 
       def serialize(data, structure = :default)

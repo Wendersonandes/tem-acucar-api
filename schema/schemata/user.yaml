@@ -148,11 +148,6 @@ links:
     - "$ref": "/schemata/user"
     - "$ref": "/schemata/error"
   title: Create
-- description: Delete an existing user.
-  href: "/users/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}"
-  method: DELETE
-  rel: destroy
-  title: Delete
 - description: Info for existing user.
   href: "/users/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}"
   method: GET
@@ -209,8 +204,6 @@ properties:
     "$ref": "/schemata/user#/definitions/address_complement"
   accepted_terms:
     "$ref": "/schemata/user#/definitions/accepted_terms"
-  admin:
-    "$ref": "/schemata/user#/definitions/admin"
   created_at:
     "$ref": "/schemata/user#/definitions/created_at"
   updated_at:
