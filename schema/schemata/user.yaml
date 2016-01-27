@@ -41,6 +41,7 @@ definitions:
     description: unencrypted password of user, used only on user creation
     type:
     - string
+    minLength: 8
   latitude:
     description: latitude of user
     type:

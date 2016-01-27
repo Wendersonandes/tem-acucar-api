@@ -40,7 +40,7 @@ RSpec.describe Endpoints::Users do
         email: 'bar@foo.com',
         first_name: 'Bar',
         last_name: 'Foo',
-        password: 'barfoo',
+        password: '12345678',
       })
       assert_equal 201, last_response.status
       assert_schema_conform
@@ -52,7 +52,7 @@ RSpec.describe Endpoints::Users do
         email: 'foo@bar.com',
         first_name: 'Bar',
         last_name: 'Foo',
-        password: 'barfoo',
+        password: '12345678',
       })
       assert_equal 422, last_response.status
       assert_schema_conform
