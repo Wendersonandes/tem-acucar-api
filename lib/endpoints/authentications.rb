@@ -1,13 +1,17 @@
 module Endpoints
   class Authentications < Base
     namespace "/authentications" do
+      before do
+        authenticate! unless request.post?
+      end
+
       post do
         begin
           user = User[email: body_params[:email]]
           if user.password == body_params[:password]
             status 201
             sign_in!(user)
-            encode serialize(user)
+            encode serialize(user, :current_user)
           else
             raise Pliny::Errors::Unauthorized
           end
@@ -17,10 +21,8 @@ module Endpoints
       end
 
       delete do
-        authenticate!
-        user = current_user
         sign_out!
-        encode serialize(user)
+        encode serialize(current_user)
       end
 
       private

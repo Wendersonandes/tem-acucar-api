@@ -15,7 +15,7 @@ module Endpoints
           user.save
           status 201
           sign_in!(user)
-          encode serialize(user)
+          encode serialize(user, :current_user)
         rescue
           status 422
           errors(user.errors.full_messages)
@@ -29,9 +29,8 @@ module Endpoints
 
       patch "/:id" do |id|
         user = User.first(id: id) || halt(404)
-        # warning: not safe
-        #user.update(body_params)
-        encode serialize(user)
+        user.update(body_params)
+        encode serialize(user, :current_user)
       end
 
       private

@@ -163,7 +163,40 @@ links:
   method: PATCH
   rel: update
   schema:
-    properties: {}
+    additionalProperties: false
+    properties:
+      email:
+        "$ref": "/schemata/user#/definitions/email"
+      first_name:
+        "$ref": "/schemata/user#/definitions/first_name"
+      last_name:
+        "$ref": "/schemata/user#/definitions/last_name"
+      latitude:
+        "$ref": "/schemata/user#/definitions/latitude"
+      longitude:
+        "$ref": "/schemata/user#/definitions/longitude"
+      address_name:
+        "$ref": "/schemata/user#/definitions/address_name"
+      address_thoroughfare:
+        "$ref": "/schemata/user#/definitions/address_thoroughfare"
+      address_sub_thoroughfare:
+        "$ref": "/schemata/user#/definitions/address_sub_thoroughfare"
+      address_sub_locality:
+        "$ref": "/schemata/user#/definitions/address_sub_locality"
+      address_locality:
+        "$ref": "/schemata/user#/definitions/address_locality"
+      address_sub_administrative_area:
+        "$ref": "/schemata/user#/definitions/address_sub_administrative_area"
+      address_administrative_area:
+        "$ref": "/schemata/user#/definitions/address_administrative_area"
+      address_country:
+        "$ref": "/schemata/user#/definitions/address_country"
+      address_postal_code:
+        "$ref": "/schemata/user#/definitions/address_postal_code"
+      address_complement:
+        "$ref": "/schemata/user#/definitions/address_complement"
+      accepted_terms:
+        "$ref": "/schemata/user#/definitions/accepted_terms"
     type:
     - object
   title: Update

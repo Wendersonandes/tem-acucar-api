@@ -431,7 +431,56 @@
           "method": "PATCH",
           "rel": "update",
           "schema": {
+            "additionalProperties": false,
             "properties": {
+              "email": {
+                "$ref": "#/definitions/user/definitions/email"
+              },
+              "first_name": {
+                "$ref": "#/definitions/user/definitions/first_name"
+              },
+              "last_name": {
+                "$ref": "#/definitions/user/definitions/last_name"
+              },
+              "latitude": {
+                "$ref": "#/definitions/user/definitions/latitude"
+              },
+              "longitude": {
+                "$ref": "#/definitions/user/definitions/longitude"
+              },
+              "address_name": {
+                "$ref": "#/definitions/user/definitions/address_name"
+              },
+              "address_thoroughfare": {
+                "$ref": "#/definitions/user/definitions/address_thoroughfare"
+              },
+              "address_sub_thoroughfare": {
+                "$ref": "#/definitions/user/definitions/address_sub_thoroughfare"
+              },
+              "address_sub_locality": {
+                "$ref": "#/definitions/user/definitions/address_sub_locality"
+              },
+              "address_locality": {
+                "$ref": "#/definitions/user/definitions/address_locality"
+              },
+              "address_sub_administrative_area": {
+                "$ref": "#/definitions/user/definitions/address_sub_administrative_area"
+              },
+              "address_administrative_area": {
+                "$ref": "#/definitions/user/definitions/address_administrative_area"
+              },
+              "address_country": {
+                "$ref": "#/definitions/user/definitions/address_country"
+              },
+              "address_postal_code": {
+                "$ref": "#/definitions/user/definitions/address_postal_code"
+              },
+              "address_complement": {
+                "$ref": "#/definitions/user/definitions/address_complement"
+              },
+              "accepted_terms": {
+                "$ref": "#/definitions/user/definitions/accepted_terms"
+              }
             },
             "type": [
               "object"

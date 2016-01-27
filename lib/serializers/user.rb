@@ -2,6 +2,18 @@ class Serializers::User < Serializers::Base
   structure(:default) do |arg|
     {
       id: arg.id,
+      first_name: arg.first_name,
+      last_name: arg.last_name,
+      latitude: arg.latitude,
+      longitude: arg.longitude,
+      created_at: arg.created_at.try(:iso8601),
+      updated_at: arg.updated_at.try(:iso8601),
+    }
+  end
+
+  structure(:current_user) do |arg|
+    {
+      id: arg.id,
       email: arg.email,
       facebook_uid: arg.facebook_uid,
       first_name: arg.first_name,
