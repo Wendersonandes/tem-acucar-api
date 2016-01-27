@@ -30,6 +30,26 @@
             "string"
           ]
         },
+        "provider": {
+          "description": "provider of authentication",
+          "readOnly": true,
+          "format": "ipv4",
+          "enum": [
+            "email",
+            "facebook"
+          ],
+          "type": [
+            "string"
+          ]
+        },
+        "ip": {
+          "description": "ip address of authentication",
+          "readOnly": true,
+          "format": "ipv4",
+          "type": [
+            "string"
+          ]
+        },
         "identity": {
           "anyOf": [
             {
@@ -117,6 +137,12 @@
         },
         "user_id": {
           "$ref": "#/definitions/authentication/definitions/user_id"
+        },
+        "provider": {
+          "$ref": "#/definitions/authentication/definitions/provider"
+        },
+        "ip": {
+          "$ref": "#/definitions/authentication/definitions/ip"
         },
         "created_at": {
           "$ref": "#/definitions/authentication/definitions/created_at"

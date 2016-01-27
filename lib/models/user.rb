@@ -7,6 +7,7 @@ class User < Sequel::Model
   plugin :auto_validations, not_null: :presence
 
   one_to_many :tokens
+  one_to_many :authentications
 
   def password
     @password ||= Password.new(self.encrypted_password)

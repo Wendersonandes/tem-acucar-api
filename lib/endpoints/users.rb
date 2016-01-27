@@ -14,7 +14,7 @@ module Endpoints
         begin
           user.save
           status 201
-          set_auth_headers(user)
+          sign_in!(user)
           encode serialize(user)
         rescue
           status 422

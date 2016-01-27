@@ -5,9 +5,8 @@ module Endpoints
         begin
           user = User[email: body_params[:email]]
           if user.password == body_params[:password]
-            Authentication.create(user: user)
             status 201
-            set_auth_headers(user)
+            sign_in!(user)
             encode serialize(user)
           else
             raise Pliny::Errors::Unauthorized

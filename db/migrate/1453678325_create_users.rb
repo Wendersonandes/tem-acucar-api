@@ -8,11 +8,6 @@ Sequel.migration do
       String       :encrypted_password, null: false
       String       :reset_password_token
       Time         :reset_password_sent_at
-      Integer      :sign_in_count, null: false, default: 0
-      Time         :current_sign_in_at
-      Time         :last_sign_in_at
-      String       :current_sign_in_ip
-      String       :last_sign_in_ip
       String       :first_name, null: false
       String       :last_name, null: false
       Float        :latitude
@@ -29,7 +24,6 @@ Sequel.migration do
       String       :address_complement
       TrueClass    :accepted_terms, null: false, default: false
       TrueClass    :admin, null: false, default: false
-      # TODO tokens
       timestamptz  :created_at, default: Sequel.function(:now), null: false
       timestamptz  :updated_at, default: Sequel.function(:now), null: false
 

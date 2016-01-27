@@ -19,6 +19,21 @@ definitions:
     format: uuid
     type:
     - string
+  provider:
+    description: provider of authentication
+    readOnly: true
+    format: ipv4
+    enum:
+    - email
+    - facebook
+    type:
+    - string
+  ip:
+    description: ip address of authentication
+    readOnly: true
+    format: ipv4
+    type:
+    - string
   identity:
     anyOf:
     - "$ref": "/schemata/authentication#/definitions/id"
@@ -72,6 +87,10 @@ properties:
     "$ref": "/schemata/authentication#/definitions/id"
   user_id:
     "$ref": "/schemata/authentication#/definitions/user_id"
+  provider:
+    "$ref": "/schemata/authentication#/definitions/provider"
+  ip:
+    "$ref": "/schemata/authentication#/definitions/ip"
   created_at:
     "$ref": "/schemata/authentication#/definitions/created_at"
   updated_at:

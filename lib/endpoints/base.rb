@@ -30,6 +30,15 @@ module Endpoints
       raise Pliny::Errors::Unauthorized unless current_user
     end
 
+    def sign_in!(user, provider = 'email')
+      Authentication.create({
+        user: user,
+        provider: provider,
+        ip: request.ip,
+      })
+      set_auth_headers(user)
+    end
+
     def sign_out!
       Token.valid.where(user: current_user, client: request.env['HTTP_CLIENT']).delete
       @signed_out = true
