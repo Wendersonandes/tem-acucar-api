@@ -21,22 +21,24 @@ module Endpoints
     end
 
     after do
-      if current_user
-        client = request.env['HTTP_CLIENT'] || SecureRandom.urlsafe_base64(nil, false)
-        access_token = SecureRandom.urlsafe_base64(nil, false)
-        token = current_user.add_token(token: access_token)
-        headers["Token-Type"] = "Bearer"
-        headers["Client"] = client
-        headers["Access-Token"] = access_token
-        headers["Uid"] = current_user.id
-        headers["Expiry"] = token.expiry
-      end
+      set_auth_headers(current_user) if current_user
     end
 
     private
 
     def authenticate!
       raise Pliny::Errors::Unauthorized unless current_user
+    end
+
+    def set_auth_headers(user)
+      client = request.env['HTTP_CLIENT'] || SecureRandom.urlsafe_base64(nil, false)
+      access_token = SecureRandom.urlsafe_base64(nil, false)
+      token = user.add_token(client: client, token: access_token)
+      headers["Token-Type"] = "Bearer"
+      headers["Client"] = client
+      headers["Access-Token"] = access_token
+      headers["Uid"] = user.id
+      headers["Expiry"] = token.expiry
     end
 
     def current_user

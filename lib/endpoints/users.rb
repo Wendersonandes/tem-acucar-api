@@ -1,16 +1,20 @@
 module Endpoints
   class Users < Base
     namespace "/users" do
+      before do
+        authenticate! unless request.post?
+      end
+
       get do
         encode serialize(User.all)
       end
 
       post do
-        authenticate!
         user = User.new(body_params)
         begin
           user.save
           status 201
+          set_auth_headers(user)
           encode serialize(user)
         rescue
           status 422
