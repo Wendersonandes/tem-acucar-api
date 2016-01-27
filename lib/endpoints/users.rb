@@ -6,12 +6,11 @@ module Endpoints
       end
 
       post do
+        authenticate!
         user = User.new(body_params)
         begin
           user.save
           status 201
-          headers["Access-Token"] = "Bearer"
-          headers["Token-Type"] = "Bearer"
           encode serialize(user)
         rescue
           status 422
