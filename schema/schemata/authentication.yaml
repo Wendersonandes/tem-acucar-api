@@ -1,0 +1,79 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Tem Açucar - Authentication
+description: An authentication represents an individual signed in to use the Tem Açucar app
+stability: prototype
+strictProperties: true
+type:
+- object
+definitions:
+  id:
+    description: unique identifier of authentication
+    readOnly: true
+    format: uuid
+    type:
+    - string
+  user_id:
+    description: unique identifier of authentication user
+    readOnly: true
+    format: uuid
+    type:
+    - string
+  identity:
+    anyOf:
+    - "$ref": "/schemata/authentication#/definitions/id"
+  created_at:
+    description: when authentication was created
+    readOnly: true
+    format: date-time
+    type:
+    - string
+  updated_at:
+    description: when authentication was updated
+    readOnly: true
+    format: date-time
+    type:
+    - string
+links:
+- description: Sign in with a new authentication.
+  href: "/authentications"
+  method: POST
+  rel: create
+  schema:
+    strictProperties: true
+    properties:
+      email:
+        "$ref": "/schemata/user#/definitions/email"
+      password:
+        "$ref": "/schemata/user#/definitions/password"
+    type:
+    - object
+  targetSchema:
+    anyOf:
+    - "$ref": "/schemata/user"
+    - "$ref": "/schemata/error"
+  title: Create
+- description: Sign out from an existing authentication.
+  href: "/authentications"
+  method: DELETE
+  rel: destroy
+  schema:
+    strictProperties: true
+    properties:
+    type:
+    - object
+  targetSchema:
+    anyOf:
+    - "$ref": "/schemata/user"
+    - "$ref": "/schemata/error"
+  title: Delete
+properties:
+  id:
+    "$ref": "/schemata/authentication#/definitions/id"
+  user_id:
+    "$ref": "/schemata/authentication#/definitions/user_id"
+  created_at:
+    "$ref": "/schemata/authentication#/definitions/created_at"
+  updated_at:
+    "$ref": "/schemata/authentication#/definitions/updated_at"
+id: schemata/authentication

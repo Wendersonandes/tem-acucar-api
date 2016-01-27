@@ -19,10 +19,19 @@ RSpec.describe Endpoints::Users do
       last_name: 'Bar',
       encrypted_password: 'foobar',
     )
+    @token = @user.add_token({client: 'foo', token: 'bar'})
 
     # temporarily touch #updated_at until we can fix prmd
     @user.updated_at
     @user.save
+  end
+
+  before :each do
+    header "Token-Type", "Bearer"
+    header "Client", 'foo'
+    header "Access-Token", 'bar'
+    header "Uid", @user.id
+    header "Expiry", @token.expiry
   end
 
   describe 'GET /users' do
@@ -71,14 +80,6 @@ RSpec.describe Endpoints::Users do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
       patch "/users/#{@user.id}", MultiJson.encode({})
-      assert_equal 200, last_response.status
-      assert_schema_conform
-    end
-  end
-
-  describe 'DELETE /users/:id' do
-    it 'returns correct status code and conforms to schema' do
-      delete "/users/#{@user.id}"
       assert_equal 200, last_response.status
       assert_schema_conform
     end

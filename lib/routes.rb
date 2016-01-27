@@ -19,6 +19,7 @@ Routes = Rack::Builder.new do
     # mount all endpoints here
     mount Endpoints::Health
     mount Endpoints::Schema
+    mount Endpoints::Authentications
     mount Endpoints::Users
   end
 

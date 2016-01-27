@@ -21,13 +21,18 @@ module Endpoints
     end
 
     after do
-      set_auth_headers(current_user) if current_user
+      set_auth_headers(current_user) if current_user && !@signed_out
     end
 
     private
 
     def authenticate!
       raise Pliny::Errors::Unauthorized unless current_user
+    end
+
+    def sign_out!
+      Token.valid.where(user: current_user, client: request.env['HTTP_CLIENT']).delete
+      @signed_out = true
     end
 
     def set_auth_headers(user)
