@@ -6,8 +6,8 @@ Sequel.migration do
       String       :email, null: false
       String       :facebook_uid
       String       :encrypted_password, null: false
-      String       :reset_password_token
-      Time         :reset_password_sent_at
+      String       :encrypted_password_token
+      Time         :password_token_sent_at
       String       :first_name, null: false
       String       :last_name, null: false
       Float        :latitude
@@ -27,10 +27,8 @@ Sequel.migration do
       timestamptz  :created_at, default: Sequel.function(:now), null: false
       timestamptz  :updated_at, default: Sequel.function(:now), null: false
 
-      index :old_id, unique: true
       index :email, unique: true
       index :facebook_uid, unique: true     
-      index :reset_password_token, unique: true
     end
   end
 end

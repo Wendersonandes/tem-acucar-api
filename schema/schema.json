@@ -276,7 +276,7 @@
           "targetSchema": {
             "anyOf": [
               {
-                "$ref": "#/definitions/password"
+                "$ref": "#/definitions/user"
               },
               {
                 "$ref": "#/definitions/error"

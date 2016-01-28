@@ -35,6 +35,15 @@ class User < Sequel::Model
     self.encrypted_password = @password
   end
 
+  def password_token
+    @password_token ||= (self.encrypted_password_token && Password.new(self.encrypted_password_token))
+  end
+
+  def password_token=(new_token)
+    @password_token = Password.create(new_token)
+    self.encrypted_password_token = @password_token
+  end
+
   def full_name
     "#{self.first_name} #{self.last_name}".strip
   end
@@ -45,13 +54,12 @@ class User < Sequel::Model
     message.is_a?(Array) && message[0] && message[0]["status"] == "sent"
   end
 
-  def send_reset_password_token
+  def send_password_token
     token = SecureRandom.urlsafe_base64(6).tr('lIO0', 'sxyz')[0, 8].upcase
     if self.send_email('Instruções para nova senha', "Para criar uma nova senha, digite o código abaixo no app do Tem Açucar:<br/><br/>#{token}<br/><br/>Se você não solicitou uma nova senha, por favor desconsidere.")
-      self.update({
-        reset_password_token: Password.create(token),
-        reset_password_sent_at: Time.now,
-      })
+      self.password_token = token
+      self.password_token_sent_at = Time.now
+      self.save
     else
       false
     end

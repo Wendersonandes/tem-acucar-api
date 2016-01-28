@@ -19,6 +19,8 @@ RSpec.describe Endpoints::Password do
       last_name: 'Bar',
       password: 'foobarfoo',
     )
+    @user.password_token = 'foobar'
+    @user.save
 
     # Stubs Mandrill API
     module ::Mandrill
