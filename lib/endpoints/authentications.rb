@@ -22,7 +22,7 @@ module Endpoints
 
       delete do
         sign_out!
-        encode serialize(current_user)
+        encode serialize(current_user, :current_user)
       end
 
       private
