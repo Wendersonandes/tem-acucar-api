@@ -41,6 +41,19 @@ class User < Sequel::Model
 
   def send_email(subject, message)
     @mandrill ||= Mandrill::API.new
-    @mandrill.messages.send_template 'tem-acucar', [{name: 'first_name', content: self.first_name}, {name: 'message', content: message}], {subject: subject, to: [{email: self.email, name: self.full_name}]}
+    message = @mandrill.messages.send_template 'tem-acucar', [{name: 'first_name', content: self.first_name}, {name: 'message', content: message}], {subject: subject, to: [{email: self.email, name: self.full_name}]}
+    message.is_a?(Array) && message[0] && message[0]["status"] == "sent"
+  end
+
+  def send_reset_password_token
+    token = SecureRandom.urlsafe_base64(6).tr('lIO0', 'sxyz')[0, 8].upcase
+    if self.send_email('Instruções para nova senha', "Para criar uma nova senha, digite o código abaixo no app do Tem Açucar:<br/><br/>#{token}<br/><br/>Caso você tenha recebido esta mensagem por engano, por favor desconsidere.")
+      self.update({
+        reset_password_token: Password.create(token),
+        reset_password_sent_at: Time.now,
+      })
+    else
+      false
+    end
   end
 end

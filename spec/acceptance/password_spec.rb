@@ -12,6 +12,32 @@ RSpec.describe Endpoints::Password do
     "./schema/schema.json"
   end
 
+  before do
+    @user = User.create(
+      email: 'foo@bar.com',
+      first_name: 'Foo',
+      last_name: 'Bar',
+      password: 'foobarfoo',
+    )
+
+    # Stubs Mandrill API
+    module ::Mandrill
+      class FakeMessages
+        def send_template(arg1, arg2, arg3)
+          [{"status" => "sent"}]
+        end
+      end
+      class API
+        def initialize
+          @messages = FakeMessages.new
+        end
+        def messages
+          @messages
+        end
+      end
+    end
+  end
+
   describe 'POST /password' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"

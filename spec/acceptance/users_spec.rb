@@ -20,10 +20,6 @@ RSpec.describe Endpoints::Users do
       encrypted_password: 'foobar',
     )
     @token = @user.add_token({client: 'foo', token: 'bar'})
-
-    # temporarily touch #updated_at until we can fix prmd
-    @user.updated_at
-    @user.save
   end
 
   before :each do
