@@ -23,12 +23,14 @@ module Endpoints
       end
 
       get "/:id" do |id|
-        user = User.first(id: id) || halt(404)
+        user = User.first(id: id)
+        raise Pliny::Errors::NotFound unless user
         encode serialize(user)
       end
 
       patch "/:id" do |id|
-        user = User.first(id: id) || halt(404)
+        user = User.first(id: id)
+        raise Pliny::Errors::NotFound unless user
         user.update(body_params)
         encode serialize(user, :current_user)
       end
