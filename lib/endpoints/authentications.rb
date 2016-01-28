@@ -39,15 +39,15 @@ module Endpoints
           facebook = RestClient.get url, :content_type => :json, :accept => :json
           user = User.from_facebook(JSON.parse(facebook))
           raise Pliny::Errors::Unauthorized unless user
-          sign_in_and_respond(user)
+          sign_in_and_respond(user, 'facebook')
         rescue
           raise Pliny::Errors::Unauthorized
         end
       end
 
-      def sign_in_and_respond(user)
+      def sign_in_and_respond(user, provider = 'email')
         status 201
-        sign_in!(user)
+        sign_in!(user, provider)
         encode serialize(user, :current_user)
       end
 
