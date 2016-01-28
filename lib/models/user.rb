@@ -34,4 +34,13 @@ class User < Sequel::Model
     @password = Password.create(new_password)
     self.encrypted_password = @password
   end
+
+  def full_name
+    "#{self.first_name} #{self.last_name}".strip
+  end
+
+  def send_email(subject, message)
+    @mandrill ||= Mandrill::API.new
+    @mandrill.messages.send_template 'tem-acucar', [{name: 'first_name', content: self.first_name}, {name: 'message', content: message}], {subject: subject, to: [{email: self.email, name: self.full_name}]}
+  end
 end

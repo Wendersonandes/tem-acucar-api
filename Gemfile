@@ -21,6 +21,7 @@ gem "sucker_punch"
 gem "committee"
 gem "bcrypt"
 gem "rest-client"
+gem "mandrill-api", require: "mandrill"
 
 group :development, :test do
   gem "pry-byebug"

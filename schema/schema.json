@@ -204,6 +204,90 @@
         }
       }
     },
+    "password": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Tem Açucar - Password",
+      "description": "A password represents an users's attempt to reset her password on the Tem Açucar app",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "token": {
+          "description": "Reset password token for user",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Request token to create a new password to be sent to user's email.",
+          "href": "/password",
+          "method": "POST",
+          "rel": "create",
+          "schema": {
+            "strictProperties": true,
+            "properties": {
+              "email": {
+                "$ref": "#/definitions/user/definitions/email"
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "targetSchema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/password"
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
+            ]
+          },
+          "title": "Request token"
+        },
+        {
+          "description": "Reset user password through token set to user's email.",
+          "href": "/password",
+          "method": "PATCH",
+          "rel": "update",
+          "schema": {
+            "strictProperties": true,
+            "properties": {
+              "email": {
+                "$ref": "#/definitions/user/definitions/email"
+              },
+              "password": {
+                "$ref": "#/definitions/user/definitions/password"
+              },
+              "token": {
+                "$ref": "#/definitions/password/definitions/token"
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "targetSchema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/password"
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
+            ]
+          },
+          "title": "Reset password"
+        }
+      ],
+      "properties": null
+    },
     "user": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
       "title": "Tem Açucar - User",
@@ -577,6 +661,9 @@
     },
     "error": {
       "$ref": "#/definitions/error"
+    },
+    "password": {
+      "$ref": "#/definitions/password"
     },
     "user": {
       "$ref": "#/definitions/user"

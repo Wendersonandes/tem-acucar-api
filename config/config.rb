@@ -33,4 +33,8 @@ module Config
   override :root,             File.expand_path("../../", __FILE__), string
   override :timeout,          10,    int
   override :versioning,       false, bool
+
+  # Tem Açucar API specific
+  optional :mandrill_apikey, string
+
 end
