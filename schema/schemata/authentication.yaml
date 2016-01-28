@@ -49,18 +49,25 @@ definitions:
     format: date-time
     type:
     - string
+  facebook_token:
+    description: Facebook token of authentication user
+    readOnly: true
+    type:
+    - string
 links:
 - description: Sign in with a new authentication.
   href: "/authentications"
   method: POST
   rel: create
   schema:
-    strictProperties: true
+    additionalProperties: false
     properties:
       email:
         "$ref": "/schemata/user#/definitions/email"
       password:
         "$ref": "/schemata/user#/definitions/password"
+      facebook_token:
+        "$ref": "/schemata/authentication#/definitions/facebook_token"
     type:
     - object
   targetSchema:

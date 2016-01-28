@@ -72,6 +72,13 @@
           "type": [
             "string"
           ]
+        },
+        "facebook_token": {
+          "description": "Facebook token of authentication user",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
         }
       },
       "links": [
@@ -81,13 +88,16 @@
           "method": "POST",
           "rel": "create",
           "schema": {
-            "strictProperties": true,
+            "additionalProperties": false,
             "properties": {
               "email": {
                 "$ref": "#/definitions/user/definitions/email"
               },
               "password": {
                 "$ref": "#/definitions/user/definitions/password"
+              },
+              "facebook_token": {
+                "$ref": "#/definitions/authentication/definitions/facebook_token"
               }
             },
             "type": [

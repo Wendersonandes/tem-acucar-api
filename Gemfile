@@ -20,6 +20,7 @@ gem "sinatra-router"
 gem "sucker_punch"
 gem "committee"
 gem "bcrypt"
+gem "rest-client"
 
 group :development, :test do
   gem "pry-byebug"
