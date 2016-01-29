@@ -40,7 +40,7 @@ class User < Sequel::Model
   end
 
   def password_token=(new_token)
-    @password_token = Password.create(new_token)
+    @password_token = Password.create(new_token.upcase)
     self.encrypted_password_token = @password_token
   end
 

@@ -653,6 +653,109 @@
         "updated_at"
       ],
       "additionalProperties": false
+    },
+    "version": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Tem Açucar - Version",
+      "description": "An user represents a version of the Tem Açucar app for a platform",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of version",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "number": {
+          "description": "unique number of version for its platform",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
+        "platform": {
+          "description": "platform of version",
+          "readOnly": true,
+          "enum": [
+            "ios",
+            "android"
+          ],
+          "type": [
+            "string"
+          ]
+        },
+        "expiry": {
+          "description": "when version expires",
+          "readOnly": true,
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/version/definitions/id"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when version was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when version was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "Info for existing version.",
+          "href": "/versions/{(%23%2Fdefinitions%2Fversion%2Fdefinitions%2Fidentity)}",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info"
+        },
+        {
+          "description": "List existing versions.",
+          "href": "/versions",
+          "method": "GET",
+          "rel": "instances",
+          "title": "List"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/version/definitions/id"
+        },
+        "number": {
+          "$ref": "#/definitions/version/definitions/number"
+        },
+        "platform": {
+          "$ref": "#/definitions/version/definitions/platform"
+        },
+        "expiry": {
+          "$ref": "#/definitions/version/definitions/expiry"
+        },
+        "created_at": {
+          "$ref": "#/definitions/version/definitions/created_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/version/definitions/updated_at"
+        }
+      }
     }
   },
   "properties": {
@@ -667,6 +770,9 @@
     },
     "user": {
       "$ref": "#/definitions/user"
+    },
+    "version": {
+      "$ref": "#/definitions/version"
     }
   },
   "description": "The API for Tem Açucar, an app to borrow things from neighbors.",

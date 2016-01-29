@@ -1,0 +1,72 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Tem Açucar - Version
+description: An user represents a version of the Tem Açucar app for a platform
+stability: prototype
+strictProperties: true
+type:
+- object
+definitions:
+  id:
+    description: unique identifier of version
+    readOnly: true
+    format: uuid
+    type:
+    - string
+  number:
+    description: unique number of version for its platform
+    readOnly: true
+    type:
+    - string
+  platform:
+    description: platform of version
+    readOnly: true
+    enum:
+    - ios
+    - android
+    type:
+    - string
+  expiry:
+    description: when version expires
+    readOnly: true
+    format: date-time
+    type:
+    - string
+  identity:
+    anyOf:
+    - "$ref": "/schemata/version#/definitions/id"
+  created_at:
+    description: when version was created
+    format: date-time
+    type:
+    - string
+  updated_at:
+    description: when version was updated
+    format: date-time
+    type:
+    - string
+links:
+- description: Info for existing version.
+  href: "/versions/{(%2Fschemata%2Fversion%23%2Fdefinitions%2Fidentity)}"
+  method: GET
+  rel: self
+  title: Info
+- description: List existing versions.
+  href: "/versions"
+  method: GET
+  rel: instances
+  title: List
+properties:
+  id:
+    "$ref": "/schemata/version#/definitions/id"
+  number:
+    "$ref": "/schemata/version#/definitions/number"
+  platform:
+    "$ref": "/schemata/version#/definitions/platform"
+  expiry:
+    "$ref": "/schemata/version#/definitions/expiry"
+  created_at:
+    "$ref": "/schemata/version#/definitions/created_at"
+  updated_at:
+    "$ref": "/schemata/version#/definitions/updated_at"
+id: schemata/version
