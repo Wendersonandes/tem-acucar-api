@@ -5,8 +5,14 @@ module Endpoints
         encode serialize(Version.all)
       end
 
-      get "/:id" do |id|
-        version = Version.first(id: id) || halt(404)
+      get "/:identity" do |identity|
+        version = Version[number: identity]
+        begin
+          version = Version[id: identity] unless version
+        rescue
+          raise Pliny::Errors::NotFound
+        end
+        raise Pliny::Errors::NotFound unless version
         encode serialize(version)
       end
 

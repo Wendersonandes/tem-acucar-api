@@ -35,6 +35,7 @@ definitions:
   identity:
     anyOf:
     - "$ref": "/schemata/version#/definitions/id"
+    - "$ref": "/schemata/version#/definitions/number"
   created_at:
     description: when version was created
     format: date-time
