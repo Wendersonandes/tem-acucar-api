@@ -2,7 +2,7 @@ module Endpoints
   class Versions < Base
     namespace "/versions" do
       get do
-        encode serialize(Version.all)
+        encode serialize(Version.reverse(:number))
       end
 
       get "/:identity" do |identity|
