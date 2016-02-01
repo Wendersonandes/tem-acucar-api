@@ -15,6 +15,7 @@ class Serializers::User < Serializers::Base
     {
       id: arg.id,
       email: arg.email,
+      secondary_email: arg.secondary_email,
       facebook_uid: arg.facebook_uid,
       first_name: arg.first_name,
       last_name: arg.last_name,

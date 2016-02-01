@@ -20,7 +20,15 @@ module Endpoints
       raise Pliny::Errors::NotFound
     end
 
+    # Delay to simulate slow connections
+    # before do
+    #   sleep 3
+    # end
+
     after do
+      # Only set auth headers in successful responses
+      return unless status >= 200 && status < 300
+      # Set auth headers only if there is a current user
       set_auth_headers(current_user) if current_user && !@signed_out
     end
 

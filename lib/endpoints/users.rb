@@ -31,8 +31,13 @@ module Endpoints
       patch "/:id" do |id|
         user = User.first(id: id)
         raise Pliny::Errors::NotFound unless user
-        user.update(body_params)
-        encode serialize(user, :current_user)
+        begin
+          user.update(body_params)
+          encode serialize(user, :current_user)
+        rescue
+          status 422
+          errors(user.errors.full_messages)
+        end
       end
 
       private

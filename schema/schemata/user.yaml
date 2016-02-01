@@ -28,6 +28,7 @@ definitions:
     format: email
     type:
     - string
+    - "null"
   facebook_uid:
     description: unique Facebook identifier of user
     readOnly: true
@@ -176,6 +177,8 @@ links:
     properties:
       email:
         "$ref": "/schemata/user#/definitions/email"
+      secondary_email:
+        "$ref": "/schemata/user#/definitions/secondary_email"
       first_name:
         "$ref": "/schemata/user#/definitions/first_name"
       last_name:
@@ -216,6 +219,8 @@ properties:
     "$ref": "/schemata/user#/definitions/id"
   email:
     "$ref": "/schemata/user#/definitions/email"
+  secondary_email:
+    "$ref": "/schemata/user#/definitions/secondary_email"
   facebook_uid:
     "$ref": "/schemata/user#/definitions/facebook_uid"
   first_name:
