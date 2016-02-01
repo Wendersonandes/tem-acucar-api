@@ -6,8 +6,8 @@
   "definitions": {
     "authentication": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
-      "title": "Tem Açucar - Authentication",
-      "description": "An authentication represents an individual signed in to use the Tem Açucar app",
+      "title": "Tem Açúcar - Authentication",
+      "description": "An authentication represents an individual signed in to use the Tem Açúcar app",
       "stability": "prototype",
       "strictProperties": true,
       "type": [
@@ -164,8 +164,8 @@
     },
     "error": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
-      "title": "Tem Açucar - Error",
-      "description": "An error represents a failed action in Tem Açucar API",
+      "title": "Tem Açúcar - Error",
+      "description": "An error represents a failed action in Tem Açúcar API",
       "stability": "prototype",
       "strictProperties": true,
       "type": [
@@ -206,8 +206,8 @@
     },
     "password": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
-      "title": "Tem Açucar - Password",
-      "description": "A password represents an users's attempt to reset her password on the Tem Açucar app",
+      "title": "Tem Açúcar - Password",
+      "description": "A password represents an users's attempt to reset her password on the Tem Açúcar app",
       "stability": "prototype",
       "strictProperties": true,
       "type": [
@@ -290,8 +290,8 @@
     },
     "user": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
-      "title": "Tem Açucar - User",
-      "description": "An user represents an individual signed up to use the Tem Açucar app",
+      "title": "Tem Açúcar - User",
+      "description": "An user represents an individual signed up to use the Tem Açúcar app",
       "stability": "prototype",
       "type": [
         "object"
@@ -306,7 +306,7 @@
           ]
         },
         "old_id": {
-          "description": "old Tem Açucar website id",
+          "description": "old Tem Açúcar website id",
           "readOnly": true,
           "type": [
             "number",
@@ -432,13 +432,13 @@
           ]
         },
         "accepted_terms": {
-          "description": "wheter or not user has accepted Tem Açucar terms of use",
+          "description": "wheter or not user has accepted Tem Açúcar terms of use",
           "type": [
             "boolean"
           ]
         },
         "admin": {
-          "description": "wheter or not user can administrate the whole Tem Açucar app",
+          "description": "wheter or not user can administrate the whole Tem Açúcar app",
           "type": [
             "boolean"
           ]
@@ -656,8 +656,8 @@
     },
     "version": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
-      "title": "Tem Açucar - Version",
-      "description": "An user represents a version of the Tem Açucar app for a platform",
+      "title": "Tem Açúcar - Version",
+      "description": "An user represents a version of the Tem Açúcar app for a platform",
       "stability": "prototype",
       "strictProperties": true,
       "type": [
@@ -775,7 +775,7 @@
       "$ref": "#/definitions/version"
     }
   },
-  "description": "The API for Tem Açucar, an app to borrow things from neighbors.",
+  "description": "The API for Tem Açúcar, an app to borrow things from neighbors.",
   "id": "tem-acucar-api",
   "links": [
     {
@@ -783,5 +783,5 @@
       "rel": "self"
     }
   ],
-  "title": "Tem Açucar API"
+  "title": "Tem Açúcar API"
 }

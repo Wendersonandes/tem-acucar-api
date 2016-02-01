@@ -56,7 +56,7 @@ class User < Sequel::Model
 
   def send_password_token
     token = SecureRandom.urlsafe_base64(6).tr('lIO0', 'sxyz')[0, 8].upcase
-    if self.send_email('Instruções para nova senha', "Para criar uma nova senha, digite o código abaixo no app do Tem Açucar:<br/><br/>#{token}<br/><br/>Se você não solicitou uma nova senha, por favor desconsidere.")
+    if self.send_email('Instruções para nova senha', "Para criar uma nova senha, digite o código abaixo no app do Tem Açúcar:<br/><br/>#{token}<br/><br/>Se você não solicitou uma nova senha, por favor desconsidere.")
       self.password_token = token
       self.password_token_sent_at = Time.now
       self.save

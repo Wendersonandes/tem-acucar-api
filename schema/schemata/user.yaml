@@ -1,7 +1,7 @@
 ---
 "$schema": http://json-schema.org/draft-04/hyper-schema
-title: Tem Açucar - User
-description: An user represents an individual signed up to use the Tem Açucar app
+title: Tem Açúcar - User
+description: An user represents an individual signed up to use the Tem Açúcar app
 stability: prototype
 type:
 - object
@@ -13,7 +13,7 @@ definitions:
     type:
     - string
   old_id:
-    description: old Tem Açucar website id
+    description: old Tem Açúcar website id
     readOnly: true
     type:
     - number
@@ -103,11 +103,11 @@ definitions:
     - string
     - "null"
   accepted_terms:
-    description: wheter or not user has accepted Tem Açucar terms of use
+    description: wheter or not user has accepted Tem Açúcar terms of use
     type:
     - boolean
   admin:
-    description: wheter or not user can administrate the whole Tem Açucar app
+    description: wheter or not user can administrate the whole Tem Açúcar app
     type:
     - boolean
   identity:

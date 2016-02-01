@@ -1,7 +1,7 @@
 ---
 "$schema": http://json-schema.org/draft-04/hyper-schema
-title: Tem Açucar - Authentication
-description: An authentication represents an individual signed in to use the Tem Açucar app
+title: Tem Açúcar - Authentication
+description: An authentication represents an individual signed in to use the Tem Açúcar app
 stability: prototype
 strictProperties: true
 type:

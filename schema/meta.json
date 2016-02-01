@@ -1,9 +1,9 @@
 {
- "description": "The API for Tem Açucar, an app to borrow things from neighbors.",
+ "description": "The API for Tem Açúcar, an app to borrow things from neighbors.",
  "id": "tem-acucar-api",
  "links": [{
    "href": "https://api.temacucar.com",
    "rel": "self"
  }],
- "title": "Tem Açucar API"
+ "title": "Tem Açúcar API"
 }

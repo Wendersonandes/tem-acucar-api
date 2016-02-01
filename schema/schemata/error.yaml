@@ -1,7 +1,7 @@
 ---
 "$schema": http://json-schema.org/draft-04/hyper-schema
-title: Tem Açucar - Error
-description: An error represents a failed action in Tem Açucar API
+title: Tem Açúcar - Error
+description: An error represents a failed action in Tem Açúcar API
 stability: prototype
 strictProperties: true
 type:

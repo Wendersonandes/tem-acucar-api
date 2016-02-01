@@ -34,7 +34,7 @@ module Config
   override :timeout,          10,    int
   override :versioning,       false, bool
 
-  # Tem Açucar API specific
+  # Tem Açúcar API specific
   optional :mandrill_apikey, string
 
 end
