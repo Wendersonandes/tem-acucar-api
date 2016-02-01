@@ -19,10 +19,10 @@ class User < Sequel::Model
     end
     User.create do |user|
       user.facebook_uid = facebook['id']
-      user.email = facebook['email']
+      user.email = facebook['email'] || "#{facebook['id']}@facebook.com"
       user.password = SecureRandom.urlsafe_base64(15).tr('lIO0', 'sxyz')[0, 20]
-      user.first_name = facebook['first_name']
-      user.last_name = facebook['last_name']
+      user.first_name = facebook['first_name'] || 'Nome'
+      user.last_name = facebook['last_name'] || 'Sobrenome'
     end
   end
 
