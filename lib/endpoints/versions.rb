@@ -2,7 +2,9 @@ module Endpoints
   class Versions < Base
     namespace "/versions" do
       get do
-        encode serialize(Version.reverse(:number))
+        versions = Version.reverse(:number)
+        versions = versions.where(platform: params['platform']) if params['platform']
+        encode serialize(versions)
       end
 
       get "/:identity" do |identity|

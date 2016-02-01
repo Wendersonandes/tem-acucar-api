@@ -702,6 +702,9 @@
           "anyOf": [
             {
               "$ref": "#/definitions/version/definitions/id"
+            },
+            {
+              "$ref": "#/definitions/version/definitions/number"
             }
           ]
         },
@@ -733,6 +736,17 @@
           "href": "/versions",
           "method": "GET",
           "rel": "instances",
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "platform": {
+                "$ref": "#/definitions/version/definitions/platform"
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
           "title": "List"
         }
       ],

@@ -56,6 +56,13 @@ links:
   href: "/versions"
   method: GET
   rel: instances
+  schema:
+    additionalProperties: false
+    properties:
+      platform:
+        "$ref": "/schemata/version#/definitions/platform"
+    type:
+    - object
   title: List
 properties:
   id:

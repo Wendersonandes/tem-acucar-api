@@ -4,6 +4,7 @@ Sequel.migration do
       uuid         :id, default: Sequel.function(:uuid_generate_v4), primary_key: true
       Integer      :old_id
       String       :email, null: false
+      String       :secondary_email
       String       :facebook_uid
       String       :encrypted_password, null: false
       String       :encrypted_password_token
@@ -23,6 +24,7 @@ Sequel.migration do
       String       :address_postal_code
       String       :address_complement
       TrueClass    :accepted_terms, null: false, default: false
+      TrueClass    :reviewed_email, null: false, default: false
       TrueClass    :admin, null: false, default: false
       timestamptz  :created_at, default: Sequel.function(:now), null: false
       timestamptz  :updated_at, default: Sequel.function(:now), null: false
