@@ -23,6 +23,11 @@ definitions:
     format: email
     type:
     - string
+  secondary_email:
+    description: secondary email address of user
+    format: email
+    type:
+    - string
   facebook_uid:
     description: unique Facebook identifier of user
     readOnly: true
@@ -104,6 +109,10 @@ definitions:
     - "null"
   accepted_terms:
     description: wheter or not user has accepted Tem Açúcar terms of use
+    type:
+    - boolean
+  reviewed_email:
+    description: wheter or not user has reviewed his primary email address
     type:
     - boolean
   admin:
@@ -197,6 +206,8 @@ links:
         "$ref": "/schemata/user#/definitions/address_complement"
       accepted_terms:
         "$ref": "/schemata/user#/definitions/accepted_terms"
+      reviewed_email:
+        "$ref": "/schemata/user#/definitions/reviewed_email"
     type:
     - object
   title: Update
@@ -237,6 +248,8 @@ properties:
     "$ref": "/schemata/user#/definitions/address_complement"
   accepted_terms:
     "$ref": "/schemata/user#/definitions/accepted_terms"
+  reviewed_email:
+    "$ref": "/schemata/user#/definitions/reviewed_email"
   created_at:
     "$ref": "/schemata/user#/definitions/created_at"
   updated_at:

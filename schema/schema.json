@@ -320,6 +320,13 @@
             "string"
           ]
         },
+        "secondary_email": {
+          "description": "secondary email address of user",
+          "format": "email",
+          "type": [
+            "string"
+          ]
+        },
         "facebook_uid": {
           "description": "unique Facebook identifier of user",
           "readOnly": true,
@@ -433,6 +440,12 @@
         },
         "accepted_terms": {
           "description": "wheter or not user has accepted Tem Açúcar terms of use",
+          "type": [
+            "boolean"
+          ]
+        },
+        "reviewed_email": {
+          "description": "wheter or not user has reviewed his primary email address",
           "type": [
             "boolean"
           ]
@@ -574,6 +587,9 @@
               },
               "accepted_terms": {
                 "$ref": "#/definitions/user/definitions/accepted_terms"
+              },
+              "reviewed_email": {
+                "$ref": "#/definitions/user/definitions/reviewed_email"
               }
             },
             "type": [
@@ -637,6 +653,9 @@
         },
         "accepted_terms": {
           "$ref": "#/definitions/user/definitions/accepted_terms"
+        },
+        "reviewed_email": {
+          "$ref": "#/definitions/user/definitions/reviewed_email"
         },
         "created_at": {
           "$ref": "#/definitions/user/definitions/created_at"
