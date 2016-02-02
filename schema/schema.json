@@ -451,7 +451,7 @@
             "boolean"
           ]
         },
-        "reviewed_address": {
+        "reviewed_location": {
           "description": "wheter or not user has reviewed her address",
           "type": [
             "boolean"
@@ -601,8 +601,8 @@
               "reviewed_email": {
                 "$ref": "#/definitions/user/definitions/reviewed_email"
               },
-              "reviewed_address": {
-                "$ref": "#/definitions/user/definitions/reviewed_address"
+              "reviewed_location": {
+                "$ref": "#/definitions/user/definitions/reviewed_location"
               }
             },
             "type": [
@@ -673,8 +673,8 @@
         "reviewed_email": {
           "$ref": "#/definitions/user/definitions/reviewed_email"
         },
-        "reviewed_address": {
-          "$ref": "#/definitions/user/definitions/reviewed_address"
+        "reviewed_location": {
+          "$ref": "#/definitions/user/definitions/reviewed_location"
         },
         "created_at": {
           "$ref": "#/definitions/user/definitions/created_at"
