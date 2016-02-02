@@ -113,7 +113,11 @@ definitions:
     type:
     - boolean
   reviewed_email:
-    description: wheter or not user has reviewed his primary email address
+    description: wheter or not user has reviewed her primary email address
+    type:
+    - boolean
+  reviewed_address:
+    description: wheter or not user has reviewed her address
     type:
     - boolean
   admin:
@@ -211,6 +215,8 @@ links:
         "$ref": "/schemata/user#/definitions/accepted_terms"
       reviewed_email:
         "$ref": "/schemata/user#/definitions/reviewed_email"
+      reviewed_address:
+        "$ref": "/schemata/user#/definitions/reviewed_address"
     type:
     - object
   title: Update
@@ -255,6 +261,8 @@ properties:
     "$ref": "/schemata/user#/definitions/accepted_terms"
   reviewed_email:
     "$ref": "/schemata/user#/definitions/reviewed_email"
+  reviewed_address:
+    "$ref": "/schemata/user#/definitions/reviewed_address"
   created_at:
     "$ref": "/schemata/user#/definitions/created_at"
   updated_at:

@@ -33,6 +33,7 @@ class Serializers::User < Serializers::Base
       address_complement: arg.address_complement,
       accepted_terms: arg.accepted_terms,
       reviewed_email: arg.reviewed_email,
+      reviewed_address: arg.reviewed_address,
       created_at: arg.created_at.try(:iso8601),
       updated_at: arg.updated_at.try(:iso8601),
     }

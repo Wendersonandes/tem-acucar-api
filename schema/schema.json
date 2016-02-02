@@ -446,7 +446,13 @@
           ]
         },
         "reviewed_email": {
-          "description": "wheter or not user has reviewed his primary email address",
+          "description": "wheter or not user has reviewed her primary email address",
+          "type": [
+            "boolean"
+          ]
+        },
+        "reviewed_address": {
+          "description": "wheter or not user has reviewed her address",
           "type": [
             "boolean"
           ]
@@ -594,6 +600,9 @@
               },
               "reviewed_email": {
                 "$ref": "#/definitions/user/definitions/reviewed_email"
+              },
+              "reviewed_address": {
+                "$ref": "#/definitions/user/definitions/reviewed_address"
               }
             },
             "type": [
@@ -663,6 +672,9 @@
         },
         "reviewed_email": {
           "$ref": "#/definitions/user/definitions/reviewed_email"
+        },
+        "reviewed_address": {
+          "$ref": "#/definitions/user/definitions/reviewed_address"
         },
         "created_at": {
           "$ref": "#/definitions/user/definitions/created_at"

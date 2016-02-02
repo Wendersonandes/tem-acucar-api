@@ -25,6 +25,7 @@ Sequel.migration do
       String       :address_complement
       TrueClass    :accepted_terms, null: false, default: false
       TrueClass    :reviewed_email, null: false, default: false
+      TrueClass    :reviewed_address, null: false, default: false
       TrueClass    :admin, null: false, default: false
       timestamptz  :created_at, default: Sequel.function(:now), null: false
       timestamptz  :updated_at, default: Sequel.function(:now), null: false
