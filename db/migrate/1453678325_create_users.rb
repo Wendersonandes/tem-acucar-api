@@ -31,6 +31,7 @@ Sequel.migration do
       timestamptz  :updated_at, default: Sequel.function(:now), null: false
 
       index :email, unique: true
+      index :old_id, unique: true
       index :facebook_uid, unique: true     
     end
   end
