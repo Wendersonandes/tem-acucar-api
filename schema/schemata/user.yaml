@@ -174,7 +174,7 @@ links:
   title: List
 - description: Update an existing user.
   href: "/users/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}"
-  method: PATCH
+  method: PUT
   rel: update
   schema:
     additionalProperties: false

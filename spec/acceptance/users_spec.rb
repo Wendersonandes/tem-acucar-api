@@ -72,10 +72,10 @@ RSpec.describe Endpoints::Users do
     end
   end
 
-  describe 'PATCH /users/:id' do
+  describe 'PUT /users/:id' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      patch "/users/#{@user.id}", MultiJson.encode({})
+      put "/users/#{@user.id}", MultiJson.encode({})
       assert_equal 200, last_response.status
       assert_schema_conform
     end

@@ -254,7 +254,7 @@
         {
           "description": "Reset user password through token set to user's email.",
           "href": "/password",
-          "method": "PATCH",
+          "method": "PUT",
           "rel": "update",
           "schema": {
             "strictProperties": true,
@@ -542,7 +542,7 @@
         {
           "description": "Update an existing user.",
           "href": "/users/{(%23%2Fdefinitions%2Fuser%2Fdefinitions%2Fidentity)}",
-          "method": "PATCH",
+          "method": "PUT",
           "rel": "update",
           "schema": {
             "additionalProperties": false,

@@ -51,10 +51,10 @@ RSpec.describe Endpoints::Password do
     end
   end
 
-  describe 'PATCH /password' do
+  describe 'PUT /password' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      patch '/password', MultiJson.encode({
+      put '/password', MultiJson.encode({
         email: 'foo@bar.com',
         password: 'foobarfoo',
         token: 'foobar',

@@ -25,10 +25,10 @@ module Endpoints
       get "/:id" do |id|
         user = User.first(id: id)
         raise Pliny::Errors::NotFound unless user
-        encode serialize(user)
+        encode serialize(user, (user == current_user && :current_user))
       end
 
-      patch "/:id" do |id|
+      put "/:id" do |id|
         user = User.first(id: id)
         raise Pliny::Errors::NotFound unless user
         begin

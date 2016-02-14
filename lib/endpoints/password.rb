@@ -9,7 +9,7 @@ module Endpoints
         encode Hash.new
       end
 
-      patch do
+      put do
         user = User[email: body_params[:email]]
         raise Pliny::Errors::NotFound unless user
         raise Pliny::Errors::Unauthorized unless user.password_token == body_params[:token].upcase
