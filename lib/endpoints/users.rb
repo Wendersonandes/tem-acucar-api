@@ -25,7 +25,7 @@ module Endpoints
       get "/:id" do |id|
         user = User.first(id: id)
         raise Pliny::Errors::NotFound unless user
-        encode serialize(user, (user == current_user && :current_user))
+        encode serialize(user)
       end
 
       put "/:id" do |id|

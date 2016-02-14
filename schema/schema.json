@@ -204,6 +204,35 @@
         }
       }
     },
+    "me": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Tem Açúcar - Me",
+      "description": "Me represents the individual signed in to use the Tem Açúcar app",
+      "stability": "prototype",
+      "strictProperties": true,
+      "type": [
+        "object"
+      ],
+      "links": [
+        {
+          "description": "Info for signed in user.",
+          "href": "/me",
+          "method": "GET",
+          "rel": "self",
+          "title": "Info",
+          "targetSchema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/user"
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
+            ]
+          }
+        }
+      ]
+    },
     "password": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
       "title": "Tem Açúcar - Password",
@@ -816,6 +845,9 @@
     },
     "error": {
       "$ref": "#/definitions/error"
+    },
+    "me": {
+      "$ref": "#/definitions/me"
     },
     "password": {
       "$ref": "#/definitions/password"
