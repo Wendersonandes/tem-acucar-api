@@ -21,6 +21,7 @@ class Serializers::User < Serializers::Base
       last_name: arg.last_name,
       latitude: arg.latitude,
       longitude: arg.longitude,
+      delta: arg.delta,
       address_name: arg.address_name,
       address_thoroughfare: arg.address_thoroughfare,
       address_sub_thoroughfare: arg.address_sub_thoroughfare,

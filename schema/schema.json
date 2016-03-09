@@ -398,6 +398,12 @@
             "null"
           ]
         },
+        "delta": {
+          "description": "coordinates delta of user",
+          "type": [
+            "number"
+          ]
+        },
         "address_name": {
           "description": "address name of user",
           "type": [
@@ -594,6 +600,9 @@
               "longitude": {
                 "$ref": "#/definitions/user/definitions/longitude"
               },
+              "delta": {
+                "$ref": "#/definitions/user/definitions/delta"
+              },
               "address_name": {
                 "$ref": "#/definitions/user/definitions/address_name"
               },
@@ -665,6 +674,9 @@
         },
         "longitude": {
           "$ref": "#/definitions/user/definitions/longitude"
+        },
+        "delta": {
+          "$ref": "#/definitions/user/definitions/delta"
         },
         "address_name": {
           "$ref": "#/definitions/user/definitions/address_name"

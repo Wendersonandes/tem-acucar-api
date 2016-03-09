@@ -13,6 +13,7 @@ Sequel.migration do
       String       :last_name, null: false
       Float        :latitude
       Float        :longitude
+      Float        :delta, null: false, default: 0.02
       String       :address_name
       String       :address_thoroughfare
       String       :address_sub_thoroughfare
