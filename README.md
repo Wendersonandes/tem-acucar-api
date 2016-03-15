@@ -17,7 +17,7 @@
 
 ### Running tests
 
-`bundle exec rake`
+`foreman run rspec spec/`
 
 ### Running the server
 
