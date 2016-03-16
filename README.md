@@ -7,7 +7,7 @@
 1. clone the project
 2. run `gem install bundler` if not yet installed
 3. run `bundle`
-4. run `bin/setup`
+4. run `foreman run bin/setup`
 
 ### Configuration
 
