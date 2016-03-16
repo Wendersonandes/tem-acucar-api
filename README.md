@@ -6,8 +6,7 @@
 
 1. clone the project
 2. run `gem install bundler` if not yet installed
-3. run `bundle`
-4. run `foreman run bin/setup`
+3. run `bin/setup`
 
 ### Configuration
 
@@ -17,7 +16,7 @@
 
 ### Running tests
 
-`foreman run rspec spec/`
+`rake`
 
 ### Running the server
 
