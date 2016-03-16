@@ -1,8 +1,8 @@
-require 'fileutils'
-require_relative '../application'
-
 desc "Migrate data from .sql files exported from old MySQL database"
 task :migrate_data do
+
+  require 'fileutils'
+  require_relative '../application'
 
   def process_sql(sql)
     result = sql
@@ -55,6 +55,62 @@ task :migrate_data do
   if import_users
     import_file('hm_rn_usuarios')
     import_file('hm_rn_usuarios_contas')
+    puts "  Deleting users with duplicate email"
+    DB.run "DELETE FROM hm_rn_usuarios WHERE email IN (SELECT email FROM hm_rn_usuarios GROUP BY email HAVING COUNT(*) > 1) AND (CASE WHEN last_logon IS NOT NULL THEN last_logon ELSE '1900-01-01'::timestamp END) NOT IN (SELECT MAX(last_logon) FROM hm_rn_usuarios WHERE email IN (SELECT email FROM hm_rn_usuarios GROUP BY email HAVING COUNT(*) > 1) GROUP BY email);"
+    puts "  Deleting users with duplicate facebook uid"
+    DB.run "DELETE FROM hm_rn_usuarios WHERE oauth_uid IN (SELECT oauth_uid FROM hm_rn_usuarios WHERE oauth_uid IS NOT NULL GROUP BY oauth_uid HAVING COUNT(*) > 1) AND (CASE WHEN last_logon IS NOT NULL THEN last_logon ELSE '1900-01-01'::timestamp END) NOT IN (SELECT MAX(last_logon) FROM hm_rn_usuarios WHERE oauth_uid IN (SELECT oauth_uid FROM hm_rn_usuarios WHERE oauth_uid IS NOT NULL GROUP BY oauth_uid HAVING COUNT(*) > 1) GROUP BY oauth_uid);"
+    puts "  Migrating data from temporary tables"
+    DB.run "INSERT INTO users (
+      old_id,
+      email,
+      secondary_email,
+      facebook_uid,
+      encrypted_password,
+      first_name,
+      last_name,
+      latitude,
+      longitude,
+      address_name,
+      address_thoroughfare,
+      address_sub_thoroughfare,
+      address_sub_locality,
+      address_locality,
+      address_administrative_area,
+      address_country,
+      address_postal_code,
+      address_complement,
+      uploaded_image_url,
+      created_at,
+      updated_at
+    )
+    SELECT
+      hm_rn_usuarios.id_usuario AS old_id,
+      email,
+      last_email AS secondary_email,
+      oauth_uid AS facebook_uid,
+      md5(random()::text) AS encrypted_password,
+      nome AS first_name,
+      sobrenome AS last_name,
+      (CASE WHEN latitude IS NOT NULL AND latitude <> '' THEN cast(latitude as float) ELSE null END) AS latitude,
+      (CASE WHEN longitude IS NOT NULL AND longitude <> '' THEN cast(longitude as float) ELSE null END) AS longitude,
+      (endereco || ',' || numero) AS address_name,
+      endereco AS address_thoroughfare,
+      numero AS address_sub_thoroughfare,
+      bairro AS address_sub_locality,
+      cidade AS address_locality,
+      uf AS address_administrative_area,
+      pais AS address_country,
+      cep AS address_postal_code,
+      complemento AS address_complement,
+      (CASE WHEN user_pic IS NOT NULL AND user_pic <> '' THEN ('http://www.temacucar.com/_static/uploads/avatar/' || user_pic) ELSE null END) AS uploaded_image_url,
+      data_cadastro AS created_at,
+      (CASE WHEN last_logon IS NOT NULL THEN last_logon ELSE data_cadastro END) AS updated_at
+    FROM
+      hm_rn_usuarios_contas, 
+      hm_rn_usuarios
+    WHERE 
+      hm_rn_usuarios_contas.id_usuario = hm_rn_usuarios.id_usuario AND 
+      email IS NOT NULL AND email <> '';"
   end
 
 end

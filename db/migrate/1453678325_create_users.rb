@@ -23,6 +23,8 @@ Sequel.migration do
       String       :address_country
       String       :address_postal_code
       String       :address_complement
+      String       :uploaded_image_url
+      String       :facebook_image_url
       TrueClass    :accepted_terms, null: false, default: false
       TrueClass    :reviewed_email, null: false, default: false
       TrueClass    :reviewed_location, null: false, default: false
