@@ -1,0 +1,119 @@
+---
+"$schema": http://json-schema.org/draft-04/hyper-schema
+title: Tem Açúcar - Demand
+description: A demand represents something a user asks to the neighborhood
+stability: prototype
+type:
+- object
+definitions:
+  id:
+    description: unique identifier of the demand
+    readOnly: true
+    format: uuid
+    type:
+    - string
+  user:
+    description: user of the demand
+    readOnly: true
+    type:
+    - object
+    targetSchema:
+      "$ref": "/schemata/user"
+  state:
+    description: state of the demand
+    enum:
+    - sending
+    - active
+    - canceled
+    - completed
+    type:
+    - string
+  name:
+    description: name of the demand
+    type:
+    - string
+  description:
+    description: description of the demand
+    type:
+    - string
+  latitude:
+    description: latitude of the demand
+    type:
+    - number
+  longitude:
+    description: longitude of the demand
+    type:
+    - number
+  radius:
+    description: radius of the demand in kilometers
+    type:
+    - number
+  identity:
+    anyOf:
+    - "$ref": "/schemata/demand#/definitions/id"
+  created_at:
+    description: when demand was created
+    format: date-time
+    type:
+    - string
+  updated_at:
+    description: when demand was updated
+    format: date-time
+    type:
+    - string
+links:
+- description: Create a new demand.
+  href: "/demands"
+  method: POST
+  rel: create
+  schema:
+    additionalProperties: false
+    properties:
+      name:
+        "$ref": "/schemata/demand#/definitions/name"
+      description:
+        "$ref": "/schemata/demand#/definitions/description"
+      radius:
+        "$ref": "/schemata/demand#/definitions/radius"
+    type:
+    - object
+  targetSchema:
+    anyOf:
+    - "$ref": "/schemata/demand"
+    - "$ref": "/schemata/error"
+  title: Create
+- description: List existing demands.
+  href: "/demands"
+  method: GET
+  rel: instances
+  title: List
+properties:
+  id:
+    "$ref": "/schemata/demand#/definitions/id"
+  user:
+    "$ref": "/schemata/demand#/definitions/user"
+  state:
+    "$ref": "/schemata/demand#/definitions/state"
+  name:
+    "$ref": "/schemata/demand#/definitions/name"
+  latitude:
+    "$ref": "/schemata/demand#/definitions/latitude"
+  longitude:
+    "$ref": "/schemata/demand#/definitions/longitude"
+  radius:
+    "$ref": "/schemata/demand#/definitions/radius"
+  description:
+    "$ref": "/schemata/demand#/definitions/description"
+  created_at:
+    "$ref": "/schemata/demand#/definitions/created_at"
+  updated_at:
+    "$ref": "/schemata/demand#/definitions/updated_at"
+required:
+- id
+- user
+- name
+- description
+- created_at
+- updated_at
+additionalProperties: false
+id: schemata/demand

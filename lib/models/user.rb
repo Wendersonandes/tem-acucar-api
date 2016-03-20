@@ -10,6 +10,7 @@ class User < Sequel::Model
 
   one_to_many :tokens
   one_to_many :authentications
+  one_to_many :demands
 
   def self.from_facebook(facebook)
     user = where(facebook_uid: facebook['id']).first
