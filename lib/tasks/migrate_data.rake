@@ -93,7 +93,7 @@ task :migrate_data do
       sobrenome AS last_name,
       (CASE WHEN latitude IS NOT NULL AND latitude <> '' THEN cast(latitude as float) ELSE null END) AS latitude,
       (CASE WHEN longitude IS NOT NULL AND longitude <> '' THEN cast(longitude as float) ELSE null END) AS longitude,
-      (endereco || ',' || numero) AS address_name,
+      (endereco || ', ' || numero) AS address_name,
       endereco AS address_thoroughfare,
       numero AS address_sub_thoroughfare,
       bairro AS address_sub_locality,

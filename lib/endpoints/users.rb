@@ -6,7 +6,7 @@ module Endpoints
       end
 
       get do
-        encode serialize(User.all)
+        encode serialize(current_user.neighbors)
       end
 
       post do

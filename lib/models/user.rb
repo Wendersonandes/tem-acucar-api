@@ -5,6 +5,8 @@ class User < Sequel::Model
 
   plugin :timestamps, update_on_create: true
   plugin :auto_validations, not_null: :presence
+  plugin :geocoder
+  reverse_geocoded_by :latitude, :longitude
 
   one_to_many :tokens
   one_to_many :authentications
@@ -24,6 +26,10 @@ class User < Sequel::Model
       user.first_name = facebook['first_name'] || 'Nome'
       user.last_name = facebook['last_name'] || 'Sobrenome'
     end
+  end
+
+  def neighbors
+    User.near([self.latitude, self.longitude], 0.5, :units => :km)
   end
 
   def password

@@ -21,6 +21,8 @@ gem "sucker_punch"
 gem "committee"
 gem "bcrypt"
 gem "rest-client"
+gem "geocoder"
+gem "sequel-geocoder", github: "binarypaladin/sequel-geocoder", ref: "625fe1704261634eca2620e9da5ccaa27b34cae4"
 gem "mandrill-api", require: "mandrill"
 
 group :development, :test do
