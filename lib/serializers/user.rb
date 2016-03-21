@@ -6,6 +6,7 @@ class Serializers::User < Serializers::Base
       last_name: arg.last_name,
       latitude: arg.latitude,
       longitude: arg.longitude,
+      image_url: arg.image_url,
       created_at: arg.created_at.try(:iso8601),
       updated_at: arg.updated_at.try(:iso8601),
     }
@@ -34,6 +35,9 @@ class Serializers::User < Serializers::Base
       accepted_terms: arg.accepted_terms,
       reviewed_email: arg.reviewed_email,
       reviewed_location: arg.reviewed_location,
+      uploaded_image_url: arg.uploaded_image_url,
+      facebook_image_url: arg.facebook_image_url,
+      image_url: arg.image_url,
       created_at: arg.created_at.try(:iso8601),
       updated_at: arg.updated_at.try(:iso8601),
     }

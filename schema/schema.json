@@ -644,6 +644,26 @@
             "null"
           ]
         },
+        "uploaded_image_url": {
+          "description": "uploaded image url of user",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "facebook_image_url": {
+          "description": "facebook image url of user",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "image_url": {
+          "description": "image url of user calculated from uploaded_image_url, facebook_image_url or gravatar",
+          "type": [
+            "string"
+          ]
+        },
         "accepted_terms": {
           "description": "wheter or not user has accepted Tem Açúcar terms of use",
           "type": [
@@ -800,6 +820,12 @@
               "address_complement": {
                 "$ref": "#/definitions/user/definitions/address_complement"
               },
+              "uploaded_image_url": {
+                "$ref": "#/definitions/user/definitions/uploaded_image_url"
+              },
+              "facebook_image_url": {
+                "$ref": "#/definitions/user/definitions/facebook_image_url"
+              },
               "accepted_terms": {
                 "$ref": "#/definitions/user/definitions/accepted_terms"
               },
@@ -872,6 +898,15 @@
         "address_complement": {
           "$ref": "#/definitions/user/definitions/address_complement"
         },
+        "uploaded_image_url": {
+          "$ref": "#/definitions/user/definitions/uploaded_image_url"
+        },
+        "facebook_image_url": {
+          "$ref": "#/definitions/user/definitions/facebook_image_url"
+        },
+        "image_url": {
+          "$ref": "#/definitions/user/definitions/image_url"
+        },
         "accepted_terms": {
           "$ref": "#/definitions/user/definitions/accepted_terms"
         },
@@ -892,6 +927,7 @@
         "id",
         "first_name",
         "last_name",
+        "image_url",
         "created_at",
         "updated_at"
       ],

@@ -6,7 +6,7 @@ module Endpoints
       end
 
       get do
-        encode serialize(Demand.limit(10).all)
+        encode serialize(current_user.neighbor_demands.limit(10).all)
       end
 
       post do

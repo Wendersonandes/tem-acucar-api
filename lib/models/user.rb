@@ -33,6 +33,24 @@ class User < Sequel::Model
     User.near([self.latitude, self.longitude], 0.5, :units => :km)
   end
 
+  def neighbor_demands
+    Demand.near([self.latitude, self.longitude], 0.5, :units => :km)
+  end
+
+  def image_url
+    uploaded_image_url || facebook_image_url || facebook_picture_url || gravatar_url
+  end
+
+  def facebook_picture_url
+    return unless self.facebook_uid
+    "http://graph.facebook.com/#{self.facebook_uid}/picture?type=normal"
+  end
+
+  def gravatar_url
+    gravatar_id = Digest::MD5.hexdigest(self.email.downcase)
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=mm"
+  end
+
   def password
     @password ||= Password.new(self.encrypted_password)
   end
