@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe Endpoints::Demands do
+RSpec.describe Endpoints::Refusals do
   include Committee::Test::Methods
   include Rack::Test::Methods
 
@@ -22,6 +22,14 @@ RSpec.describe Endpoints::Demands do
       longitude: 51,
     )
     @token = @user.add_token({client: 'foo', token: 'bar'})
+    @demand = Demand.create(
+      user: @user,
+      name: 'Foo',
+      description: 'Bar',
+      latitude: 30,
+      longitude: 50,
+      radius: 1,
+    )
   end
 
   before :each do
@@ -32,21 +40,11 @@ RSpec.describe Endpoints::Demands do
     header "Expiry", @token.expiry
   end
 
-  describe 'GET /demands' do
-    it 'returns correct status code and conforms to schema' do
-      get '/demands'
-      assert_equal 200, last_response.status
-      assert_schema_conform
-    end
-  end
-
-  describe 'POST /demands' do
+  describe 'POST /refusals' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      post '/demands', MultiJson.encode({
-        name: 'Foo',
-        description: 'Bar',
-        radius: 0.5,
+      post '/refusals', MultiJson.encode({
+        demand_id: @demand.id,
       })
       assert_equal 201, last_response.status
       assert_schema_conform
