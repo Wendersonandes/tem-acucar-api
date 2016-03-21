@@ -11,6 +11,7 @@ task :migrate_data do
     result = result.gsub(/tinyint\(\d+\)/, 'integer')
     result = result.gsub(/int\(\d+\)/, 'integer')
     result = result.gsub('longtext', 'text')
+    result = result.gsub('varchar(500)', 'text')
     result = result.gsub('datetime', 'timestamp')
     result = result.gsub('CHARACTER SET utf8', '')
     result = result.gsub('ENGINE=InnoDB', '')
@@ -19,7 +20,10 @@ task :migrate_data do
     result = result.gsub('AUTO_INCREMENT', '')
     result = result.gsub(/^\s+KEY\s.+,$/, "CHECK (1=1),")
     result = result.gsub(/^\s+KEY\s.+$/, "CHECK (1=1)")
+    result = result.gsub(/^\s+UNIQUE KEY\s.+,$/, "CHECK (1=1),")
+    result = result.gsub(/^\s+UNIQUE KEY\s.+$/, "CHECK (1=1)")
     result = result.gsub(/ALTER TABLE[^;]+;/, '')
+    result = result.gsub("'0000-00-00 00:00:00'", 'NULL')
     result = result.gsub('`', '')
     return result
   end
@@ -111,6 +115,43 @@ task :migrate_data do
     WHERE 
       hm_rn_usuarios_contas.id_usuario = hm_rn_usuarios.id_usuario AND 
       email IS NOT NULL AND email <> '';"
+  end
+
+  import_demands = true
+  print "Looking for 'demands' files..."
+  import_demands = false unless File.exists?(@path + "/hm_rn_pedidos.sql")
+  puts (import_demands ? "found!" : "not found.")
+  if import_demands
+    import_file('hm_rn_pedidos')
+    puts "  Deleting demands with user not found"
+    DB.run "DELETE FROM hm_rn_pedidos WHERE id_usuario NOT IN (SELECT old_id FROM users)"
+    puts "  Migrating data from temporary tables"
+    DB.run "INSERT INTO demands (
+      old_id,
+      user_id,
+      state,
+      name,
+      description,
+      latitude,
+      longitude,
+      radius,
+      created_at,
+      updated_at
+    )
+      SELECT
+        id_pedido AS old_id, 
+        (SELECT id from users WHERE old_id = id_usuario) AS user_id,
+        (CASE WHEN tempo_registro > (now() - interval '2 weeks') THEN (CASE WHEN status = 'cancelado' THEN 'canceled' ELSE (CASE WHEN status = 'pendente' OR status = 'iniciado' OR status = 'emprestado' THEN 'active' ELSE 'completed' END) END) ELSE 'completed' END) AS state,
+        nome AS name,
+        descricao AS description,
+        (SELECT latitude from users WHERE old_id = id_usuario) AS latitude,
+        (SELECT longitude from users WHERE old_id = id_usuario) AS longitude,
+        0.5 AS radius,
+        tempo_registro AS created_at,
+        (CASE WHEN tempo_devolucao IS NOT NULL THEN tempo_devolucao ELSE (CASE WHEN tempo_aceito IS NOT NULL THEN tempo_aceito ELSE tempo_registro END) END) AS updated_at
+      FROM
+        hm_rn_pedidos
+    "
   end
 
 end
