@@ -6,7 +6,7 @@ module Endpoints
       end
 
       get do
-        encode serialize(Demand.all)
+        encode serialize(Demand.limit(10).all)
       end
 
       post do

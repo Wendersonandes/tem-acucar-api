@@ -49,6 +49,16 @@ task :migrate_data do
     DB.run sql
   end
 
+  DB.run "SET statement_timeout TO 60000;"
+  
+  DB.run "CREATE OR REPLACE FUNCTION convert_latin1(latin1_text text) RETURNS text AS $$
+    BEGIN
+      RETURN TRIM(convert_from(convert_to(latin1_text, 'latin-1'), 'utf-8'));
+    EXCEPTION
+      WHEN OTHERS THEN RETURN latin1_text;
+    END;
+  $$ LANGUAGE plpgsql;"
+
   @path = File.expand_path("../../../db/migrate_data/", __FILE__)
 
   import_users = true
@@ -89,23 +99,23 @@ task :migrate_data do
     )
     SELECT
       hm_rn_usuarios.id_usuario AS old_id,
-      email,
-      last_email AS secondary_email,
+      convert_latin1(email) AS email,
+      convert_latin1(last_email) AS secondary_email,
       oauth_uid AS facebook_uid,
       md5(random()::text) AS encrypted_password,
-      nome AS first_name,
-      sobrenome AS last_name,
+      convert_latin1(nome) AS first_name,
+      convert_latin1(sobrenome) AS last_name,
       (CASE WHEN latitude IS NOT NULL AND latitude <> '' THEN cast(latitude as float) ELSE null END) AS latitude,
       (CASE WHEN longitude IS NOT NULL AND longitude <> '' THEN cast(longitude as float) ELSE null END) AS longitude,
-      (endereco || ', ' || numero) AS address_name,
-      endereco AS address_thoroughfare,
-      numero AS address_sub_thoroughfare,
-      bairro AS address_sub_locality,
-      cidade AS address_locality,
-      uf AS address_administrative_area,
-      pais AS address_country,
-      cep AS address_postal_code,
-      complemento AS address_complement,
+      (convert_latin1(endereco) || ', ' || convert_latin1(numero)) AS address_name,
+      convert_latin1(endereco) AS address_thoroughfare,
+      convert_latin1(numero) AS address_sub_thoroughfare,
+      convert_latin1(bairro) AS address_sub_locality,
+      convert_latin1(cidade) AS address_locality,
+      convert_latin1(uf) AS address_administrative_area,
+      convert_latin1(pais) AS address_country,
+      convert_latin1(cep) AS address_postal_code,
+      convert_latin1(complemento) AS address_complement,
       (CASE WHEN user_pic IS NOT NULL AND user_pic <> '' THEN ('http://www.temacucar.com/_static/uploads/avatar/' || user_pic) ELSE null END) AS uploaded_image_url,
       data_cadastro AS created_at,
       (CASE WHEN last_logon IS NOT NULL THEN last_logon ELSE data_cadastro END) AS updated_at
@@ -142,8 +152,8 @@ task :migrate_data do
         id_pedido AS old_id, 
         (SELECT id from users WHERE old_id = id_usuario) AS user_id,
         (CASE WHEN tempo_registro > (now() - interval '2 weeks') THEN (CASE WHEN status = 'cancelado' THEN 'canceled' ELSE (CASE WHEN status = 'pendente' OR status = 'iniciado' OR status = 'emprestado' THEN 'active' ELSE 'completed' END) END) ELSE 'completed' END) AS state,
-        nome AS name,
-        descricao AS description,
+        convert_latin1(nome) AS name,
+        convert_latin1(descricao) AS description,
         (SELECT latitude from users WHERE old_id = id_usuario) AS latitude,
         (SELECT longitude from users WHERE old_id = id_usuario) AS longitude,
         0.5 AS radius,
