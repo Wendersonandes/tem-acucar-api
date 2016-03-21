@@ -30,11 +30,11 @@ class User < Sequel::Model
   end
 
   def neighbors
-    User.near([self.latitude, self.longitude], 0.5, :units => :km)
+    User.near([self.latitude, self.longitude], 1, units: :km)
   end
 
   def neighbor_demands
-    Demand.near([self.latitude, self.longitude], 0.5, :units => :km)
+    Demand.without_states(:sending, :canceled).near([self.latitude, self.longitude], 1, units: :km, order: false).order(:state, :distance, Sequel.desc(:created_at))
   end
 
   def image_url

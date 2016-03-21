@@ -48,6 +48,10 @@ definitions:
     description: radius of the demand in kilometers
     type:
     - number
+  distance:
+    description: distant from current user of the demand in kilometers
+    type:
+    - number
   identity:
     anyOf:
     - "$ref": "/schemata/demand#/definitions/id"
@@ -102,6 +106,8 @@ properties:
     "$ref": "/schemata/demand#/definitions/longitude"
   radius:
     "$ref": "/schemata/demand#/definitions/radius"
+  distance:
+    "$ref": "/schemata/demand#/definitions/distance"
   description:
     "$ref": "/schemata/demand#/definitions/description"
   created_at:
@@ -111,6 +117,7 @@ properties:
 required:
 - id
 - user
+- state
 - name
 - description
 - created_at

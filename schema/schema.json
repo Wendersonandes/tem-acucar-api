@@ -231,6 +231,12 @@
             "number"
           ]
         },
+        "distance": {
+          "description": "distant from current user of the demand in kilometers",
+          "type": [
+            "number"
+          ]
+        },
         "identity": {
           "anyOf": [
             {
@@ -318,6 +324,9 @@
         "radius": {
           "$ref": "#/definitions/demand/definitions/radius"
         },
+        "distance": {
+          "$ref": "#/definitions/demand/definitions/distance"
+        },
         "description": {
           "$ref": "#/definitions/demand/definitions/description"
         },
@@ -331,6 +340,7 @@
       "required": [
         "id",
         "user",
+        "state",
         "name",
         "description",
         "created_at",
