@@ -26,6 +26,7 @@ Routes = Rack::Builder.new do
     mount Endpoints::Me
     mount Endpoints::Demands
     mount Endpoints::Refusals
+    mount Endpoints::Flags
   end
 
   # root app; but will also handle some defaults like 404
