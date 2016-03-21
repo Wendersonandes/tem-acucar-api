@@ -6,7 +6,9 @@ module Endpoints
       end
 
       get do
-        encode serialize(current_user.neighbor_demands.limit(10).all)
+        limit = params['limit'] || 10
+        offset = params['offset'] || 0
+        encode serialize(current_user.neighbor_demands.limit(limit).offset(offset).all)
       end
 
       post do
