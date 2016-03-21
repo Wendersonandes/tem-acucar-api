@@ -156,7 +156,7 @@ task :migrate_data do
         convert_latin1(descricao) AS description,
         (SELECT latitude from users WHERE old_id = id_usuario) AS latitude,
         (SELECT longitude from users WHERE old_id = id_usuario) AS longitude,
-        0.5 AS radius,
+        1 AS radius,
         tempo_registro AS created_at,
         (CASE WHEN tempo_devolucao IS NOT NULL THEN tempo_devolucao ELSE (CASE WHEN tempo_aceito IS NOT NULL THEN tempo_aceito ELSE tempo_registro END) END) AS updated_at
       FROM

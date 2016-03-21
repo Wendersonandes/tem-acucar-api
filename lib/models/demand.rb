@@ -10,6 +10,7 @@ class Demand < Sequel::Model
   state_machine initial: :sending do
     state :sending
     state :active
+    state :flagged
     state :canceled
     state :completed
 
@@ -17,8 +18,16 @@ class Demand < Sequel::Model
       transition :sending => :active
     end
 
+    event :flag do
+      transition [:sending, :active] => :flagged
+    end
+
     event :cancel do
       transition [:sending, :active] => :canceled
+    end
+
+    event :reactivate do
+      transition [:flagged, :canceled] => :active
     end
 
     event :complete do

@@ -34,7 +34,7 @@ class User < Sequel::Model
   end
 
   def neighbor_demands
-    Demand.without_states(:sending, :canceled).near([self.latitude, self.longitude], 1, units: :km, order: false).order(:state, :distance, Sequel.desc(:created_at))
+    Demand.with_states(:active, :completed).near([self.latitude, self.longitude], 1, units: :km, order: false).order(:state, :distance, Sequel.desc(:created_at))
   end
 
   def image_url
