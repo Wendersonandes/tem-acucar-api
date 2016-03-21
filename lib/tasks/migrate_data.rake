@@ -151,7 +151,7 @@ task :migrate_data do
       SELECT
         id_pedido AS old_id, 
         (SELECT id from users WHERE old_id = id_usuario) AS user_id,
-        (CASE WHEN tempo_registro > (now() - interval '2 weeks') THEN (CASE WHEN status = 'cancelado' THEN 'canceled' ELSE (CASE WHEN status = 'pendente' OR status = 'iniciado' OR status = 'emprestado' THEN 'active' ELSE 'completed' END) END) ELSE 'completed' END) AS state,
+        (CASE WHEN tempo_registro > (now() - interval '1 month') THEN (CASE WHEN status = 'cancelado' THEN 'canceled' ELSE (CASE WHEN status = 'pendente' OR status = 'iniciado' OR status = 'emprestado' THEN 'active' ELSE 'completed' END) END) ELSE 'completed' END) AS state,
         convert_latin1(nome) AS name,
         convert_latin1(descricao) AS description,
         (SELECT latitude from users WHERE old_id = id_usuario) AS latitude,

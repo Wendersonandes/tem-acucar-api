@@ -34,7 +34,7 @@ class User < Sequel::Model
   end
 
   def neighbor_demands
-    Demand.where("id NOT IN (SELECT demand_id FROM refusals WHERE user_id = '#{self.id}')").with_states(:active, :completed).near([self.latitude, self.longitude], 1, units: :km, order: false).order(:state, :distance, Sequel.desc(:created_at))
+    Demand.where("id NOT IN (SELECT demand_id FROM refusals WHERE user_id = '#{self.id}')").with_state(:active).near([self.latitude, self.longitude], 1, units: :km, order: false).order(:state, :distance, Sequel.desc(:created_at))
   end
 
   def image_url
