@@ -22,6 +22,7 @@ class Serializers::Demand < Serializers::Base
       latitude: arg.latitude,
       longitude: arg.longitude,
       radius: arg.radius,
+      distance: 0,
       created_at: arg.created_at.try(:iso8601),
       updated_at: arg.updated_at.try(:iso8601),
     }
