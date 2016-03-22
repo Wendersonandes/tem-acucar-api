@@ -75,9 +75,12 @@ module Endpoints
       return unless access_token
       user = User[uid]
       return unless user
-      token = Token.valid.where(user: user, client: client).reverse(:created_at).first
-      return unless token && token.token == access_token
-      @current_user = user
+      current_user = nil
+      Token.valid.where(user: user, client: client).reverse(:created_at).limit(10).each do |token|
+        current_user = user if token.token == access_token
+      end
+      return unless current_user
+      @current_user = current_user
     end
 
     def error(id, message)
