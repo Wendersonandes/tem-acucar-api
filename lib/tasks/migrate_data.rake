@@ -25,6 +25,7 @@ task :migrate_data do
     result = result.gsub(/^\s+UNIQUE KEY\s.+$/, "CHECK (1=1)")
     result = result.gsub(/ALTER TABLE[^;]+;/, '')
     result = result.gsub("'0000-00-00 00:00:00'", 'NULL')
+    result = result.gsub('\r\n', ' ')
     result = result.gsub('`', '')
     return result
   end
