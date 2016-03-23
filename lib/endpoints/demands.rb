@@ -12,7 +12,7 @@ module Endpoints
         if filter == 'neighborhood'
           demands = current_user.neighborhood_demands
         elsif filter == 'transactions'
-          demands = current_user.demands_with_messages
+          demands = current_user.demands_with_transactions
         end
         encode serialize(demands.limit(limit).offset(offset).all)
       end
