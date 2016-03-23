@@ -152,7 +152,7 @@ task :migrate_data do
     SELECT
       id_pedido AS old_id, 
       (SELECT id from users WHERE old_id = id_usuario) AS user_id,
-      (CASE WHEN tempo_registro > (now() - interval '1 month') THEN (CASE WHEN status = 'cancelado' THEN 'canceled' ELSE (CASE WHEN status = 'pendente' OR status = 'iniciado' OR status = 'emprestado' THEN 'active' ELSE 'completed' END) END) ELSE 'completed' END) AS state,
+      (CASE WHEN status = 'cancelado' THEN 'canceled' ELSE (CASE WHEN status = 'pendente' OR status = 'iniciado' OR status = 'emprestado' THEN 'active' ELSE 'completed' END) END) AS state,
       convert_latin1(nome) AS name,
       convert_latin1(descricao) AS description,
       (SELECT latitude from users WHERE old_id = id_usuario) AS latitude,
@@ -208,7 +208,7 @@ task :migrate_data do
       hm_rn_pedidos_mensagens.id_mensagem AS old_id, 
       (SELECT id FROM transactions WHERE old_id = id_pedido_convite) AS transaction_id,
       (SELECT id from users WHERE old_id = id_usuario) AS user_id,
-      hm_rn_pedidos_mensagens.mensagem AS text,
+      convert_latin1(hm_rn_pedidos_mensagens.mensagem) AS text,
       hm_rn_pedidos_mensagens.tempo_registro AS created_at,
       hm_rn_pedidos_mensagens.tempo_registro AS updated_at
     FROM

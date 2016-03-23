@@ -43,7 +43,7 @@ class User < Sequel::Model
 
   def demands_with_transactions
     Demand
-      .where("id IN (SELECT DISTINCT demand_id FROM transactions INNER JOIN messages ON messages.transaction_id = transactions.id INNER JOIN demands ON transactions.demand_id = demands.id WHERE messages.user_id = '#{self.id}') OR demands.user_id = '#{self.id}'")
+      .where("id IN (SELECT DISTINCT demand_id FROM transactions INNER JOIN messages ON messages.transaction_id = transactions.id INNER JOIN demands ON transactions.demand_id = demands.id WHERE messages.user_id = '#{self.id}' OR demands.user_id = '#{self.id}')")
       .order(Sequel.desc(:state), Sequel.desc(:updated_at))
   end
 

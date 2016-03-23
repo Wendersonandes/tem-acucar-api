@@ -4,4 +4,10 @@ class Message < Sequel::Model
 
   many_to_one :transaction
   many_to_one :user
+
+  def after_create
+    super
+    self.transaction.update last_message_text: self.text
+  end
+
 end
