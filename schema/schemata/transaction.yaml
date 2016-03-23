@@ -74,6 +74,24 @@ links:
     - "$ref": "/schemata/transaction"
     - "$ref": "/schemata/error"
   title: Create
+- description: List existing transactions.
+  href: "/transactions"
+  method: GET
+  rel: instances
+  schema:
+    strictProperties: true
+    properties:
+      demand_id:
+        "$ref": "/schemata/transaction#/definitions/demand_id"
+    type:
+    - object
+  targetSchema:
+    anyOf:
+    - type: array
+      items:
+        "$ref": "/schemata/transaction"
+    - "$ref": "/schemata/error"
+  title: List
 properties:
   id:
     "$ref": "/schemata/transaction#/definitions/id"

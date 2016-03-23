@@ -6,6 +6,7 @@ class Demand < Sequel::Model
   reverse_geocoded_by :latitude, :longitude
 
   many_to_one :user
+  one_to_many :transactions
 
   state_machine initial: :sending do
     state :sending

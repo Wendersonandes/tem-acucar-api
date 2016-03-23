@@ -48,6 +48,14 @@ RSpec.describe Endpoints::Transactions do
     header "Expiry", @token.expiry
   end
 
+  describe 'GET /transactions' do
+    it 'returns correct status code and conforms to schema' do
+      get '/transactions?demand_id=' + @demand.id
+      assert_equal 200, last_response.status
+      assert_schema_conform
+    end
+  end
+
   describe 'POST /transactions' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
