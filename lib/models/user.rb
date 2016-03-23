@@ -36,15 +36,15 @@ class User < Sequel::Model
   def neighborhood_demands
     Demand
       .where("id NOT IN (SELECT demand_id FROM refusals WHERE user_id = '#{self.id}')")
-      .where("state = 'active' OR user_id = '#{self.id}'")
+      .with_state(:active)
       .near([self.latitude, self.longitude], 1, units: :km, order: false)
-      .order(Sequel.desc(:state), :distance, Sequel.desc(:created_at))
+      .order(:distance, Sequel.desc(:created_at))
   end
 
   def demands_with_transactions
     Demand
       .where("id IN (SELECT DISTINCT demand_id FROM transactions INNER JOIN messages ON messages.transaction_id = transactions.id INNER JOIN demands ON transactions.demand_id = demands.id WHERE messages.user_id = '#{self.id}' OR demands.user_id = '#{self.id}')")
-      .order(Sequel.desc(:state), Sequel.desc(:updated_at))
+      .reverse(:updated_at)
   end
 
   def image_url
