@@ -36,6 +36,7 @@ class User < Sequel::Model
   def neighborhood_demands
     Demand
       .where("id NOT IN (SELECT demand_id FROM refusals WHERE user_id = '#{self.id}')")
+      .where("user_id <> '#{self.id}'")
       .with_state(:active)
       .near([self.latitude, self.longitude], 1, units: :km, order: false)
       .order(:distance, Sequel.desc(:created_at))
