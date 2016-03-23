@@ -11,4 +11,9 @@ class Transaction < Sequel::Model
     errors.add(:demand, 'cannot be of the same user as transaction') if self.demand.user == self.user
   end
 
+  def after_save
+    super
+    self.demand.update updated_at: DateTime.now
+  end
+
 end
