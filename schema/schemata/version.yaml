@@ -63,6 +63,12 @@ links:
         "$ref": "/schemata/version#/definitions/platform"
     type:
     - object
+  targetSchema:
+    anyOf:
+    - type: array
+      items:
+        "$ref": "/schemata/version"
+    - "$ref": "/schemata/error"
   title: List
 properties:
   id:

@@ -1,10 +1,10 @@
-class Serializers::Message < Serializers::Base
+class Serializers::Transaction < Serializers::Base
   structure(:default) do |arg|
     {
       id: arg.id,
-      transaction: Serializers::Transaction.new(:default).serialize(arg.transaction),
+      demand: Serializers::Demand.new(:default).serialize(arg.demand),
       user: Serializers::User.new(:default).serialize(arg.user),
-      text: arg.text,
+      last_message_text: arg.last_message_text,
       created_at: arg.created_at.try(:iso8601),
       updated_at: arg.updated_at.try(:iso8601),
     }

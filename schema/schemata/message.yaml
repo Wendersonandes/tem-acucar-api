@@ -1,7 +1,7 @@
 ---
 "$schema": http://json-schema.org/draft-04/hyper-schema
 title: Tem Açúcar - Message
-description: A message is a communication between users about a demand
+description: A message is a communication between users about a transaction
 stability: prototype
 type:
 - object
@@ -12,13 +12,13 @@ definitions:
     format: uuid
     type:
     - string
-  demand:
-    description: demand of the message
+  transaction:
+    description: transaction of the message
     readOnly: true
     type:
     - object
     targetSchema:
-      "$ref": "/schemata/demand"
+      "$ref": "/schemata/transaction"
   user:
     description: user of the message
     readOnly: true
@@ -26,8 +26,8 @@ definitions:
     - object
     targetSchema:
       "$ref": "/schemata/user"
-  demand_id:
-    description: unique identifier of message demand
+  transaction_id:
+    description: unique identifier of message transaction
     readOnly: true
     format: uuid
     type:
@@ -63,8 +63,8 @@ links:
   schema:
     additionalProperties: false
     properties:
-      demand_id:
-        "$ref": "/schemata/message#/definitions/demand_id"
+      transaction_id:
+        "$ref": "/schemata/message#/definitions/transaction_id"
       text:
         "$ref": "/schemata/message#/definitions/text"
     type:
@@ -77,12 +77,12 @@ links:
 properties:
   id:
     "$ref": "/schemata/message#/definitions/id"
-  demand:
-    "$ref": "/schemata/message#/definitions/demand"
+  transaction:
+    "$ref": "/schemata/message#/definitions/transaction"
   user:
     "$ref": "/schemata/message#/definitions/user"
-  demand_id:
-    "$ref": "/schemata/message#/definitions/demand_id"
+  transaction_id:
+    "$ref": "/schemata/message#/definitions/transaction_id"
   user_id:
     "$ref": "/schemata/message#/definitions/user_id"
   text:
@@ -93,7 +93,7 @@ properties:
     "$ref": "/schemata/message#/definitions/updated_at"
 required:
 - id
-- demand
+- transaction
 - user
 - text
 - created_at

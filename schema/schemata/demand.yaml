@@ -52,6 +52,25 @@ definitions:
     description: distant from current user of the demand in kilometers
     type:
     - number
+    - "null"
+  limit:
+    description: maximum of results to be returned when listing demands, '10' if not informed
+    type:
+    - string
+    - "null"
+  offset:
+    description: offset (starting point) to be used when listing demands, '0' if not informed
+    type:
+    - string
+    - "null"
+  filter:
+    description: type of filter to be used when listing demands, 'neighborhood' if not informed
+    enum:
+    - neighborhood
+    - transactions
+    type:
+    - string
+    - "null"
   identity:
     anyOf:
     - "$ref": "/schemata/demand#/definitions/id"
@@ -90,6 +109,23 @@ links:
   href: "/demands"
   method: GET
   rel: instances
+  schema:
+    additionalProperties: false
+    properties:
+      limit:
+        "$ref": "/schemata/demand#/definitions/limit"
+      offset:
+        "$ref": "/schemata/demand#/definitions/offset"
+      filter:
+        "$ref": "/schemata/demand#/definitions/filter"
+    type:
+    - object
+  targetSchema:
+    anyOf:
+    - type: array
+      items:
+        "$ref": "/schemata/demand"  
+    - "$ref": "/schemata/error"
   title: List
 properties:
   id:

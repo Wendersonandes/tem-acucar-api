@@ -58,6 +58,11 @@ definitions:
     type:
     - number
     - "null"
+  distance:
+    description: distant from current user of the demand in kilometers
+    type:
+    - number
+    - "null"
   address_name:
     description: address name of user
     type:
@@ -180,11 +185,21 @@ links:
   href: "/users/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}"
   method: GET
   rel: self
+  targetSchema:
+    anyOf:
+    - "$ref": "/schemata/user"
+    - "$ref": "/schemata/error"
   title: Info
 - description: List existing users.
   href: "/users"
   method: GET
   rel: instances
+  targetSchema:
+    anyOf:
+    - type: array
+      items:
+        "$ref": "/schemata/user"
+    - "$ref": "/schemata/error"
   title: List
 - description: Update an existing user.
   href: "/users/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}"
@@ -255,6 +270,8 @@ properties:
     "$ref": "/schemata/user#/definitions/latitude"
   longitude:
     "$ref": "/schemata/user#/definitions/longitude"
+  distance:
+    "$ref": "/schemata/user#/definitions/distance"
   address_name:
     "$ref": "/schemata/user#/definitions/address_name"
   address_thoroughfare:

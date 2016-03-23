@@ -1,6 +1,6 @@
 require "spec_helper"
 
-RSpec.describe Endpoints::Messages do
+RSpec.describe Endpoints::Transactions do
   include Committee::Test::Methods
   include Rack::Test::Methods
 
@@ -38,10 +38,6 @@ RSpec.describe Endpoints::Messages do
       longitude: 50,
       radius: 1,
     )
-    @transaction = Transaction.create(
-      demand: @demand,
-      user: @user,
-    )
   end
 
   before :each do
@@ -52,12 +48,11 @@ RSpec.describe Endpoints::Messages do
     header "Expiry", @token.expiry
   end
 
-  describe 'POST /messages' do
+  describe 'POST /transactions' do
     it 'returns correct status code and conforms to schema' do
       header "Content-Type", "application/json"
-      post '/messages', MultiJson.encode({
-        transaction_id: @transaction.id,
-        text: 'Foo bar',
+      post '/transactions', MultiJson.encode({
+        demand_id: @demand.id,
       })
       assert_equal 201, last_response.status
       assert_schema_conform

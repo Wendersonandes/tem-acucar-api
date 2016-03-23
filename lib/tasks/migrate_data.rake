@@ -12,6 +12,7 @@ task :migrate_data do
     result = result.gsub(/int\(\d+\)/, 'integer')
     result = result.gsub('longtext', 'text')
     result = result.gsub('varchar(500)', 'text')
+    result = result.gsub('varchar(300)', 'text')
     result = result.gsub('datetime', 'timestamp')
     result = result.gsub('CHARACTER SET utf8', '')
     result = result.gsub('ENGINE=InnoDB', '')
@@ -128,7 +129,7 @@ task :migrate_data do
   end
 
   import_demands = true
-  print "Looking for 'demands' files..."
+  print "Looking for 'demands' file..."
   import_demands = false unless File.exists?(@path + "/hm_rn_pedidos.sql")
   puts (import_demands ? "found!" : "not found.")
   if import_demands
@@ -148,20 +149,73 @@ task :migrate_data do
       created_at,
       updated_at
     )
-      SELECT
-        id_pedido AS old_id, 
-        (SELECT id from users WHERE old_id = id_usuario) AS user_id,
-        (CASE WHEN tempo_registro > (now() - interval '1 month') THEN (CASE WHEN status = 'cancelado' THEN 'canceled' ELSE (CASE WHEN status = 'pendente' OR status = 'iniciado' OR status = 'emprestado' THEN 'active' ELSE 'completed' END) END) ELSE 'completed' END) AS state,
-        convert_latin1(nome) AS name,
-        convert_latin1(descricao) AS description,
-        (SELECT latitude from users WHERE old_id = id_usuario) AS latitude,
-        (SELECT longitude from users WHERE old_id = id_usuario) AS longitude,
-        1 AS radius,
-        tempo_registro AS created_at,
-        (CASE WHEN tempo_devolucao IS NOT NULL THEN tempo_devolucao ELSE (CASE WHEN tempo_aceito IS NOT NULL THEN tempo_aceito ELSE tempo_registro END) END) AS updated_at
-      FROM
-        hm_rn_pedidos
+    SELECT
+      id_pedido AS old_id, 
+      (SELECT id from users WHERE old_id = id_usuario) AS user_id,
+      (CASE WHEN tempo_registro > (now() - interval '1 month') THEN (CASE WHEN status = 'cancelado' THEN 'canceled' ELSE (CASE WHEN status = 'pendente' OR status = 'iniciado' OR status = 'emprestado' THEN 'active' ELSE 'completed' END) END) ELSE 'completed' END) AS state,
+      convert_latin1(nome) AS name,
+      convert_latin1(descricao) AS description,
+      (SELECT latitude from users WHERE old_id = id_usuario) AS latitude,
+      (SELECT longitude from users WHERE old_id = id_usuario) AS longitude,
+      1 AS radius,
+      tempo_registro AS created_at,
+      (CASE WHEN tempo_devolucao IS NOT NULL THEN tempo_devolucao ELSE (CASE WHEN tempo_aceito IS NOT NULL THEN tempo_aceito ELSE tempo_registro END) END) AS updated_at
+    FROM
+      hm_rn_pedidos
     "
+  end
+
+  import_messages = true
+  print "Looking for 'transactions' and 'messages' file..."
+  import_messages = false unless File.exists?(@path + "/hm_rn_pedidos_mensagens.sql")
+  puts (import_messages ? "found!" : "not found.")
+  if import_messages
+    import_file('hm_rn_pedidos_mensagens')
+    puts "  Deleting messages with user not found"
+    DB.run "DELETE FROM hm_rn_pedidos_mensagens WHERE id_usuario NOT IN (SELECT old_id FROM users)"
+    puts "  Deleting messages with demand not found"
+    DB.run "DELETE FROM hm_rn_pedidos_mensagens WHERE id_pedido NOT IN (SELECT old_id FROM demands)"
+    puts "  Migrating transactions data from temporary tables"
+    DB.run "INSERT INTO transactions (
+      old_id,
+      demand_id,
+      user_id
+    )
+    SELECT
+      hm_rn_pedidos_mensagens.id_pedido_convite AS old_id, 
+      (SELECT id FROM demands WHERE old_id = hm_rn_pedidos_mensagens.id_pedido) AS demand_id, 
+      (SELECT id from users WHERE old_id = hm_rn_pedidos_mensagens.id_usuario) AS user_id
+    FROM
+      hm_rn_pedidos_mensagens, hm_rn_pedidos
+    WHERE
+      hm_rn_pedidos_mensagens.id_pedido = hm_rn_pedidos.id_pedido AND
+      hm_rn_pedidos_mensagens.id_usuario <> hm_rn_pedidos.id_usuario
+    GROUP BY
+      old_id, demand_id, user_id
+    "
+    puts "  Deleting messages with transaction not found"
+    DB.run "DELETE FROM hm_rn_pedidos_mensagens WHERE id_pedido_convite NOT IN (SELECT old_id FROM transactions)"
+    puts "  Migrating messages data from temporary tables"
+    DB.run "INSERT INTO messages (
+      old_id,
+      transaction_id,
+      user_id,
+      text,
+      created_at,
+      updated_at
+    )
+    SELECT
+      hm_rn_pedidos_mensagens.id_mensagem AS old_id, 
+      (SELECT id FROM transactions WHERE old_id = id_pedido_convite) AS transaction_id,
+      (SELECT id from users WHERE old_id = id_usuario) AS user_id,
+      hm_rn_pedidos_mensagens.mensagem AS text,
+      hm_rn_pedidos_mensagens.tempo_registro AS created_at,
+      hm_rn_pedidos_mensagens.tempo_registro AS updated_at
+    FROM
+      hm_rn_pedidos_mensagens
+    "
+    puts "  Updating transactions last message text"
+    DB.run "UPDATE transactions SET last_message_text = (SELECT text FROM messages WHERE transaction_id = transactions.id ORDER BY created_at DESC LIMIT 1)"
   end
 
 end

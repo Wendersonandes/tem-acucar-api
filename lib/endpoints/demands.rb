@@ -8,7 +8,13 @@ module Endpoints
       get do
         limit = params['limit'] || 10
         offset = params['offset'] || 0
-        encode serialize(current_user.neighbor_demands.limit(limit).offset(offset).all)
+        filter = params['filter'] || 'neighborhood'
+        if filter == 'neighborhood'
+          demands = current_user.neighborhood_demands
+        elsif filter == 'transactions'
+          demands = current_user.demands_with_messages
+        end
+        encode serialize(demands.limit(limit).offset(offset).all)
       end
 
       post do
