@@ -76,7 +76,7 @@ module Endpoints
       user = User[uid]
       return unless user
       current_user = nil
-      Token.valid.where(user: user, client: client).reverse(:created_at).limit(10).each do |token|
+      Token.valid.where(user: user, client: client).reverse(:created_at).limit(20).each do |token|
         current_user = user if token.token == access_token
       end
       return unless current_user

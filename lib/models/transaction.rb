@@ -4,6 +4,7 @@ class Transaction < Sequel::Model
 
   many_to_one :demand
   many_to_one :user
+  one_to_many :messages
 
   def validate
     super

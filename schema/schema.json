@@ -673,6 +673,20 @@
             "string"
           ]
         },
+        "limit": {
+          "description": "maximum of results to be returned when listing demands, '10' if not informed",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "offset": {
+          "description": "offset (starting point) to be used when listing demands, '0' if not informed",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "identity": {
           "anyOf": [
             {
@@ -726,6 +740,48 @@
             ]
           },
           "title": "Create"
+        },
+        {
+          "description": "List existing messages.",
+          "href": "/messages",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "limit": {
+                "$ref": "#/definitions/message/definitions/limit"
+              },
+              "offset": {
+                "$ref": "#/definitions/message/definitions/offset"
+              },
+              "transaction_id": {
+                "$ref": "#/definitions/message/definitions/transaction_id"
+              }
+            },
+            "required": [
+              "transaction_id"
+            ],
+            "type": [
+              "object"
+            ]
+          },
+          "targetSchema": {
+            "anyOf": [
+              {
+                "type": [
+                  "array"
+                ],
+                "items": {
+                  "$ref": "#/definitions/message"
+                }
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
+            ]
+          },
+          "title": "List"
         }
       ],
       "properties": {
