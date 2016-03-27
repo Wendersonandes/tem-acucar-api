@@ -59,7 +59,7 @@ class User < Sequel::Model
 
   def gravatar_url
     gravatar_id = Digest::MD5.hexdigest(self.email.downcase)
-    "http://gravatar.com/avatar/#{gravatar_id}.png?s=48&d=mm"
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=128&d=mm"
   end
 
   def password
