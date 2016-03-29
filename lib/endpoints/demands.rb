@@ -22,9 +22,9 @@ module Endpoints
             if demand.user == current_user
               transactions = demand.transactions
             else
-              transactions = demand.transactions_dataset.where(user: current_user)
+              transactions = demand.transactions_dataset.where(user: current_user).all
             end
-            transactions = Serializers::Transaction.new(:default).serialize(transactions.all)
+            transactions = Serializers::Transaction.new(:default).serialize(transactions)
             serialize(demand).merge({transactions: transactions}) 
           end
           encode demands
