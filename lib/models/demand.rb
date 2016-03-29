@@ -36,11 +36,4 @@ class Demand < Sequel::Model
     end
   end
 
-  def users_with_messages
-    User
-      .where("id IN (SELECT DISTINCT user_id FROM messages WHERE demand_id = '#{self.id}')")
-      .near([self.latitude, self.longitude], 100000, units: :km, order: false)
-      .order(:distance, Sequel.desc(:updated_at))
-  end
-
 end

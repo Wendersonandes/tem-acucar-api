@@ -127,10 +127,8 @@ properties:
     "$ref": "/schemata/message#/definitions/updated_at"
 required:
 - id
-- transaction
-- user
+- user_id
 - text
 - created_at
-- updated_at
 additionalProperties: false
 id: schemata/message

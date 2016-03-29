@@ -36,6 +36,7 @@ class User < Sequel::Model
   def neighborhood_demands
     Demand
       .where("id NOT IN (SELECT demand_id FROM refusals WHERE user_id = '#{self.id}')")
+      .where("id NOT IN (SELECT demand_id FROM transactions WHERE user_id = '#{self.id}')")
       .where("user_id <> '#{self.id}'")
       .with_state(:active)
       .near([self.latitude, self.longitude], 1, units: :km, order: false)
@@ -44,7 +45,7 @@ class User < Sequel::Model
 
   def demands_with_transactions
     Demand
-      .where("id IN (SELECT DISTINCT demand_id FROM transactions INNER JOIN messages ON messages.transaction_id = transactions.id INNER JOIN demands ON transactions.demand_id = demands.id WHERE messages.user_id = '#{self.id}' OR demands.user_id = '#{self.id}')")
+      .where("id IN (SELECT DISTINCT demand_id FROM transactions INNER JOIN demands ON transactions.demand_id = demands.id WHERE demands.user_id = '#{self.id}') OR id IN (SELECT DISTINCT demand_id FROM transactions WHERE user_id = '#{self.id}')")
       .reverse(:updated_at)
   end
 

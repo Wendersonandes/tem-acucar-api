@@ -8,8 +8,6 @@ class Serializers::User < Serializers::Base
       longitude: arg.longitude,
       distance: arg.values[:distance],
       image_url: arg.image_url,
-      created_at: arg.created_at.try(:iso8601),
-      updated_at: arg.updated_at.try(:iso8601),
     }
   end
 
@@ -40,8 +38,6 @@ class Serializers::User < Serializers::Base
       uploaded_image_url: arg.uploaded_image_url,
       facebook_image_url: arg.facebook_image_url,
       image_url: arg.image_url,
-      created_at: arg.created_at.try(:iso8601),
-      updated_at: arg.updated_at.try(:iso8601),
     }
   end
 end

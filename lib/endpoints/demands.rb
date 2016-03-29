@@ -14,7 +14,21 @@ module Endpoints
         elsif filter == 'transactions'
           demands = current_user.demands_with_transactions
         end
-        encode serialize(demands.limit(limit).offset(offset).all)
+        demands = demands.limit(limit).offset(offset).all
+        if filter == 'neighborhood'
+          encode serialize(demands)
+        elsif filter == 'transactions'
+          demands = demands.map do |demand|
+            if demand.user == current_user
+              transactions = demand.transactions
+            else
+              transactions = demand.transactions_dataset.where(user: current_user)
+            end
+            transactions = Serializers::Transaction.new(:default).serialize(transactions.all)
+            serialize(demand).merge({transactions: transactions}) 
+          end
+          encode demands
+        end
       end
 
       post do

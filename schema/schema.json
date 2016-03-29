@@ -9,7 +9,6 @@
       "title": "Tem Açúcar - Authentication",
       "description": "An authentication represents an individual signed in to use the Tem Açúcar app",
       "stability": "prototype",
-      "strictProperties": true,
       "type": [
         "object"
       ],
@@ -160,7 +159,11 @@
         "updated_at": {
           "$ref": "#/definitions/authentication/definitions/updated_at"
         }
-      }
+      },
+      "required": [
+        "id"
+      ],
+      "additionalProperties": false
     },
     "demand": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
@@ -236,6 +239,13 @@
           "type": [
             "number",
             "null"
+          ]
+        },
+        "transactions": {
+          "description": "transactions of the demand",
+          "readOnly": true,
+          "type": [
+            "array"
           ]
         },
         "limit": {
@@ -367,6 +377,9 @@
         "user": {
           "$ref": "#/definitions/demand/definitions/user"
         },
+        "transactions": {
+          "$ref": "#/definitions/demand/definitions/transactions"
+        },
         "state": {
           "$ref": "#/definitions/demand/definitions/state"
         },
@@ -401,8 +414,7 @@
         "state",
         "name",
         "description",
-        "created_at",
-        "updated_at"
+        "created_at"
       ],
       "additionalProperties": false
     },
@@ -577,11 +589,7 @@
         }
       },
       "required": [
-        "id",
-        "demand",
-        "user",
-        "created_at",
-        "updated_at"
+        "id"
       ],
       "additionalProperties": false
     },
@@ -812,11 +820,9 @@
       },
       "required": [
         "id",
-        "transaction",
-        "user",
+        "user_id",
         "text",
-        "created_at",
-        "updated_at"
+        "created_at"
       ],
       "additionalProperties": false
     },
@@ -1033,11 +1039,7 @@
         }
       },
       "required": [
-        "id",
-        "demand",
-        "user",
-        "created_at",
-        "updated_at"
+        "id"
       ],
       "additionalProperties": false
     },
@@ -1217,9 +1219,7 @@
         "id",
         "demand",
         "user",
-        "last_message_text",
-        "created_at",
-        "updated_at"
+        "last_message_text"
       ],
       "additionalProperties": false
     },
@@ -1692,9 +1692,7 @@
         "id",
         "first_name",
         "last_name",
-        "image_url",
-        "created_at",
-        "updated_at"
+        "image_url"
       ],
       "additionalProperties": false
     },
@@ -1703,7 +1701,6 @@
       "title": "Tem Açúcar - Version",
       "description": "An user represents a version of the Tem Açúcar app for a platform",
       "stability": "prototype",
-      "strictProperties": true,
       "type": [
         "object"
       ],
@@ -1828,7 +1825,12 @@
         "updated_at": {
           "$ref": "#/definitions/version/definitions/updated_at"
         }
-      }
+      },
+      "required": [
+        "number",
+        "expiry"
+      ],
+      "additionalProperties": false
     }
   },
   "properties": {

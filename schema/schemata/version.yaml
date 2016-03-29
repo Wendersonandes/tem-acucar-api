@@ -3,7 +3,6 @@
 title: Tem Açúcar - Version
 description: An user represents a version of the Tem Açúcar app for a platform
 stability: prototype
-strictProperties: true
 type:
 - object
 definitions:
@@ -83,4 +82,8 @@ properties:
     "$ref": "/schemata/version#/definitions/created_at"
   updated_at:
     "$ref": "/schemata/version#/definitions/updated_at"
+required:
+- number
+- expiry
+additionalProperties: false
 id: schemata/version

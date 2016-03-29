@@ -85,9 +85,5 @@ properties:
     "$ref": "/schemata/refusal#/definitions/updated_at"
 required:
 - id
-- demand
-- user
-- created_at
-- updated_at
 additionalProperties: false
 id: schemata/refusal

@@ -114,7 +114,5 @@ required:
 - demand
 - user
 - last_message_text
-- created_at
-- updated_at
 additionalProperties: false
 id: schemata/transaction

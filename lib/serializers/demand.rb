@@ -8,7 +8,6 @@ class Serializers::Demand < Serializers::Base
       description: arg.description,
       distance: arg.values[:distance],
       created_at: arg.created_at.try(:iso8601),
-      updated_at: arg.updated_at.try(:iso8601),
     }
   end
 
@@ -21,10 +20,8 @@ class Serializers::Demand < Serializers::Base
       description: arg.description,
       latitude: arg.latitude,
       longitude: arg.longitude,
-      radius: arg.radius,
       distance: 0,
       created_at: arg.created_at.try(:iso8601),
-      updated_at: arg.updated_at.try(:iso8601),
     }
   end
 end

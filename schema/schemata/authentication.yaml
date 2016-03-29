@@ -3,7 +3,6 @@
 title: Tem Açúcar - Authentication
 description: An authentication represents an individual signed in to use the Tem Açúcar app
 stability: prototype
-strictProperties: true
 type:
 - object
 definitions:
@@ -102,4 +101,7 @@ properties:
     "$ref": "/schemata/authentication#/definitions/created_at"
   updated_at:
     "$ref": "/schemata/authentication#/definitions/updated_at"
+required:
+- id
+additionalProperties: false
 id: schemata/authentication

@@ -53,6 +53,11 @@ definitions:
     type:
     - number
     - "null"
+  transactions:
+    description: transactions of the demand
+    readOnly: true
+    type:
+    - array
   limit:
     description: maximum of results to be returned when listing demands, '10' if not informed
     type:
@@ -132,6 +137,8 @@ properties:
     "$ref": "/schemata/demand#/definitions/id"
   user:
     "$ref": "/schemata/demand#/definitions/user"
+  transactions:
+    "$ref": "/schemata/demand#/definitions/transactions"
   state:
     "$ref": "/schemata/demand#/definitions/state"
   name:
@@ -157,6 +164,5 @@ required:
 - name
 - description
 - created_at
-- updated_at
 additionalProperties: false
 id: schemata/demand

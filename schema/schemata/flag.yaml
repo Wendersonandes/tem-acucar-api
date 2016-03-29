@@ -85,9 +85,5 @@ properties:
     "$ref": "/schemata/flag#/definitions/updated_at"
 required:
 - id
-- demand
-- user
-- created_at
-- updated_at
 additionalProperties: false
 id: schemata/flag
