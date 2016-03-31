@@ -11,6 +11,14 @@ class Serializers::User < Serializers::Base
     }
   end
 
+  structure(:map) do |arg|
+    {
+      id: arg.id,
+      latitude: arg.latitude,
+      longitude: arg.longitude,
+    }
+  end
+
   structure(:current_user) do |arg|
     {
       id: arg.id,

@@ -310,8 +310,5 @@ properties:
     "$ref": "/schemata/user#/definitions/updated_at"
 required:
 - id
-- first_name
-- last_name
-- image_url
 additionalProperties: false
 id: schemata/user

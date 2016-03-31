@@ -6,7 +6,7 @@ module Endpoints
       end
 
       get do
-        encode serialize(current_user.neighbors)
+        encode serialize(current_user.neighbors, :map)
       end
 
       post do
