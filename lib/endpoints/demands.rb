@@ -12,7 +12,7 @@ module Endpoints
         if filter == 'neighborhood'
           demands = current_user.neighborhood_demands
         elsif filter == 'user'
-          demands = current_user.demands_dataset.reverse(:created_at)
+          demands = current_user.demands_dataset.reverse(:updated_at)
         elsif filter == 'transactions'
           demands = current_user.demands_with_transactions
         end
