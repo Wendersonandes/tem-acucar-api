@@ -11,11 +11,13 @@ module Endpoints
         filter = params['filter'] || 'neighborhood'
         if filter == 'neighborhood'
           demands = current_user.neighborhood_demands
+        elsif filter == 'user'
+          demands = current_user.demands_dataset.reverse(:created_at)
         elsif filter == 'transactions'
           demands = current_user.demands_with_transactions
         end
         demands = demands.limit(limit).offset(offset).all
-        if filter == 'neighborhood'
+        if ['neighborhood', 'user'].include?(filter)
           encode serialize(demands)
         elsif filter == 'transactions'
           demands = demands.map do |demand|

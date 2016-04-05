@@ -266,7 +266,8 @@
           "description": "type of filter to be used when listing demands, 'neighborhood' if not informed",
           "enum": [
             "neighborhood",
-            "transactions"
+            "transactions",
+            "user"
           ],
           "type": [
             "string",

@@ -73,6 +73,7 @@ definitions:
     enum:
     - neighborhood
     - transactions
+    - user
     type:
     - string
     - "null"
