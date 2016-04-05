@@ -252,6 +252,10 @@ links:
         "$ref": "/schemata/user#/definitions/reviewed_location"
     type:
     - object
+  targetSchema:
+    anyOf:
+    - "$ref": "/schemata/user"
+    - "$ref": "/schemata/error"
   title: Update
 properties:
   id:

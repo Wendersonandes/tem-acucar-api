@@ -44,6 +44,31 @@ module Endpoints
         encode serialize(demand, :current_user)
       end
 
+      put "/:id/complete" do |id|
+        demand = Demand.first(id: id)
+        raise Pliny::Errors::NotFound unless demand
+        raise Pliny::Errors::Forbidden unless demand.user == current_user
+        demand.complete!
+        encode serialize(demand, :current_user)
+      end
+
+      put "/:id/cancel" do |id|
+        demand = Demand.first(id: id)
+        raise Pliny::Errors::NotFound unless demand
+        raise Pliny::Errors::Forbidden unless demand.user == current_user
+        demand.cancel!
+        encode serialize(demand, :current_user)
+      end
+
+      put "/:id/reactivate" do |id|
+        demand = Demand.first(id: id)
+        raise Pliny::Errors::NotFound unless demand
+        raise Pliny::Errors::Forbidden unless demand.user == current_user
+        raise Pliny::Errors::Forbidden if demand.state == 'flagged'
+        demand.reactivate!
+        encode serialize(demand, :current_user)
+      end
+
       private
 
       def serialize(data, structure = :default)

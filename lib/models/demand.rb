@@ -27,12 +27,12 @@ class Demand < Sequel::Model
       transition [:sending, :active] => :canceled
     end
 
-    event :reactivate do
-      transition [:flagged, :canceled] => :active
-    end
-
     event :complete do
       transition [:sending, :active] => :completed
+    end
+
+    event :reactivate do
+      transition [:flagged, :completed, :canceled] => :active
     end
   end
 

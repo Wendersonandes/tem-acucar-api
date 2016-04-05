@@ -133,6 +133,48 @@ links:
         "$ref": "/schemata/demand"  
     - "$ref": "/schemata/error"
   title: List
+- description: Complete a demand
+  href: "/demands/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}/complete"
+  method: PUT
+  rel: update
+  schema:
+    additionalProperties: false
+    properties:
+    type:
+    - object
+  targetSchema:
+    anyOf:
+    - "$ref": "/schemata/demand"
+    - "$ref": "/schemata/error"
+  title: Complete
+- description: Cancel a demand
+  href: "/demands/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}/cancel"
+  method: PUT
+  rel: update
+  schema:
+    additionalProperties: false
+    properties:
+    type:
+    - object
+  targetSchema:
+    anyOf:
+    - "$ref": "/schemata/demand"
+    - "$ref": "/schemata/error"
+  title: Cancel
+- description: Reactivate a demand
+  href: "/demands/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}/reactivate"
+  method: PUT
+  rel: update
+  schema:
+    additionalProperties: false
+    properties:
+    type:
+    - object
+  targetSchema:
+    anyOf:
+    - "$ref": "/schemata/demand"
+    - "$ref": "/schemata/error"
+  title: Reactivate
 properties:
   id:
     "$ref": "/schemata/demand#/definitions/id"

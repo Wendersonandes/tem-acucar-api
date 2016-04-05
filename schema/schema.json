@@ -369,6 +369,78 @@
             ]
           },
           "title": "List"
+        },
+        {
+          "description": "Complete a demand",
+          "href": "/demands/{(%23%2Fdefinitions%2Fuser%2Fdefinitions%2Fidentity)}/complete",
+          "method": "PUT",
+          "rel": "update",
+          "schema": {
+            "additionalProperties": false,
+            "properties": null,
+            "type": [
+              "object"
+            ]
+          },
+          "targetSchema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/demand"
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
+            ]
+          },
+          "title": "Complete"
+        },
+        {
+          "description": "Cancel a demand",
+          "href": "/demands/{(%23%2Fdefinitions%2Fuser%2Fdefinitions%2Fidentity)}/cancel",
+          "method": "PUT",
+          "rel": "update",
+          "schema": {
+            "additionalProperties": false,
+            "properties": null,
+            "type": [
+              "object"
+            ]
+          },
+          "targetSchema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/demand"
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
+            ]
+          },
+          "title": "Cancel"
+        },
+        {
+          "description": "Reactivate a demand",
+          "href": "/demands/{(%23%2Fdefinitions%2Fuser%2Fdefinitions%2Fidentity)}/reactivate",
+          "method": "PUT",
+          "rel": "update",
+          "schema": {
+            "additionalProperties": false,
+            "properties": null,
+            "type": [
+              "object"
+            ]
+          },
+          "targetSchema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/demand"
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
+            ]
+          },
+          "title": "Reactivate"
         }
       ],
       "properties": {
@@ -1601,6 +1673,16 @@
             },
             "type": [
               "object"
+            ]
+          },
+          "targetSchema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/user"
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
             ]
           },
           "title": "Update"
