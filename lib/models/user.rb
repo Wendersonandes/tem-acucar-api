@@ -86,9 +86,20 @@ class User < Sequel::Model
   end
 
   def send_email(subject, message)
-    @mandrill ||= Mandrill::API.new
-    message = @mandrill.messages.send_template 'tem-acucar', [{name: 'first_name', content: self.first_name}, {name: 'message', content: message}], {subject: subject, to: [{email: self.email, name: self.full_name}]}
-    message.is_a?(Array) && message[0] && message[0]["status"] == "sent"
+    email = "#{self.full_name} <#{self.email}>"
+    recipients = [SendGrid::Recipient.new(email)]
+    template = SendGrid::Template.new(Config.sendgrid_template_id)
+    client = SendGrid::Client.new(api_key: Config.sendgrid_api_key)
+    mailer = SendGrid::TemplateMailer.new(client, template, recipients)
+    full_message = "Olá, #{self.first_name}!\n\n#{message}"
+    response = mailer.mail({
+      from: 'ola@temacucar.com',
+      from_name: 'Tem Açúcar',
+      html: full_message.gsub("\n", "<br/>"),
+      text: full_message,
+      subject: subject
+    })
+    response.code == 200
   end
 
   def send_password_token

@@ -35,6 +35,7 @@ module Config
   override :versioning,       false, bool
 
   # Tem Açúcar API specific
-  optional :mandrill_apikey, string
+  optional :sendgrid_api_key, string
+  optional :sendgrid_template_id, string
 
 end

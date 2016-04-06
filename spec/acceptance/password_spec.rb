@@ -22,19 +22,16 @@ RSpec.describe Endpoints::Password do
     @user.password_token = 'foobar'
     @user.save
 
-    # Stubs Mandrill API
-    module ::Mandrill
-      class FakeMessages
-        def send_template(arg1, arg2, arg3)
-          [{"status" => "sent"}]
+    # Stubs Sendgrid API
+    module ::SendGrid
+      class FakeResponse
+        def code
+          200
         end
       end
-      class API
-        def initialize
-          @messages = FakeMessages.new
-        end
-        def messages
-          @messages
+      class TemplateMailer
+        def mail(config)
+          FakeResponse.new
         end
       end
     end
