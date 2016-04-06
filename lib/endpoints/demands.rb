@@ -71,6 +71,7 @@ module Endpoints
         raise Pliny::Errors::NotFound unless demand
         raise Pliny::Errors::Forbidden unless demand.user == current_user || current_user.admin
         raise Pliny::Errors::Forbidden if demand.state == 'flagged' && !current_user.admin
+        raise Pliny::Errors::Forbidden if demand.state == 'canceled' && !current_user.admin
         demand.reactivate!
         encode serialize(demand, :current_user)
       end
