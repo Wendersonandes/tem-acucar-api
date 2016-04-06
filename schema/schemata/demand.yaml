@@ -26,6 +26,7 @@ definitions:
     - active
     - canceled
     - completed
+    - flagged
     type:
     - string
   name:
@@ -75,6 +76,7 @@ definitions:
     - transactions
     - user
     - admin
+    - flagged
     type:
     - string
     - "null"

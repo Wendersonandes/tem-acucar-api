@@ -12,6 +12,9 @@ module Endpoints
         if filter == 'admin'
           raise Pliny::Errors::Forbidden unless current_user.admin
           demands = Demand.reverse(:created_at)
+        elsif filter == 'flagged'
+          raise Pliny::Errors::Forbidden unless current_user.admin
+          demands = Demand.with_state(:flagged).reverse(:updated_at)
         elsif filter == 'neighborhood'
           demands = current_user.neighborhood_demands
         elsif filter == 'user'
@@ -50,7 +53,7 @@ module Endpoints
       put "/:id/complete" do |id|
         demand = Demand.first(id: id)
         raise Pliny::Errors::NotFound unless demand
-        raise Pliny::Errors::Forbidden unless demand.user == current_user
+        raise Pliny::Errors::Forbidden unless demand.user == current_user || current_user.admin
         demand.complete!
         encode serialize(demand, :current_user)
       end
@@ -58,7 +61,7 @@ module Endpoints
       put "/:id/cancel" do |id|
         demand = Demand.first(id: id)
         raise Pliny::Errors::NotFound unless demand
-        raise Pliny::Errors::Forbidden unless demand.user == current_user
+        raise Pliny::Errors::Forbidden unless demand.user == current_user || current_user.admin
         demand.cancel!
         encode serialize(demand, :current_user)
       end
@@ -66,8 +69,8 @@ module Endpoints
       put "/:id/reactivate" do |id|
         demand = Demand.first(id: id)
         raise Pliny::Errors::NotFound unless demand
-        raise Pliny::Errors::Forbidden unless demand.user == current_user
-        raise Pliny::Errors::Forbidden if demand.state == 'flagged'
+        raise Pliny::Errors::Forbidden unless demand.user == current_user || current_user.admin
+        raise Pliny::Errors::Forbidden if demand.state == 'flagged' && !current_user.admin
         demand.reactivate!
         encode serialize(demand, :current_user)
       end
