@@ -267,7 +267,8 @@
           "enum": [
             "neighborhood",
             "transactions",
-            "user"
+            "user",
+            "admin"
           ],
           "type": [
             "string",
@@ -1494,6 +1495,7 @@
         },
         "admin": {
           "description": "wheter or not user can administrate the whole Tem Açúcar app",
+          "readOnly": true,
           "type": [
             "boolean"
           ]
@@ -1763,6 +1765,9 @@
         },
         "reviewed_location": {
           "$ref": "#/definitions/user/definitions/reviewed_location"
+        },
+        "admin": {
+          "$ref": "#/definitions/user/definitions/admin"
         },
         "created_at": {
           "$ref": "#/definitions/user/definitions/created_at"

@@ -141,6 +141,7 @@ definitions:
     - boolean
   admin:
     description: wheter or not user can administrate the whole Tem Açúcar app
+    readOnly: true
     type:
     - boolean
   identity:
@@ -308,6 +309,8 @@ properties:
     "$ref": "/schemata/user#/definitions/reviewed_email"
   reviewed_location:
     "$ref": "/schemata/user#/definitions/reviewed_location"
+  admin:
+    "$ref": "/schemata/user#/definitions/admin"
   created_at:
     "$ref": "/schemata/user#/definitions/created_at"
   updated_at:

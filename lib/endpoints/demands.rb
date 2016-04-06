@@ -9,7 +9,10 @@ module Endpoints
         limit = params['limit'] || 10
         offset = params['offset'] || 0
         filter = params['filter'] || 'neighborhood'
-        if filter == 'neighborhood'
+        if filter == 'admin'
+          raise Pliny::Errors::Forbidden unless current_user.admin
+          demands = Demand.reverse(:created_at)
+        elsif filter == 'neighborhood'
           demands = current_user.neighborhood_demands
         elsif filter == 'user'
           demands = current_user.demands_dataset.reverse(:updated_at)
@@ -17,9 +20,7 @@ module Endpoints
           demands = current_user.demands_with_transactions
         end
         demands = demands.limit(limit).offset(offset).all
-        if ['neighborhood', 'user'].include?(filter)
-          encode serialize(demands)
-        elsif filter == 'transactions'
+        if filter == 'transactions'
           demands = demands.map do |demand|
             if demand.user == current_user
               transactions = demand.transactions
@@ -30,6 +31,8 @@ module Endpoints
             serialize(demand).merge({transactions: transactions}) 
           end
           encode demands
+        else
+          encode serialize(demands)
         end
       end
 

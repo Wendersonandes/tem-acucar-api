@@ -46,6 +46,7 @@ class Serializers::User < Serializers::Base
       uploaded_image_url: arg.uploaded_image_url,
       facebook_image_url: arg.facebook_image_url,
       image_url: arg.image_url,
+      admin: arg.admin,
     }
   end
 end
