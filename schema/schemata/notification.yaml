@@ -125,22 +125,22 @@ links:
         "$ref": "/schemata/notification"
     - "$ref": "/schemata/error"
   title: List
-- description: Update an existing notification.
-  href: "/notifications/{(%2Fschemata%2Fnotification%23%2Fdefinitions%2Fidentity)}"
+- description: Update all unread notifications to read.
+  href: "/notifications/read-all"
   method: PUT
   rel: update
   schema:
     additionalProperties: false
     properties:
-      read:
-        "$ref": "/schemata/notification#/definitions/read"
     type:
     - object
   targetSchema:
     anyOf:
-    - "$ref": "/schemata/notification"
+    - type: array
+      items:
+        "$ref": "/schemata/notification"
     - "$ref": "/schemata/error"
-  title: Update
+  title: Read all
 properties:
   id:
     "$ref": "/schemata/notification#/definitions/id"

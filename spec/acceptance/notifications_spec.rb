@@ -36,18 +36,9 @@ RSpec.describe Endpoints::Notifications do
     header "Expiry", @token.expiry
   end
 
-  describe 'GET /messages' do
+  describe 'GET /notifications' do
     it 'returns correct status code and conforms to schema' do
       get '/notifications'
-      assert_equal 200, last_response.status
-      assert_schema_conform
-    end
-  end
-
-  describe 'PUT /notifications/:id' do
-    it 'returns correct status code and conforms to schema' do
-      header "Content-Type", "application/json"
-      put "/notifications/#{@notification.id}", MultiJson.encode({read: true})
       assert_equal 200, last_response.status
       assert_schema_conform
     end

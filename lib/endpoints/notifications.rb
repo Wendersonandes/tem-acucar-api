@@ -20,17 +20,9 @@ module Endpoints
         encode serialize(notifications.all)
       end
 
-      put "/:id" do |id|
-        notification = Notification.first(id: id)
-        raise Pliny::Errors::NotFound unless notification
-        raise Pliny::Errors::Forbidden unless notification.user == current_user
-        begin
-          notification.update(body_params)
-          encode serialize(notification)
-        rescue
-          status 422
-          errors(notification.errors.full_messages)
-        end
+      put "/read-all" do
+        current_user.notifications_dataset.where(read: false).update(read: true)
+        encode([])
       end
 
       private

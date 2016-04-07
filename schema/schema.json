@@ -1087,17 +1087,13 @@
           "title": "List"
         },
         {
-          "description": "Update an existing notification.",
-          "href": "/notifications/{(%23%2Fdefinitions%2Fnotification%2Fdefinitions%2Fidentity)}",
+          "description": "Update all unread notifications to read.",
+          "href": "/notifications/read-all",
           "method": "PUT",
           "rel": "update",
           "schema": {
             "additionalProperties": false,
-            "properties": {
-              "read": {
-                "$ref": "#/definitions/notification/definitions/read"
-              }
-            },
+            "properties": null,
             "type": [
               "object"
             ]
@@ -1105,14 +1101,19 @@
           "targetSchema": {
             "anyOf": [
               {
-                "$ref": "#/definitions/notification"
+                "type": [
+                  "array"
+                ],
+                "items": {
+                  "$ref": "#/definitions/notification"
+                }
               },
               {
                 "$ref": "#/definitions/error"
               }
             ]
           },
-          "title": "Update"
+          "title": "Read all"
         }
       ],
       "properties": {
