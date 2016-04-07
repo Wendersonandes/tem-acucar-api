@@ -14,6 +14,25 @@ class Message < Sequel::Model
   def after_create
     super
     self.transaction.update last_message_text: self.text
+    transaction = self.transaction
+    demand = transaction.demand
+    user = (self.user == transaction.user ? demand.user : transaction.user)
+    triggering_user = self.user
+    initial_message = Message.where(transaction: transaction, user: user).count == 0
+    if initial_message
+      text = "<b>#{triggering_user.first_name}</b> respondeu ao seu pedido <b>#{demand.name}</b>."
+    else
+      text = "<b>#{triggering_user.first_name}</b> respondeu sua mensagem no pedido <b>#{demand.name}</b>."
+    end
+    last_notification = Notification.where(transaction: transaction, user: user, read: false).reverse(:created_at).limit(1).first
+    unless last_notification && last_notification.text == text
+      Notification.create({
+        user: user,
+        triggering_user: triggering_user,
+        transaction: self.transaction,
+        text: text,
+      })
+    end
   end
 
 end

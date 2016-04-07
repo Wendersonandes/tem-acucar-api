@@ -919,6 +919,17 @@
             "string"
           ]
         },
+        "triggering_user": {
+          "description": "user whose action triggered the notification",
+          "readOnly": true,
+          "type": [
+            "object",
+            "null"
+          ],
+          "targetSchema": {
+            "$ref": "#/definitions/user"
+          }
+        },
         "demand": {
           "description": "demand the notification is about",
           "readOnly": true,
@@ -940,6 +951,15 @@
           "targetSchema": {
             "$ref": "#/definitions/transaction"
           }
+        },
+        "triggering_user_id": {
+          "description": "unique identifier of user whose action triggered the notification",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string",
+            "null"
+          ]
         },
         "demand_id": {
           "description": "unique identifier of notification demand",
@@ -980,14 +1000,25 @@
           ]
         },
         "limit": {
-          "description": "maximum of results to be returned when listing demands, '10' if not informed",
+          "description": "maximum of results to be returned when listing demands, '10' if not informed; only used for read filter",
           "type": [
             "string",
             "null"
           ]
         },
         "offset": {
-          "description": "offset (starting point) to be used when listing demands, '0' if not informed",
+          "description": "offset (starting point) to be used when listing demands, '0' if not informed; only used for read filter",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "filter": {
+          "description": "type of filter to be used when listing notifications, 'read' if not informed",
+          "enum": [
+            "read",
+            "unread"
+          ],
           "type": [
             "string",
             "null"
@@ -1029,6 +1060,9 @@
               },
               "offset": {
                 "$ref": "#/definitions/notification/definitions/offset"
+              },
+              "filter": {
+                "$ref": "#/definitions/notification/definitions/filter"
               }
             },
             "type": [
@@ -1085,11 +1119,17 @@
         "id": {
           "$ref": "#/definitions/notification/definitions/id"
         },
+        "triggering_user": {
+          "$ref": "#/definitions/notification/definitions/triggering_user"
+        },
         "demand": {
           "$ref": "#/definitions/notification/definitions/demand"
         },
         "transaction": {
           "$ref": "#/definitions/notification/definitions/transaction"
+        },
+        "triggering_user_id": {
+          "$ref": "#/definitions/notification/definitions/triggering_user_id"
         },
         "demand_id": {
           "$ref": "#/definitions/notification/definitions/demand_id"
@@ -1115,6 +1155,7 @@
       },
       "required": [
         "id",
+        "triggering_user",
         "demand",
         "transaction",
         "text",

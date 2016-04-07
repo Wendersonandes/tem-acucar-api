@@ -8,8 +8,16 @@ module Endpoints
       get do
         limit = params['limit'] || 10
         offset = params['offset'] || 0
-        notifications = current_user.notifications_dataset.reverse(:created_at)
-        encode serialize(notifications.limit(limit).offset(offset).all)
+        filter = params['filter'] || 'read'
+        notifications = current_user.notifications_dataset
+        if filter == 'read'
+          notifications = notifications.where(read: true)
+          notifications = notifications.limit(limit).offset(offset)
+        else
+          notifications = notifications.where(read: false)
+        end
+        notifications = notifications.reverse(:created_at)
+        encode serialize(notifications.all)
       end
 
       put "/:id" do |id|
