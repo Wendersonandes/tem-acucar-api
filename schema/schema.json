@@ -902,6 +902,227 @@
       ],
       "additionalProperties": false
     },
+    "notification": {
+      "$schema": "http://json-schema.org/draft-04/hyper-schema",
+      "title": "Tem Açúcar - Notification",
+      "description": "A notification represents some change in the context of a user that should be notified",
+      "stability": "prototype",
+      "type": [
+        "object"
+      ],
+      "definitions": {
+        "id": {
+          "description": "unique identifier of the notification",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "demand": {
+          "description": "demand the notification is about",
+          "readOnly": true,
+          "type": [
+            "object",
+            "null"
+          ],
+          "targetSchema": {
+            "$ref": "#/definitions/demand"
+          }
+        },
+        "transaction": {
+          "description": "transaction the notification is about",
+          "readOnly": true,
+          "type": [
+            "object",
+            "null"
+          ],
+          "targetSchema": {
+            "$ref": "#/definitions/transaction"
+          }
+        },
+        "demand_id": {
+          "description": "unique identifier of notification demand",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "transaction_id": {
+          "description": "unique identifier of notification transaction",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "user_id": {
+          "description": "unique identifier of notification user",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string"
+          ]
+        },
+        "text": {
+          "text": "text of the notification",
+          "type": [
+            "string"
+          ]
+        },
+        "read": {
+          "description": "wheter or not user has read the notification",
+          "type": [
+            "boolean"
+          ]
+        },
+        "limit": {
+          "description": "maximum of results to be returned when listing demands, '10' if not informed",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "offset": {
+          "description": "offset (starting point) to be used when listing demands, '0' if not informed",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "identity": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/notification/definitions/id"
+            }
+          ]
+        },
+        "created_at": {
+          "description": "when notification was created",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        },
+        "updated_at": {
+          "description": "when notification was updated",
+          "format": "date-time",
+          "type": [
+            "string"
+          ]
+        }
+      },
+      "links": [
+        {
+          "description": "List existing notifications.",
+          "href": "/notifications",
+          "method": "GET",
+          "rel": "instances",
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "limit": {
+                "$ref": "#/definitions/notification/definitions/limit"
+              },
+              "offset": {
+                "$ref": "#/definitions/notification/definitions/offset"
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "targetSchema": {
+            "anyOf": [
+              {
+                "type": [
+                  "array"
+                ],
+                "items": {
+                  "$ref": "#/definitions/notification"
+                }
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
+            ]
+          },
+          "title": "List"
+        },
+        {
+          "description": "Update an existing notification.",
+          "href": "/notifications/{(%23%2Fdefinitions%2Fnotification%2Fdefinitions%2Fidentity)}",
+          "method": "PUT",
+          "rel": "update",
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "read": {
+                "$ref": "#/definitions/notification/definitions/read"
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "targetSchema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/notification"
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
+            ]
+          },
+          "title": "Update"
+        }
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/notification/definitions/id"
+        },
+        "demand": {
+          "$ref": "#/definitions/notification/definitions/demand"
+        },
+        "transaction": {
+          "$ref": "#/definitions/notification/definitions/transaction"
+        },
+        "demand_id": {
+          "$ref": "#/definitions/notification/definitions/demand_id"
+        },
+        "transaction_id": {
+          "$ref": "#/definitions/notification/definitions/transaction_id"
+        },
+        "user_id": {
+          "$ref": "#/definitions/notification/definitions/user_id"
+        },
+        "text": {
+          "$ref": "#/definitions/notification/definitions/text"
+        },
+        "read": {
+          "$ref": "#/definitions/notification/definitions/read"
+        },
+        "created_at": {
+          "$ref": "#/definitions/notification/definitions/created_at"
+        },
+        "updated_at": {
+          "$ref": "#/definitions/notification/definitions/updated_at"
+        }
+      },
+      "required": [
+        "id",
+        "demand",
+        "transaction",
+        "text",
+        "read",
+        "created_at"
+      ],
+      "additionalProperties": false
+    },
     "password": {
       "$schema": "http://json-schema.org/draft-04/hyper-schema",
       "title": "Tem Açúcar - Password",
@@ -1938,6 +2159,9 @@
     },
     "message": {
       "$ref": "#/definitions/message"
+    },
+    "notification": {
+      "$ref": "#/definitions/notification"
     },
     "password": {
       "$ref": "#/definitions/password"

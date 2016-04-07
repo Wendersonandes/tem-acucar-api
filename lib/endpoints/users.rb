@@ -31,6 +31,7 @@ module Endpoints
       put "/:id" do |id|
         user = User.first(id: id)
         raise Pliny::Errors::NotFound unless user
+        raise Pliny::Errors::Forbidden unless user == current_user
         begin
           user.update(body_params)
           encode serialize(user, :current_user)
