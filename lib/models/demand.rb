@@ -27,7 +27,7 @@ class Demand < Sequel::Model
     end
 
     event :cancel do
-      transition [:sending, :active] => :canceled
+      transition [:flagged, :sending, :active] => :canceled
     end
 
     event :complete do
