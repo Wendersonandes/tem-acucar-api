@@ -7,7 +7,10 @@ class Flag < Sequel::Model
 
   def after_create
     super
-    self.demand.flag!
+    demand = self.demand
+    if demand.state != 'flagged'
+      self.demand.flag!
+    end
   end
 
 end

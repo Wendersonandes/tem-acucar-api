@@ -86,6 +86,10 @@ definitions:
     description: wheter or not user has read the notification
     type:
     - boolean
+  admin:
+    description: wheter or not the notification is about admin issues
+    type:
+    - boolean
   limit:
     description: maximum of results to be returned when listing demands, '10' if not informed; only used for read filter
     type:
@@ -181,6 +185,8 @@ properties:
     "$ref": "/schemata/notification#/definitions/text"
   read:
     "$ref": "/schemata/notification#/definitions/read"
+  admin:
+    "$ref": "/schemata/notification#/definitions/admin"
   created_at:
     "$ref": "/schemata/notification#/definitions/created_at"
   updated_at:
@@ -193,6 +199,7 @@ required:
 - message
 - text
 - read
+- admin
 - created_at
 additionalProperties: false
 id: schemata/notification

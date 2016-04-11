@@ -63,6 +63,13 @@ module Endpoints
         raise Pliny::Errors::NotFound unless demand
         raise Pliny::Errors::Forbidden unless demand.user == current_user || current_user.admin
         demand.cancel!
+        if current_user != demand.user
+          Notification.create({
+            user: demand.user,
+            demand: demand,
+            text: "Seu pedido <b>#{demand.name}</b> foi considerado impróprio pelos nossos moderadores e foi cancelado.",
+          })
+        end
         encode serialize(demand, :current_user)
       end
 

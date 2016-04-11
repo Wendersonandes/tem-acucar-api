@@ -9,6 +9,7 @@ Sequel.migration do
       foreign_key  :message_id, :messages, type: 'uuid'
       String       :text, text: true, null: false
       TrueClass    :read, null: false, default: false
+      TrueClass    :admin, null: false, default: false
       timestamptz  :created_at, default: Sequel.function(:now), null: false
       timestamptz  :updated_at, default: Sequel.function(:now), null: false
     end

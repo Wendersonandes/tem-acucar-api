@@ -15,6 +15,9 @@ class Demand < Sequel::Model
     state :canceled
     state :completed
 
+    after_transition :on => :flag, :do => :notify_flag
+    after_transition :flagged => :active, :do => :notify_reactivate
+
     event :activate do
       transition :sending => :active
     end
@@ -34,6 +37,32 @@ class Demand < Sequel::Model
     event :reactivate do
       transition [:flagged, :completed, :canceled] => :active
     end
+  end
+
+  private
+
+  def notify_flag
+    Notification.create({
+      user: self.user,
+      demand: self,
+      text: "Seu pedido <b>#{self.name}</b> foi denunciado como impróprio e não ficará disponível até ser aprovado por nossos moderadores.",
+    })
+    User.where(admin: true).all.each do |user|
+      Notification.create({
+        user: user,
+        demand: self,
+        text: "O pedido <b>#{self.name}</b> foi denunciado como impróprio.",
+        admin: true,
+      })
+    end
+  end
+
+  def notify_reactivate
+    Notification.create({
+      user: self.user,
+      demand: self,
+      text: "Seu pedido <b>#{self.name}</b> foi verificado pelos nossos moderadores e está disponível novamente! :D",
+    })
   end
 
 end

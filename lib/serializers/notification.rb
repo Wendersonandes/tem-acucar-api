@@ -8,6 +8,7 @@ class Serializers::Notification < Serializers::Base
       message: (arg.message && Serializers::Message.new(:default).serialize(arg.message)),
       text: arg.text,
       read: arg.read,
+      admin: arg.admin,
       created_at: arg.created_at.try(:iso8601),
     }
   end
