@@ -36,6 +36,14 @@ definitions:
     - "null"
     targetSchema:
       "$ref": "/schemata/transaction"
+  message:
+    description: message the notification is about
+    readOnly: true
+    type:
+    - object
+    - "null"
+    targetSchema:
+      "$ref": "/schemata/message"
   triggering_user_id:
     description: unique identifier of user whose action triggered the notification
     readOnly: true
@@ -52,6 +60,13 @@ definitions:
     - "null"
   transaction_id:
     description: unique identifier of notification transaction
+    readOnly: true
+    format: uuid
+    type:
+    - string
+    - "null"
+  message_id:
+    description: unique identifier of notification message
     readOnly: true
     format: uuid
     type:
@@ -150,12 +165,16 @@ properties:
     "$ref": "/schemata/notification#/definitions/demand"
   transaction:
     "$ref": "/schemata/notification#/definitions/transaction"
+  message:
+    "$ref": "/schemata/notification#/definitions/message"
   triggering_user_id:
     "$ref": "/schemata/notification#/definitions/triggering_user_id"
   demand_id:
     "$ref": "/schemata/notification#/definitions/demand_id"
   transaction_id:
     "$ref": "/schemata/notification#/definitions/transaction_id"
+  message_id:
+    "$ref": "/schemata/notification#/definitions/message_id"
   user_id:
     "$ref": "/schemata/notification#/definitions/user_id"
   text:
@@ -171,6 +190,7 @@ required:
 - triggering_user
 - demand
 - transaction
+- message
 - text
 - read
 - created_at

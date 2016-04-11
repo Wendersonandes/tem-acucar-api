@@ -24,15 +24,13 @@ class Message < Sequel::Model
     else
       text = "<b>#{triggering_user.first_name}</b> respondeu sua mensagem no pedido <b>#{demand.name}</b>."
     end
-    last_notification = Notification.where(transaction: transaction, user: user, read: false).reverse(:created_at).limit(1).first
-    unless last_notification && last_notification.text == text
-      Notification.create({
-        user: user,
-        triggering_user: triggering_user,
-        transaction: self.transaction,
-        text: text,
-      })
-    end
+    Notification.create({
+      user: user,
+      triggering_user: triggering_user,
+      transaction: self.transaction,
+      message: self,
+      text: text,
+    })
   end
 
 end

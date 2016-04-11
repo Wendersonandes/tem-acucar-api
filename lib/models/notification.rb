@@ -6,4 +6,5 @@ class Notification < Sequel::Model
   many_to_one :triggering_user, class: :User, key: :triggering_user_id
   many_to_one :demand
   many_to_one :transaction
+  many_to_one :message
 end

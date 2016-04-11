@@ -6,6 +6,7 @@ Sequel.migration do
       foreign_key  :triggering_user_id, :users, type: 'uuid'
       foreign_key  :demand_id, :demands, type: 'uuid'
       foreign_key  :transaction_id, :transactions, type: 'uuid'
+      foreign_key  :message_id, :messages, type: 'uuid'
       String       :text, text: true, null: false
       TrueClass    :read, null: false, default: false
       timestamptz  :created_at, default: Sequel.function(:now), null: false
