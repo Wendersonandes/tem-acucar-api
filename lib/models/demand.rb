@@ -8,8 +8,8 @@ class Demand < Sequel::Model
   many_to_one :user
   one_to_many :transactions
 
-  state_machine initial: :sending do
-    state :sending
+  state_machine initial: :notifying do
+    state :notifying
     state :active
     state :flagged
     state :canceled
@@ -19,24 +19,29 @@ class Demand < Sequel::Model
     after_transition :flagged => :active, :do => :notify_reactivate
 
     event :activate do
-      transition :sending => :active
+      transition :notifying => :active
     end
 
     event :flag do
-      transition [:sending, :active] => :flagged
+      transition [:notifying, :active] => :flagged
     end
 
     event :cancel do
-      transition [:flagged, :sending, :active] => :canceled
+      transition [:flagged, :notifying, :active] => :canceled
     end
 
     event :complete do
-      transition [:sending, :active] => :completed
+      transition [:notifying, :active] => :completed
     end
 
     event :reactivate do
       transition [:flagged, :completed, :canceled] => :active
     end
+  end
+
+  def after_create
+    super
+    Workers::DemandNotifier.perform_async(self.id)
   end
 
   private

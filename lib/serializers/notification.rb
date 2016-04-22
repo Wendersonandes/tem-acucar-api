@@ -3,7 +3,7 @@ class Serializers::Notification < Serializers::Base
     {
       id: arg.id,
       triggering_user: (arg.triggering_user && Serializers::User.new(:default).serialize(arg.triggering_user)),
-      demand: (arg.demand && Serializers::Demand.new(:default).serialize(arg.demand)),
+      demand: (arg.demand && Serializers::Demand.new(:default).serialize(Demand.where(id: arg.demand.id).near([arg.user.latitude, arg.user.longitude], arg.demand.radius, units: :km).first)),
       transaction: (arg.transaction && Serializers::Transaction.new(:default).serialize(arg.transaction)),
       message: (arg.message && Serializers::Message.new(:default).serialize(arg.message)),
       text: arg.text,

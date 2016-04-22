@@ -22,7 +22,7 @@ definitions:
   state:
     description: state of the demand
     enum:
-    - sending
+    - notifying
     - active
     - canceled
     - completed

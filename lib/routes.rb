@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Routes = Rack::Builder.new do
   use Rollbar::Middleware::Sinatra
   use Pliny::Middleware::CORS
@@ -14,6 +16,13 @@ Routes = Rack::Builder.new do
   use Rack::SSL if Config.force_ssl?
   use Committee::Middleware::RequestValidation, schema: JSON.parse(File.read("#{Config.root}/schema/schema.json"))
   use Committee::Middleware::ResponseValidation, schema: JSON.parse(File.read("#{Config.root}/schema/schema.json"))
+
+  map "/sidekiq" do
+    use Rack::Auth::Basic, "Protected Area" do |username, password|
+      username == Config.sidekiq_username && password == Config.sidekiq_password
+    end
+    run Sidekiq::Web
+  end
 
   use Pliny::Router do
     # mount all endpoints here
