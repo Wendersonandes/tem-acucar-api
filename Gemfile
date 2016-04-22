@@ -25,6 +25,8 @@ gem "geocoder"
 gem "sequel-geocoder", github: "binarypaladin/sequel-geocoder", ref: "625fe1704261634eca2620e9da5ccaa27b34cae4"
 gem "state_machine"
 gem "sendgrid-ruby"
+gem "sidekiq"
+gem "pliny-sidekiq"
 
 group :development, :test do
   gem "pry-byebug"

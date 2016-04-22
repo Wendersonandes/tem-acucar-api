@@ -40,6 +40,8 @@ GEM
     committee (1.13.0)
       json_schema (~> 0.6, >= 0.6.1)
       rack (~> 1.5)
+    concurrent-ruby (1.0.1)
+    connection_pool (2.2.0)
     database_cleaner (1.5.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
@@ -74,6 +76,9 @@ GEM
       sinatra (~> 1.4, >= 1.4.5)
       sinatra-router (~> 0.2, >= 0.2.3)
       thor (~> 0.19, >= 0.19.1)
+    pliny-sidekiq (0.1.2)
+      pliny
+      sidekiq
     prmd (0.7.4)
       erubis (~> 2.7)
       json_schema (~> 0.3, >= 0.3.1)
@@ -94,6 +99,7 @@ GEM
       rack (>= 1.0)
     rack-timeout (0.3.2)
     rake (10.5.0)
+    redis (3.3.0)
     rest-client (1.8.0)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
@@ -123,6 +129,10 @@ GEM
     sequel_pg (1.6.14)
       pg (>= 0.8.0)
       sequel (>= 3.39.0)
+    sidekiq (4.1.1)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      redis (~> 3.2, >= 3.2.1)
     simplecov (0.11.1)
       docile (~> 1.1.0)
       json (~> 1.8)
@@ -170,6 +180,7 @@ DEPENDENCIES
   oj
   pg
   pliny (~> 0.14)
+  pliny-sidekiq
   pry
   pry-byebug
   puma (~> 2.10)
@@ -185,6 +196,7 @@ DEPENDENCIES
   sequel-geocoder!
   sequel-paranoid
   sequel_pg (~> 1.6)
+  sidekiq
   simplecov
   sinatra (~> 1.4)
   sinatra-contrib

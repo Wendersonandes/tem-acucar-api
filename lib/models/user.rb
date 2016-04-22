@@ -87,30 +87,14 @@ class User < Sequel::Model
   end
 
   def send_email(subject, message)
-    email = "#{self.full_name} <#{self.email}>"
-    recipients = [SendGrid::Recipient.new(email)]
-    template = SendGrid::Template.new(Config.sendgrid_template_id)
-    client = SendGrid::Client.new(api_key: Config.sendgrid_api_key)
-    mailer = SendGrid::TemplateMailer.new(client, template, recipients)
-    full_message = "Olá, #{self.first_name}!\n\n#{message}"
-    response = mailer.mail({
-      from: 'ola@temacucar.com',
-      from_name: 'Tem Açúcar',
-      html: full_message.gsub("\n", "<br/>"),
-      text: full_message,
-      subject: subject
-    })
-    response.code == 200
+    Workers::Email.perform_async(self.id, subject, message)
   end
 
   def send_password_token
     token = SecureRandom.urlsafe_base64(6).tr('lIO0', 'sxyz')[0, 8].upcase
-    if self.send_email('Instruções para nova senha', "Para criar uma nova senha, digite o código abaixo no app do Tem Açúcar:\n\n#{token}\n\nSe você não solicitou uma nova senha, por favor desconsidere.")
-      self.password_token = token
-      self.password_token_sent_at = Time.now
-      self.save
-    else
-      false
-    end
+    self.send_email('Instruções para nova senha', "Para criar uma nova senha, digite o código abaixo no app do Tem Açúcar:\n\n#{token}\n\nSe você não solicitou uma nova senha, por favor desconsidere.")
+    self.password_token = token
+    self.password_token_sent_at = Time.now
+    self.save
   end
 end

@@ -19,6 +19,8 @@ module Initializer
       lib/routes
       lib/serializers/base
       lib/serializers/**/*
+      lib/workers/base
+      lib/workers/**/*
     )
   end
 
