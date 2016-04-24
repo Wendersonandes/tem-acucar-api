@@ -42,7 +42,7 @@ class User < Sequel::Model
       .where("user_id <> '#{self.id}'")
       .with_state(:active)
       .near([self.latitude, self.longitude], 1, units: :km, order: false)
-      .order(:distance, Sequel.desc(:created_at))
+      .order(Sequel.desc(Sequel.function(:date_trunc, 'day', :created_at)), :distance)
   end
 
   def demands_with_transactions
