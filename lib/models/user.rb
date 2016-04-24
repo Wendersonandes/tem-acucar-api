@@ -48,6 +48,7 @@ class User < Sequel::Model
   def demands_with_transactions
     Demand
       .where("id IN (SELECT DISTINCT demand_id FROM transactions INNER JOIN demands ON transactions.demand_id = demands.id WHERE demands.user_id = '#{self.id}') OR id IN (SELECT DISTINCT demand_id FROM transactions WHERE user_id = '#{self.id}')")
+      .near([self.latitude, self.longitude], 41000, units: :km, order: false)
       .reverse(:updated_at)
   end
 
