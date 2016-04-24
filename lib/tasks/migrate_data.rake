@@ -227,8 +227,6 @@ task :migrate_data do
     import_file('hm_rn_avaliacoes')
     puts "  Deleting reviews with transaction not found"
     DB.run "DELETE FROM hm_rn_avaliacoes WHERE id_pedido_convite NOT IN (SELECT old_id FROM transactions)"
-    puts "  Deleting reviews with user not found"
-    DB.run "DELETE FROM hm_rn_avaliacoes WHERE id_usuario NOT IN (SELECT old_id FROM users)"
     puts "  Deleting reviews with reviewer user not found"
     DB.run "DELETE FROM hm_rn_avaliacoes WHERE id_avaliador NOT IN (SELECT old_id FROM users)"
     puts "  Migrating data from temporary tables"
@@ -245,7 +243,7 @@ task :migrate_data do
     SELECT
       id_avaliacao AS old_id,
       (SELECT id FROM transactions WHERE old_id = id_pedido_convite) AS transaction_id,
-      (SELECT id FROM users WHERE old_id = id_usuario) AS user_id,
+      (CASE WHEN id_usuario = id_avaliador THEN (SELECT id FROM users WHERE old_id = id_convidado) ELSE (SELECT id FROM users WHERE old_id = id_usuario) END) AS user_id,
       (SELECT id FROM users WHERE old_id = id_avaliador) AS reviewer_id,
       round((hm_rn_avaliacoes.cuidado_avaliacao + hm_rn_avaliacoes.pontualidade_avaliacao) / 2) AS rating,
       convert_latin1(hm_rn_avaliacoes.mensagem) AS text,
