@@ -32,7 +32,7 @@ class User < Sequel::Model
   end
 
   def neighbors
-    User.near([self.latitude, self.longitude], 1, units: :km)
+    User.where("id <> '#{self.id}'").near([self.latitude, self.longitude], 1, units: :km)
   end
 
   def neighborhood_demands
