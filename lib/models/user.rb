@@ -11,6 +11,7 @@ class User < Sequel::Model
   one_to_many :tokens
   one_to_many :authentications
   one_to_many :demands
+  one_to_many :reviews
   one_to_many :notifications
 
   def self.from_facebook(facebook)

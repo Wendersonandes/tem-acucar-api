@@ -1,15 +1,13 @@
 Sequel.migration do
   change do
-    create_table(:notifications) do
+    create_table(:reviews) do
       uuid         :id, default: Sequel.function(:uuid_generate_v4), primary_key: true
+      Integer      :old_id
+      foreign_key  :transaction_id, :transactions, null: false, type: 'uuid'
       foreign_key  :user_id, :users, null: false, type: 'uuid'
-      foreign_key  :triggering_user_id, :users, type: 'uuid'
-      foreign_key  :demand_id, :demands, type: 'uuid'
-      foreign_key  :transaction_id, :transactions, type: 'uuid'
-      foreign_key  :message_id, :messages, type: 'uuid'
+      foreign_key  :reviewer_id, :users, null: false, type: 'uuid'
+      Integer      :rating, null: false
       String       :text, text: true, null: false
-      TrueClass    :read, null: false, default: false
-      TrueClass    :admin, null: false, default: false
       timestamptz  :created_at, default: Sequel.function(:now), null: false
       timestamptz  :updated_at, default: Sequel.function(:now), null: false
     end

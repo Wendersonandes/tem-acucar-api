@@ -219,4 +219,55 @@ task :migrate_data do
     DB.run "UPDATE transactions SET last_message_text = (SELECT text FROM messages WHERE transaction_id = transactions.id ORDER BY created_at DESC LIMIT 1)"
   end
 
+  import_reviews = true
+  print "Looking for 'reviews' file..."
+  import_reviews = false unless File.exists?(@path + "/hm_rn_avaliacoes.sql")
+  puts (import_reviews ? "found!" : "not found.")
+  if import_reviews
+    import_file('hm_rn_avaliacoes')
+    puts "  Deleting reviews with transaction not found"
+    DB.run "DELETE FROM hm_rn_avaliacoes WHERE id_pedido_convite NOT IN (SELECT old_id FROM transactions)"
+    puts "  Deleting reviews with user not found"
+    DB.run "DELETE FROM hm_rn_avaliacoes WHERE id_usuario NOT IN (SELECT old_id FROM users)"
+    puts "  Deleting reviews with reviewer user not found"
+    DB.run "DELETE FROM hm_rn_avaliacoes WHERE id_avaliador NOT IN (SELECT old_id FROM users)"
+    puts "  Migrating data from temporary tables"
+    DB.run "INSERT INTO reviews (
+      old_id,
+      transaction_id,
+      user_id,
+      reviewer_id,
+      rating,
+      text,
+      created_at,
+      updated_at
+    )
+    SELECT
+      id_avaliacao AS old_id,
+      (SELECT id FROM transactions WHERE old_id = id_pedido_convite) AS transaction_id,
+      (SELECT id FROM users WHERE old_id = id_usuario) AS user_id,
+      (SELECT id FROM users WHERE old_id = id_avaliador) AS reviewer_id,
+      round((hm_rn_avaliacoes.cuidado_avaliacao + hm_rn_avaliacoes.pontualidade_avaliacao) / 2) AS rating,
+      convert_latin1(hm_rn_avaliacoes.mensagem) AS text,
+      hm_rn_avaliacoes.register_time AS created_at,
+      hm_rn_avaliacoes.register_time AS updated_at
+    FROM hm_rn_avaliacoes
+    "
+  end
+
+  puts "Removing temporary tables..."
+  puts "  hm_rn_avaliacoes"
+  DB.run "DROP TABLE hm_rn_avaliacoes"
+  puts "  hm_rn_pedidos"
+  DB.run "DROP TABLE hm_rn_pedidos"
+  puts "  hm_rn_pedidos_mensagens"
+  DB.run "DROP TABLE hm_rn_pedidos_mensagens"
+  puts "  hm_rn_usuarios"
+  DB.run "DROP TABLE hm_rn_usuarios"
+  puts "  hm_rn_usuarios_contas"
+  DB.run "DROP TABLE hm_rn_usuarios_contas"
+
+  puts ""
+  puts "Done!"
+
 end

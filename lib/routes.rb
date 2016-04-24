@@ -38,6 +38,7 @@ Routes = Rack::Builder.new do
     mount Endpoints::Flags
     mount Endpoints::Transactions
     mount Endpoints::Messages
+    mount Endpoints::Reviews
     mount Endpoints::Notifications
   end
 

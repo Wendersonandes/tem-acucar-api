@@ -7,4 +7,5 @@ class Notification < Sequel::Model
   many_to_one :demand
   many_to_one :transaction
   many_to_one :message
+  many_to_one :review
 end
