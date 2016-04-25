@@ -144,6 +144,11 @@ definitions:
     readOnly: true
     type:
     - boolean
+  facebook_token:
+    description: Facebook token for connecting user to Facebook
+    readOnly: true
+    type:
+    - string
   identity:
     anyOf:
     - "$ref": "/schemata/user#/definitions/id"
@@ -202,6 +207,22 @@ links:
         "$ref": "/schemata/user"
     - "$ref": "/schemata/error"
   title: List
+- description: Connect an existing user to Facebook
+  href: "/users/facebook"
+  method: PUT
+  rel: update
+  schema:
+    additionalProperties: false
+    properties:
+      facebook_token:
+        "$ref": "/schemata/user#/definitions/facebook_token"
+    type:
+    - object
+  targetSchema:
+    anyOf:
+    - "$ref": "/schemata/user"
+    - "$ref": "/schemata/error"
+  title: Update
 - description: Update an existing user.
   href: "/users/{(%2Fschemata%2Fuser%23%2Fdefinitions%2Fidentity)}"
   method: PUT

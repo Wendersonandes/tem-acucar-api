@@ -2044,6 +2044,13 @@
             "boolean"
           ]
         },
+        "facebook_token": {
+          "description": "Facebook token for connecting user to Facebook",
+          "readOnly": true,
+          "type": [
+            "string"
+          ]
+        },
         "identity": {
           "anyOf": [
             {
@@ -2144,6 +2151,34 @@
             ]
           },
           "title": "List"
+        },
+        {
+          "description": "Connect an existing user to Facebook",
+          "href": "/users/facebook",
+          "method": "PUT",
+          "rel": "update",
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "facebook_token": {
+                "$ref": "#/definitions/user/definitions/facebook_token"
+              }
+            },
+            "type": [
+              "object"
+            ]
+          },
+          "targetSchema": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/user"
+              },
+              {
+                "$ref": "#/definitions/error"
+              }
+            ]
+          },
+          "title": "Update"
         },
         {
           "description": "Update an existing user.",
