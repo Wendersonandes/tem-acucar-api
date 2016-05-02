@@ -34,7 +34,9 @@ Sequel.migration do
 
       index :email, unique: true
       index :old_id, unique: true
-      index :facebook_uid, unique: true     
+      index :facebook_uid, unique: true
+      index [:latitude, :longitude]
+
     end
   end
 end

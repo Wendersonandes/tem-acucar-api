@@ -15,6 +15,7 @@ Sequel.migration do
 
       index :old_id, unique: true
       index :state
+      index [:latitude, :longitude]
     end
   end
 end
