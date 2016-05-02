@@ -44,7 +44,6 @@ module Endpoints
         demand.user = current_user
         demand.latitude = current_user.latitude
         demand.longitude = current_user.longitude
-        demand.radius = 10
         demand.save
         status 201
         encode serialize(demand, :current_user)
