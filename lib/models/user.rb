@@ -37,11 +37,13 @@ class User < Sequel::Model
 
   def neighborhood_demands
     Demand
+      .select(:id, :user_id, :state, :name, :description, :latitude, :longitude, :radius, :created_at, :updated_at)
+      .select_append(Sequel.lit("(6371.0 * 2 * ASIN(SQRT(POWER(SIN((#{self.latitude} - latitude) * PI() / 180 / 2), 2) + COS(#{self.latitude} * PI() / 180) * COS(latitude * PI() / 180) * POWER(SIN((#{self.longitude} - longitude) * PI() / 180 / 2), 2)))) AS distance"))
       .where("id NOT IN (SELECT demand_id FROM refusals WHERE user_id = '#{self.id}')")
       .where("id NOT IN (SELECT demand_id FROM transactions WHERE user_id = '#{self.id}')")
       .where("user_id <> '#{self.id}'")
       .with_state(:active)
-      .near([self.latitude, self.longitude], 1, units: :km, order: false)
+      .where("((6371.0 * 2 * ASIN(SQRT(POWER(SIN((#{self.latitude} - latitude) * PI() / 180 / 2), 2) + COS(#{self.latitude} * PI() / 180) * COS(latitude * PI() / 180) * POWER(SIN((#{self.longitude} - longitude) * PI() / 180 / 2), 2)))) BETWEEN 0.0 AND demands.radius)")
       .order(Sequel.desc(Sequel.function(:date_trunc, 'day', :created_at)), :distance)
   end
 
