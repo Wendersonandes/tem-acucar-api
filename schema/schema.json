@@ -1722,6 +1722,13 @@
             "null"
           ]
         },
+        "can_review_ids": {
+          "description": "ids of users who currently can review the transaction",
+          "readOnly": true,
+          "type": [
+            "array"
+          ]
+        },
         "identity": {
           "anyOf": [
             {
@@ -1825,6 +1832,9 @@
         },
         "last_message_text": {
           "$ref": "#/definitions/transaction/definitions/last_message_text"
+        },
+        "can_review_ids": {
+          "$ref": "#/definitions/transaction/definitions/can_review_ids"
         },
         "created_at": {
           "$ref": "#/definitions/transaction/definitions/created_at"
