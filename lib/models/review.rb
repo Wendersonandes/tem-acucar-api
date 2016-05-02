@@ -5,4 +5,14 @@ class Review < Sequel::Model
   many_to_one :transaction
   many_to_one :user
   many_to_one :reviewer, class: :User, key: :reviewer_id
+
+  def after_create
+    super
+    Notification.create({
+      user: self.user,
+      triggering_user: self.reviewer,
+      review: self,
+      text: "<b>#{self.reviewer.first_name}</b> escreveu uma avaliação para você no pedido <b>#{self.transaction.demand.name}</b>.",
+    })
+  end
 end

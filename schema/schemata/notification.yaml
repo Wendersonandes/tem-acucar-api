@@ -44,6 +44,14 @@ definitions:
     - "null"
     targetSchema:
       "$ref": "/schemata/message"
+  review:
+    description: review the notification is about
+    readOnly: true
+    type:
+    - object
+    - "null"
+    targetSchema:
+      "$ref": "/schemata/review"
   triggering_user_id:
     description: unique identifier of user whose action triggered the notification
     readOnly: true
@@ -67,6 +75,13 @@ definitions:
     - "null"
   message_id:
     description: unique identifier of notification message
+    readOnly: true
+    format: uuid
+    type:
+    - string
+    - "null"
+  review_id:
+    description: unique identifier of notification review
     readOnly: true
     format: uuid
     type:
@@ -171,6 +186,8 @@ properties:
     "$ref": "/schemata/notification#/definitions/transaction"
   message:
     "$ref": "/schemata/notification#/definitions/message"
+  review:
+    "$ref": "/schemata/notification#/definitions/review"
   triggering_user_id:
     "$ref": "/schemata/notification#/definitions/triggering_user_id"
   demand_id:
@@ -179,6 +196,8 @@ properties:
     "$ref": "/schemata/notification#/definitions/transaction_id"
   message_id:
     "$ref": "/schemata/notification#/definitions/message_id"
+  review_id:
+    "$ref": "/schemata/notification#/definitions/review_id"
   user_id:
     "$ref": "/schemata/notification#/definitions/user_id"
   text:
@@ -197,6 +216,7 @@ required:
 - demand
 - transaction
 - message
+- review
 - text
 - read
 - admin

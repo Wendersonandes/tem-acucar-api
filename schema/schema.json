@@ -963,6 +963,17 @@
             "$ref": "#/definitions/message"
           }
         },
+        "review": {
+          "description": "review the notification is about",
+          "readOnly": true,
+          "type": [
+            "object",
+            "null"
+          ],
+          "targetSchema": {
+            "$ref": "#/definitions/review"
+          }
+        },
         "triggering_user_id": {
           "description": "unique identifier of user whose action triggered the notification",
           "readOnly": true,
@@ -992,6 +1003,15 @@
         },
         "message_id": {
           "description": "unique identifier of notification message",
+          "readOnly": true,
+          "format": "uuid",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "review_id": {
+          "description": "unique identifier of notification review",
           "readOnly": true,
           "format": "uuid",
           "type": [
@@ -1158,6 +1178,9 @@
         "message": {
           "$ref": "#/definitions/notification/definitions/message"
         },
+        "review": {
+          "$ref": "#/definitions/notification/definitions/review"
+        },
         "triggering_user_id": {
           "$ref": "#/definitions/notification/definitions/triggering_user_id"
         },
@@ -1169,6 +1192,9 @@
         },
         "message_id": {
           "$ref": "#/definitions/notification/definitions/message_id"
+        },
+        "review_id": {
+          "$ref": "#/definitions/notification/definitions/review_id"
         },
         "user_id": {
           "$ref": "#/definitions/notification/definitions/user_id"
@@ -1195,6 +1221,7 @@
         "demand",
         "transaction",
         "message",
+        "review",
         "text",
         "read",
         "admin",
