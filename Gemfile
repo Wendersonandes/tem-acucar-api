@@ -27,6 +27,8 @@ gem "state_machine"
 gem "sendgrid-ruby"
 gem "sidekiq"
 gem "pliny-sidekiq"
+gem "gcm"
+gem "sanitize"
 
 group :development, :test do
   gem "pry-byebug"

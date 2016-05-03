@@ -48,6 +48,7 @@ module Endpoints
     end
 
     def sign_out!
+      current_user.update gcm_token: nil
       Token.valid.where(user: current_user, client: request.env['HTTP_CLIENT']).delete
       @signed_out = true
     end

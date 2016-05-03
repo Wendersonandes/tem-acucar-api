@@ -36,8 +36,9 @@ module Config
 
   # Tem Açúcar API specific
   optional :sendgrid_api_key, string
+  optional :gcm_api_key, string
   optional :sendgrid_template_id, string
   mandatory :sidekiq_username, string
   mandatory :sidekiq_password, string
-
+  
 end

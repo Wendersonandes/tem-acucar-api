@@ -25,6 +25,7 @@ Sequel.migration do
       String       :address_complement
       String       :uploaded_image_url
       String       :facebook_image_url
+      String       :gcm_token
       TrueClass    :accepted_terms, null: false, default: false
       TrueClass    :reviewed_email, null: false, default: false
       TrueClass    :reviewed_location, null: false, default: false
