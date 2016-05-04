@@ -9,6 +9,11 @@ class Notification < Sequel::Model
   many_to_one :message
   many_to_one :review
 
+  def after_create
+    super
+    Workers::Notification.perform_async(self.id)
+  end
+
   def send_gcm_notification!
     token = self.user.gcm_token
     return unless token

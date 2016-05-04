@@ -2081,6 +2081,13 @@
             "boolean"
           ]
         },
+        "gcm_token": {
+          "description": "GCM token for identifying the device on Google Cloud Messages",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "facebook_token": {
           "description": "Facebook token for connecting user to Facebook",
           "readOnly": true,
@@ -2287,6 +2294,9 @@
               },
               "reviewed_location": {
                 "$ref": "#/definitions/user/definitions/reviewed_location"
+              },
+              "gcm_token": {
+                "$ref": "#/definitions/user/definitions/gcm_token"
               }
             },
             "type": [
@@ -2384,6 +2394,9 @@
         },
         "admin": {
           "$ref": "#/definitions/user/definitions/admin"
+        },
+        "gcm_token": {
+          "$ref": "#/definitions/user/definitions/gcm_token"
         },
         "created_at": {
           "$ref": "#/definitions/user/definitions/created_at"

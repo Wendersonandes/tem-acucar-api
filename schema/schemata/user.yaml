@@ -144,6 +144,11 @@ definitions:
     readOnly: true
     type:
     - boolean
+  gcm_token:
+    description: GCM token for identifying the device on Google Cloud Messages
+    type:
+    - string
+    - "null"
   facebook_token:
     description: Facebook token for connecting user to Facebook
     readOnly: true
@@ -272,6 +277,8 @@ links:
         "$ref": "/schemata/user#/definitions/reviewed_email"
       reviewed_location:
         "$ref": "/schemata/user#/definitions/reviewed_location"
+      gcm_token:
+        "$ref": "/schemata/user#/definitions/gcm_token"
     type:
     - object
   targetSchema:
@@ -332,6 +339,8 @@ properties:
     "$ref": "/schemata/user#/definitions/reviewed_location"
   admin:
     "$ref": "/schemata/user#/definitions/admin"
+  gcm_token:
+    "$ref": "/schemata/user#/definitions/gcm_token"
   created_at:
     "$ref": "/schemata/user#/definitions/created_at"
   updated_at:
