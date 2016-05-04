@@ -8,6 +8,7 @@ module Workers
         user: user,
         triggering_user: demand.user,
         demand: demand,
+        subject: "Você recebeu um novo pedido: #{demand.name}",
         text: "Você por acaso teria um(a) <b>#{demand.name}</b> para emprestar? <b>#{demand.user.first_name}</b> está pedindo.\n\n<i>\"#{demand.description}\"</i>",
       })
     end

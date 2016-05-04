@@ -12,6 +12,7 @@ class Review < Sequel::Model
       user: self.user,
       triggering_user: self.reviewer,
       review: self,
+      subject: "#{self.reviewer.first_name} escreveu uma avaliação para você",
       text: "<b>#{self.reviewer.first_name}</b> escreveu uma avaliação para você no pedido <b>#{self.transaction.demand.name}</b>.",
     })
   end

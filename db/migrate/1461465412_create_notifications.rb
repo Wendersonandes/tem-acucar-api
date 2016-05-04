@@ -8,6 +8,7 @@ Sequel.migration do
       foreign_key  :transaction_id, :transactions, type: 'uuid'
       foreign_key  :message_id, :messages, type: 'uuid'
       foreign_key  :review_id, :reviews, type: 'uuid'
+      String       :subject, text: true, null: false
       String       :text, text: true, null: false
       TrueClass    :read, null: false, default: false
       TrueClass    :admin, null: false, default: false

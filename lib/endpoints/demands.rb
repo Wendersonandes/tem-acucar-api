@@ -66,6 +66,7 @@ module Endpoints
           Notification.create({
             user: demand.user,
             demand: demand,
+            subject: "Seu pedido foi considerado impróprio",
             text: "Seu pedido <b>#{demand.name}</b> foi considerado impróprio pelos nossos moderadores e foi cancelado.",
           })
         end

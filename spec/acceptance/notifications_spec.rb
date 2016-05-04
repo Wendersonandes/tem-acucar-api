@@ -24,6 +24,7 @@ RSpec.describe Endpoints::Notifications do
     @token = @user.add_token({client: 'foo', token: 'bar'})
     @notification = Notification.create(
       user: @user,
+      subject: 'Foo bar',
       text: 'Foo bar',
     )
   end

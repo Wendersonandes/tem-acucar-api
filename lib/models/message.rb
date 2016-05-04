@@ -20,8 +20,10 @@ class Message < Sequel::Model
     triggering_user = self.user
     initial_message = Message.where(transaction: transaction, user: user).count == 0
     if initial_message
+      subject = "#{triggering_user.first_name} respondeu ao seu pedido"
       text = "<b>#{triggering_user.first_name}</b> respondeu ao seu pedido <b>#{demand.name}</b>."
     else
+      subject = "#{triggering_user.first_name} respondeu sua mensagem"
       text = "<b>#{triggering_user.first_name}</b> respondeu sua mensagem no pedido <b>#{demand.name}</b>."
     end
     Notification.create({
@@ -29,6 +31,7 @@ class Message < Sequel::Model
       triggering_user: triggering_user,
       transaction: self.transaction,
       message: self,
+      subject: subject,
       text: text,
     })
   end

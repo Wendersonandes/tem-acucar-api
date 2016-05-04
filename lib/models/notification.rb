@@ -17,10 +17,11 @@ class Notification < Sequel::Model
   def send_gcm_notification!
     token = self.user.gcm_token
     return unless token
-    require 'gcm'
-    require 'sanitize'
     gcm = GCM.new(Config.gcm_api_key)
-    options = { data: { text: Sanitize.clean(self.text) } }
+    options = { data: {
+      subject: self.subject,
+      text: Sanitize.clean(self.text),
+    }}
     response = gcm.send([token], options)
   end
 end
