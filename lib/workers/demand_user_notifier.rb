@@ -4,7 +4,7 @@ module Workers
       demand = Demand[demand_id]
       user = User[user_id]
       return unless user && demand && demand.state == 'notifying'
-      Notification.create({
+      ::Notification.create({
         user: user,
         triggering_user: demand.user,
         demand: demand,
