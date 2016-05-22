@@ -35,6 +35,41 @@ class User < Sequel::Model
     User.where("id <> '#{self.id}'").near([self.latitude, self.longitude], 1, units: :km)
   end
 
+  def neighbors_count
+    self.neighbors.count
+  end
+
+  def neighbors_image_url
+    return unless self.latitude && self.longitude
+    decimals = 3
+    neighbors = self.neighbors.map{ |neighbor| [neighbor.latitude.round(decimals), neighbor.longitude.round(decimals)].join(",") }.uniq
+    # Removes users from the list in a well distributed fashion until we have fewer neighbors
+    remove_from = :start
+    while neighbors.length > 100 do
+      if remove_from == :start
+        index = 1
+        remove_from = :middle
+      elsif remove_from == :middle
+        index = neighbors.length / 2
+        remove_from = :end
+      elsif remove_from == :end
+        index = neighbors.length - 2
+        remove_from = :start
+      end
+      neighbors = neighbors[0..index - 1] + neighbors[index + 1...neighbors.length]
+    end
+    params = {
+      :center => [self.latitude, self.longitude].join(","),
+      :zoom => "14",
+      :size => "600x240",
+      :markers => "icon:http://goo.gl/GP6PtM%7C" + neighbors.join("%7C")
+    }
+    query_string = params.map{ |key, value| "#{key}=#{value}" }.join("&")
+    url = "http://maps.googleapis.com/maps/api/staticmap?#{query_string}"
+    # Redirects from Bitly are not working on Android. Let's use the long URL for new
+    # Bitly.client.shorten(url).short_url
+  end
+
   def neighborhood_demands
     Demand
       .select(:id, :user_id, :state, :name, :description, :latitude, :longitude, :radius, :created_at, :updated_at)

@@ -2095,6 +2095,22 @@
             "string"
           ]
         },
+        "neighbors_count": {
+          "description": "The total of neighbors 1km from the user",
+          "readOnly": true,
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "neighbors_image_url": {
+          "description": "Image URL for map representing the user's neighbors",
+          "readOnly": true,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "identity": {
           "anyOf": [
             {
@@ -2397,6 +2413,12 @@
         },
         "gcm_token": {
           "$ref": "#/definitions/user/definitions/gcm_token"
+        },
+        "neighbors_image_url": {
+          "$ref": "#/definitions/user/definitions/neighbors_image_url"
+        },
+        "neighbors_count": {
+          "$ref": "#/definitions/user/definitions/neighbors_count"
         },
         "created_at": {
           "$ref": "#/definitions/user/definitions/created_at"

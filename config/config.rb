@@ -35,10 +35,11 @@ module Config
   override :versioning,       false, bool
 
   # Tem Açúcar API specific
-  optional :sendgrid_api_key, string
-  optional :gcm_api_key, string
-  optional :sendgrid_template_id, string
+  mandatory :sendgrid_api_key, string
+  mandatory :sendgrid_template_id, string
+  mandatory :gcm_api_key, string
   mandatory :sidekiq_username, string
   mandatory :sidekiq_password, string
+  mandatory :bitly_api_key, string
   
 end

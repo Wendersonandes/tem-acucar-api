@@ -154,6 +154,18 @@ definitions:
     readOnly: true
     type:
     - string
+  neighbors_count:
+    description: The total of neighbors 1km from the user
+    readOnly: true
+    type:
+    - number
+    - "null"
+  neighbors_image_url:
+    description: Image URL for map representing the user's neighbors
+    readOnly: true
+    type:
+    - string
+    - "null"
   identity:
     anyOf:
     - "$ref": "/schemata/user#/definitions/id"
@@ -341,6 +353,10 @@ properties:
     "$ref": "/schemata/user#/definitions/admin"
   gcm_token:
     "$ref": "/schemata/user#/definitions/gcm_token"
+  neighbors_image_url:
+    "$ref": "/schemata/user#/definitions/neighbors_image_url"
+  neighbors_count:
+    "$ref": "/schemata/user#/definitions/neighbors_count"
   created_at:
     "$ref": "/schemata/user#/definitions/created_at"
   updated_at:

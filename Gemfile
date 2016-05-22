@@ -29,6 +29,7 @@ gem "sidekiq"
 gem "pliny-sidekiq"
 gem "gcm"
 gem "sanitize"
+gem "bitly"
 
 group :development, :test do
   gem "pry-byebug"
