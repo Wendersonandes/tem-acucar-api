@@ -130,7 +130,9 @@ class User < Sequel::Model
   end
 
   def send_password_token
-    token = SecureRandom.urlsafe_base64(6).tr('lIO0', 'sxyz')[0, 8].upcase
+    length = 4
+    rlength = (length * 3) / 4
+    token = SecureRandom.urlsafe_base64(rlength).tr('lIO0', 'sxyz')[0, length].upcase
     self.send_email('Instruções para nova senha', "Para criar uma nova senha, digite o código abaixo no app do Tem Açúcar:\n\n#{token}\n\nSe você não solicitou uma nova senha, por favor desconsidere.")
     self.password_token = token
     self.password_token_sent_at = Time.now
