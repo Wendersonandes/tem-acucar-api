@@ -50,6 +50,8 @@ class Serializers::User < Serializers::Base
       neighbors_image_url: arg.neighbors_image_url,
       neighbors_count: arg.neighbors_count,
       admin: arg.admin,
+      email_notifications: arg.email_notifications,
+      app_notifications: arg.app_notifications,
     }
   end
 end

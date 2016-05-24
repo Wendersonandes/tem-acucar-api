@@ -2091,6 +2091,18 @@
             "boolean"
           ]
         },
+        "email_notifications": {
+          "description": "wheter or not user wants to receive email notifications",
+          "type": [
+            "boolean"
+          ]
+        },
+        "app_notifications": {
+          "description": "wheter or not user wants to receive GCM or Push notifications",
+          "type": [
+            "boolean"
+          ]
+        },
         "gcm_token": {
           "description": "GCM token for identifying the device on Google Cloud Messages",
           "type": [
@@ -2321,6 +2333,12 @@
               "reviewed_location": {
                 "$ref": "#/definitions/user/definitions/reviewed_location"
               },
+              "email_notifications": {
+                "$ref": "#/definitions/user/definitions/email_notifications"
+              },
+              "app_notifications": {
+                "$ref": "#/definitions/user/definitions/app_notifications"
+              },
               "gcm_token": {
                 "$ref": "#/definitions/user/definitions/gcm_token"
               }
@@ -2420,6 +2438,12 @@
         },
         "admin": {
           "$ref": "#/definitions/user/definitions/admin"
+        },
+        "email_notifications": {
+          "$ref": "#/definitions/user/definitions/email_notifications"
+        },
+        "app_notifications": {
+          "$ref": "#/definitions/user/definitions/app_notifications"
         },
         "gcm_token": {
           "$ref": "#/definitions/user/definitions/gcm_token"

@@ -144,6 +144,14 @@ definitions:
     readOnly: true
     type:
     - boolean
+  email_notifications:
+    description: wheter or not user wants to receive email notifications
+    type:
+    - boolean
+  app_notifications:
+    description: wheter or not user wants to receive GCM or Push notifications
+    type:
+    - boolean
   gcm_token:
     description: GCM token for identifying the device on Google Cloud Messages
     type:
@@ -289,6 +297,10 @@ links:
         "$ref": "/schemata/user#/definitions/reviewed_email"
       reviewed_location:
         "$ref": "/schemata/user#/definitions/reviewed_location"
+      email_notifications:
+        "$ref": "/schemata/user#/definitions/email_notifications"
+      app_notifications:
+        "$ref": "/schemata/user#/definitions/app_notifications"
       gcm_token:
         "$ref": "/schemata/user#/definitions/gcm_token"
     type:
@@ -351,6 +363,10 @@ properties:
     "$ref": "/schemata/user#/definitions/reviewed_location"
   admin:
     "$ref": "/schemata/user#/definitions/admin"
+  email_notifications:
+    "$ref": "/schemata/user#/definitions/email_notifications"
+  app_notifications:
+    "$ref": "/schemata/user#/definitions/app_notifications"
   gcm_token:
     "$ref": "/schemata/user#/definitions/gcm_token"
   neighbors_image_url:
