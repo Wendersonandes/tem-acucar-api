@@ -18,10 +18,9 @@ class Notification < Sequel::Model
     token = self.user.gcm_token
     return unless token
     gcm = GCM.new(Config.gcm_api_key)
-    options = { data: {
-      subject: self.subject,
-      text: Sanitize.clean(self.text),
-    }}
+    options = { data: Serializers::Notification.new(:default).serialize(self).merge({
+      sanitized_text: Sanitize.clean(self.text),
+    })}
     response = gcm.send([token], options)
   end
 end

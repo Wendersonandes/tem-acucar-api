@@ -1027,8 +1027,14 @@
             "string"
           ]
         },
+        "subject": {
+          "description": "subject of the notification",
+          "type": [
+            "string"
+          ]
+        },
         "text": {
-          "text": "text of the notification",
+          "description": "text of the notification",
           "type": [
             "string"
           ]
@@ -1199,6 +1205,9 @@
         "user_id": {
           "$ref": "#/definitions/notification/definitions/user_id"
         },
+        "subject": {
+          "$ref": "#/definitions/notification/definitions/subject"
+        },
         "text": {
           "$ref": "#/definitions/notification/definitions/text"
         },
@@ -1222,6 +1231,7 @@
         "transaction",
         "message",
         "review",
+        "subject",
         "text",
         "read",
         "admin",

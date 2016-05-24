@@ -7,6 +7,7 @@ class Serializers::Notification < Serializers::Base
       transaction: (arg.transaction && Serializers::Transaction.new(:default).serialize(arg.transaction)),
       message: (arg.message && Serializers::Message.new(:default).serialize(arg.message)),
       review: (arg.review && Serializers::Review.new(:default).serialize(arg.review)),
+      subject: arg.subject,
       text: arg.text,
       read: arg.read,
       admin: arg.admin,

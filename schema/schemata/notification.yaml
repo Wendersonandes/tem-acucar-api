@@ -93,8 +93,12 @@ definitions:
     format: uuid
     type:
     - string
+  subject:
+    description: subject of the notification
+    type:
+    - string
   text:
-    text: text of the notification
+    description: text of the notification
     type:
     - string
   read:
@@ -200,6 +204,8 @@ properties:
     "$ref": "/schemata/notification#/definitions/review_id"
   user_id:
     "$ref": "/schemata/notification#/definitions/user_id"
+  subject:
+    "$ref": "/schemata/notification#/definitions/subject"
   text:
     "$ref": "/schemata/notification#/definitions/text"
   read:
@@ -217,6 +223,7 @@ required:
 - transaction
 - message
 - review
+- subject
 - text
 - read
 - admin
