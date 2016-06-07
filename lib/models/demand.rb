@@ -16,6 +16,7 @@ class Demand < Sequel::Model
     state :completed
 
     after_transition :on => :flag, :do => :notify_flag
+    after_transition :on => :complete, :do => :notify_complete
     after_transition :flagged => :active, :do => :notify_reactivate
 
     event :activate do
@@ -60,6 +61,18 @@ class Demand < Sequel::Model
         subject: "Pedido denunciado como impróprio",
         text: "O pedido <b>#{self.name}</b> foi denunciado como impróprio.",
         admin: true,
+      })
+    end
+  end
+
+  def notify_complete
+    self.transactions.each do |transaction|
+      Notification.create({
+        triggering_user: self.user,
+        user: transaction.user,
+        demand: self,
+        subject: "#{self.user.first_name} já conseguiu um(a) #{self.name}",
+        text: "#{self.user.first_name} já conseguiu um(a) #{self.name}.",
       })
     end
   end
