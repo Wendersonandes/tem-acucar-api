@@ -50,8 +50,8 @@ class Demand < Sequel::Model
     Notification.create({
       user: self.user,
       demand: self,
-      subject: "Seu pedido foi denunciado como impróprio",
-      text: "Seu pedido <b>#{self.name}</b> foi denunciado como impróprio e não ficará disponível até ser aprovado por nossos moderadores.",
+      subject: "Seu pedido foi marcado como impróprio",
+      text: "Seu pedido <b>#{self.name}</b> foi marcado como impróprio e está em pausa enquanto é analisado pelos nossos moderadores.",
     })
     User.where(admin: true).all.each do |user|
       Notification.create({
