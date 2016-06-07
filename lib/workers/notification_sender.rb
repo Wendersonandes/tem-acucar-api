@@ -1,7 +1,8 @@
 module Workers
-  class Notification < Base
+  class NotificationSender < Base
     def perform(notification_id)
       notification = ::Notification[notification_id]
+      puts "@@@ AKI @@@#{notification_id}@@@ #{notification} @@@ #{Notification[notification_id.to_s]} @@@ #{Notification.where(id: notification_id).count} @@@"
       return unless notification
       notification.send_gcm_notification!
       user = notification.user
