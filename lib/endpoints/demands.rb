@@ -67,7 +67,7 @@ module Endpoints
             user: demand.user,
             demand: demand,
             subject: "Seu pedido foi considerado impróprio",
-            text: "Seu pedido <b>#{demand.name}</b> foi considerado impróprio pelos nossos moderadores e foi cancelado. Se foi um mal entendido, por favor entre em contato atraves do e-mail <b>temacucar@gmail.com</b>.",
+            text: "Seu pedido <b>#{demand.name}</b> foi considerado impróprio pelos nossos moderadores e foi cancelado. Se foi um mal entendido, por favor entre em contato atraves do e-mail <b>hello@temacucar.com</b>.",
           })
         end
         encode serialize(demand, :current_user)
