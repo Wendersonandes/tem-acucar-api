@@ -66,7 +66,7 @@ class User < Sequel::Model
     }
     query_string = params.map{ |key, value| "#{key}=#{value}" }.join("&")
     url = "http://maps.googleapis.com/maps/api/staticmap?#{query_string}"
-    # Redirects from Bitly are not working on Android. Let's use the long URL for new
+    # Redirects from Bitly are not working on Android. Let's use the long URL for now
     # Bitly.client.shorten(url).short_url
   end
 
