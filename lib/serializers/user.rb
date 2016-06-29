@@ -46,6 +46,7 @@ class Serializers::User < Serializers::Base
       uploaded_image_url: arg.uploaded_image_url,
       facebook_image_url: arg.facebook_image_url,
       image_url: arg.image_url,
+      apn_token: arg.apn_token,
       gcm_token: arg.gcm_token,
       neighbors_image_url: arg.neighbors_image_url,
       neighbors_count: arg.neighbors_count,

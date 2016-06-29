@@ -149,9 +149,14 @@ definitions:
     type:
     - boolean
   app_notifications:
-    description: wheter or not user wants to receive GCM or Push notifications
+    description: wheter or not user wants to receive GCM or APN notifications
     type:
     - boolean
+  apn_token:
+    description: APN token for identifying the device on Apple Push Notifications
+    type:
+    - string
+    - "null"
   gcm_token:
     description: GCM token for identifying the device on Google Cloud Messages
     type:
@@ -301,6 +306,8 @@ links:
         "$ref": "/schemata/user#/definitions/email_notifications"
       app_notifications:
         "$ref": "/schemata/user#/definitions/app_notifications"
+      apn_token:
+        "$ref": "/schemata/user#/definitions/apn_token"
       gcm_token:
         "$ref": "/schemata/user#/definitions/gcm_token"
     type:
@@ -367,6 +374,8 @@ properties:
     "$ref": "/schemata/user#/definitions/email_notifications"
   app_notifications:
     "$ref": "/schemata/user#/definitions/app_notifications"
+  apn_token:
+    "$ref": "/schemata/user#/definitions/apn_token"
   gcm_token:
     "$ref": "/schemata/user#/definitions/gcm_token"
   neighbors_image_url:
