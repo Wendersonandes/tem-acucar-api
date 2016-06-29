@@ -18,8 +18,11 @@ class Notification < Sequel::Model
     return unless self.user.app_notifications
     token = self.user.apn_token
     return unless token
-    # TODO change to production when ready
-    apn = Houston::Client.development
+    if Config.pliny_env == 'production'
+      apn = Houston::Client.production
+    else
+      apn = Houston::Client.development
+    end
     notification = Houston::Notification.new(token: token)
     notification.alert = self.subject
     notification.sound = ''
