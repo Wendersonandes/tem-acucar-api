@@ -14,6 +14,25 @@ class Notification < Sequel::Model
     Workers::NotificationSender.perform_in(1, self.id)
   end
 
+  def send_apn_notification!
+    return unless self.user.app_notifications
+    token = self.user.apn_token
+    return unless token
+    # TODO change to production when ready
+    apn = Houston::Client.development
+    notification = Houston::Notification.new(token: token)
+    notification.alert = self.subject
+    notification.sound = ''
+    notification.badge = self.user.notifications_dataset.where(read: false).count
+    notification.content_available = true
+    notification.custom_data = Serializers::Notification.new(:default).serialize(self).merge({
+      app_notifications: self.user.app_notifications,
+      sanitized_text: Sanitize.clean(self.text),
+    })
+    apn.push(notification)
+    notification
+  end
+
   def send_gcm_notification!
     token = self.user.gcm_token
     return unless token

@@ -28,6 +28,7 @@ gem "sendgrid-ruby"
 gem "sidekiq"
 gem "pliny-sidekiq"
 gem "gcm"
+gem "houston"
 gem "sanitize"
 gem "bitly"
 

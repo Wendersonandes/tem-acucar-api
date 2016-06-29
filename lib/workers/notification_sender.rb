@@ -3,6 +3,7 @@ module Workers
     def perform(notification_id)
       notification = ::Notification[notification_id]
       return unless notification
+      notification.send_apn_notification!
       notification.send_gcm_notification!
       user = notification.user
       return unless user.email_notifications
