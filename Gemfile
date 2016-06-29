@@ -28,7 +28,7 @@ gem "sendgrid-ruby"
 gem "sidekiq"
 gem "pliny-sidekiq"
 gem "gcm"
-gem "houston"
+gem "houston", github: "nomad/houston", ref: "638fee7602f6f957c2aaacaf8289235ac45ba066"
 gem "sanitize"
 gem "bitly"
 
