@@ -72,7 +72,7 @@ class Demand < Sequel::Model
         user: transaction.user,
         demand: self,
         subject: "#{self.user.first_name} já conseguiu um(a) #{self.name}",
-        text: "#{self.user.first_name} já conseguiu um(a) #{self.name}.",
+        text: "<b>#{self.user.first_name}</b> já conseguiu um(a) <b>#{self.name}</b>.",
       })
     end
   end
