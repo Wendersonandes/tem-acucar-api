@@ -42,7 +42,7 @@ class Demand < Sequel::Model
 
   def after_create
     super
-    Workers::DemandNotifier.perform_async(self.id)
+    Workers::DemandNotifier.perform_in(1, self.id)
   end
 
   private
