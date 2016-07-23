@@ -19,8 +19,7 @@ class Notification < Sequel::Model
     token = self.user.apn_token
     return unless token
     if Config.pliny_env == 'production'
-      # apn = Houston::Client.production
-      apn = Houston::Client.development
+      apn = Houston::Client.production
     else
       apn = Houston::Client.development
     end
