@@ -7,6 +7,7 @@ module Workers
       notification.send_gcm_notification!
       user = notification.user
       return unless user.email_notifications
+      return unless user.authentications_dataset.count > 0
       Workers::Email.perform_async(user.id, notification.subject, notification.text)
     end
   end
