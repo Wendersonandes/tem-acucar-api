@@ -16,6 +16,7 @@ module Endpoints
 
       post do
         message = Message.new(body_params)
+        raise Pliny::Errors::UnprocessableEntity unless message.text && message.text != ""
         message.user = current_user
         message.save
         status 201
